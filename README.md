@@ -6,4 +6,4 @@ A place where Fresh _Bearcats_ find their _Temporary/Permanent_ Home.
 
 ========================
 
-Narendar reddy katta - **_Fron end devloper_**
+Narendar reddy katta - **_Front End Devloper_**
