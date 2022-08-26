@@ -1,2 +1,9 @@
 ## Bearcat Resident Connect (BRC)
-A place where Fresh *Bearcats* find their *Temporary/Permanent* Home.
+
+A place where Fresh _Bearcats_ find their _Temporary/Permanent_ Home.
+
+# Team introduction
+
+========================
+
+Narendar reddy katta - **_Fron end devloper_**
