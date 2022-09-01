@@ -12,6 +12,6 @@ Ramu Devarashetti - **_Backend Devloper_** Expertise in Python, Docker.
 
 Nikhil Bonthu - **_Front End Devloper_ && Back End Devloper_**
 
-Shashank Pasumarthi - **_Backend Developer_** intrested in database
+Shashank Pasumarthi - **_Backend Developer_** interested in database
 
-Manikanta Gaddameda - **_Backend Developer_** intrest to learn Front End skills
+Manikanta Gaddameda - **_Backend Developer_** interested in learning Front End skills
