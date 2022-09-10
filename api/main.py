@@ -10,6 +10,11 @@ app = FastAPI(
 
 @app.get("/health-check")
 async def health():
+    """ Health Check API
+
+    Returns:
+        Dict: Info About the Server
+    """
     return {
         "Status": "Healthy",
         "Info" : "Welcome to Bearcat Resident Connect"
