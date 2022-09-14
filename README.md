@@ -1,4 +1,5 @@
-## Bearcat Resident Connect (BRC)
+## Project Name : Bearcat Resident Connect (BRC) 
+
 
 A place where Fresh _Bearcats_ find their _Temporary/Permanent_ Home.
 
