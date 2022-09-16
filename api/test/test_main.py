@@ -8,4 +8,7 @@ client = TestClient(app)
 
 def test_health_api():
     response = client.get("/health-check")
-    # Add Your Test Conditions here
+    
+    assert response.status_code == 200
+    assert response.json() == {"Status": "Healthy",
+        "Info" : "Welcome to Bearcat Resident Connect"}
