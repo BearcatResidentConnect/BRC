@@ -1,7 +1,12 @@
-## Project Name : Bearcat Resident Connect (BRC) 
+## Project name : Bearcat Resident Connect (BRC)
 
+## Project descrption: A place where Fresh _Bearcats_ find their _Temporary/Permanent_ Home.
 
-A place where Fresh _Bearcats_ find their _Temporary/Permanent_ Home.
+## Devloping With
+
+## Front end: React library 18.0.0
+
+## Backend: Python
 
 # Team introduction
 
