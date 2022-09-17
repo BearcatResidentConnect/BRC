@@ -78,3 +78,7 @@ class Address(BaseDb):
         self.state = kwargs["state"]
         self.country = kwargs["country"]
         self.default = kwargs["default"]
+
+class UserAddress(BaseDb):
+
+    _tablename_ = "user_addresses"
