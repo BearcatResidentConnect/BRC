@@ -54,7 +54,7 @@ class User(BaseDb):
     #     return {"name": self.first_name + " " + self.last_name}
 
 
-class UserAddress(BaseDb):
+class Address(BaseDb):
 
     _tablename_ = "addresses"
 
