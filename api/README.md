@@ -14,13 +14,13 @@ After downloading and setting up your Python environment run below commands to s
 
 ## Running FastAPI Api Server using UVICORN ASGI Server
 
-1. *`uvicorn api.main:app --host {HOST_IP} --port {PORT}`*
+- *`uvicorn api.main:app --host {HOST_IP} --port {PORT}`*
 
 ## Checking API Documentation
 #### *Swagger* is a set of open-source tools built around the *OpenAPI* Specification
-1. *`http://{HOST_IP}:{PORT}/docs`*
+- *`http://{HOST_IP}:{PORT}/docs`*
 
 ## Pytest - API testing using FastAPI *testclient* backed by `requests` 
 
 Navigate to test folder `cd ~/BRC/api/test` and run below command
-1. *`pytest`*
+- *`pytest`*
