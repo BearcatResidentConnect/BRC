@@ -12,7 +12,7 @@ After downloading and setting up your Python environment run below commands to s
 3. *`source ./{your_venv_name}/bin/activate`* # Activating Virtual environment in Linux or MAC
 4. *`python -m pip install -r ~/BRC/api/requirements.txt`* # To install all Python dependencies for the project
 
-## Running *FastAPI*'s API Server using `Uvicorn` *ASGI* Server
+## Running `FastAPI`'s API Server using `Uvicorn` *ASGI* Server
 
 - *`uvicorn api.main:app --host {HOST_IP} --port {PORT}`*
 
