@@ -6,13 +6,17 @@
 
 ### Devloping With
 
-#### Front end: React library 18.0.0
+#### Frontend
 
 [UI Documentation](./UI/README.md)
 
-### Backend: Python
+### Backend
 
 [API Documentation](./api/README.md)
+
+### Database
+
+- MySQL Database
 
 ### Team Minions
 
