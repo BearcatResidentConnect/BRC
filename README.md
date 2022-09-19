@@ -14,14 +14,6 @@
 
 [API Documentation](./api/README.md)
 
-### Team introduction
+### Team Minions
 
-Narendar reddy katta - **_Front End Devloper_**
-
-Ramu Devarashetti - **_Backend Devloper_** Expertise in Python, Docker.
-
-Nikhil Bonthu - **_Front End Devloper _**
-
-Shashank Pasumarthi - **_Backend Developer_** interested in database
-
-Manikanta Gaddameda - **_Backend Developer_** interested in learning Front End skills
+[Meet The Team](https://github.com/BearcatResidentConnect/BRC/wiki/Meet-The-Team)
