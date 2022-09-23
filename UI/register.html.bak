@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bearcat Resident Connect</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/theme2.css">
+</head>
+<body>
+    <div class="form-body">
+        
+        <div class="row">
+            <div class="img-holder">
+                <div class="bg"></div>
+                <div class="info-holder">
+
+                </div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <div class="website-logo">
+                            <a href="#">
+                                <div class="logo">
+                                    <img class="logo-size" src="imb/brclogo.png" alt="">
+                                </div>
+                            </a>
+                        </div>
+                        <h3>Welcome to Bearcat Resident Connect.</h3>
+                        <div class="page-links">
+                            <a href="#" >Login</a>
+                            <a href="#" class="active">Register</a>
+                        </div>
+                        <form>
+                          <div class="row">
+                            <div class="col-md-6">
+                               <input class="form-control" type="text" name="firstName" placeholder="First Name" required="">
+                            </div>
+                            <div class="col-md-6">
+                               <input class="form-control" type="password" name="lastName" placeholder="Last Name" >
+                            </div>   
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                 <input class="form-control" type="email" name="email" placeholder="E-mail Address" required="">
+                               </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-6">
+                                <input class="form-control" type="password" name="password" placeholder="Password" required="">
+                             </div>
+                             <div class="col-md-6">
+                                <input class="form-control" type="password" name="cPassword" placeholder="Confirm Password" required="">
+                             </div>   
+                           </div>
+                            <input type="checkbox" id="chk1"><label for="chk1">I agree terms & conditions</label>
+                            <div class="form-button">
+                                <button id="submit" type="submit" class="ibtn">Register</button> <a href="#">Already have account?</a>
+                            </div>
+                        </form>
+                        <div class="other-links">
+                            <span>Or login with</span><a href="#">Facebook</i></a><a href="#">Google</a><a href="#">Linkedin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
+</body></html>
