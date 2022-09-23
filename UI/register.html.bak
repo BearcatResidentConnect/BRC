@@ -52,14 +52,7 @@
                             <div class="col-md-6">
                                 <input class="form-control" type="password" name="password" placeholder="Password" required="">
                              </div>
-                             <div class="col-md-6">
-                                <input class="form-control" type="password" name="cPassword" placeholder="Confirm Password" required="">
-                             </div>   
-                           </div>
-                            <input type="checkbox" id="chk1"><label for="chk1">I agree terms & conditions</label>
-                            <div class="form-button">
-                                <button id="submit" type="submit" class="ibtn">Register</button> <a href="#">Already have account?</a>
-                            </div>
+                             
                         </form>
                         <div class="other-links">
                             <span>Or login with</span><a href="#">Facebook</i></a><a href="#">Google</a><a href="#">Linkedin</a>
