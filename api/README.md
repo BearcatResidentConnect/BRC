@@ -14,7 +14,7 @@ After downloading and setting up your Python environment run below commands to s
 
 ## Running `FastAPI`'s API Server using `Uvicorn` *ASGI* Server
 
-- _cd ~/api
+- _cd ~/api_
 - *`uvicorn app.main:app --host {HOST_IP} --port {PORT}`*
 
 ## Checking API Documentation
