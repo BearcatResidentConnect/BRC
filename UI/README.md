@@ -1,7 +1,7 @@
 <h1 align="center">Angular - The modern web developer's platform.</h1>
 
 <p align="center">
-  <img src="aio/src/assets/images/logos/angular/angular.png" alt="angular-logo" width="120px" height="120px"/>
+  <img src="img/angular.png" alt="angular-logo" width="120px" height="120px"/>
   <br>
   <i>Angular is a development platform for building mobile and desktop web applications
     <br> using Typescript/JavaScript and other languages.</i>
@@ -97,7 +97,7 @@ Angular is cross-platform, fast, scalable, has incredible tooling, and is loved 
 ## Ecosystem
 
 <p>
-  <img src="/docs/images/angular-ecosystem-logos.png" alt="angular ecosystem logos" width="500px" height="auto">
+  <img src="imag/angular-ecosystem-logos.png" alt="angular ecosystem logos" width="500px" height="auto">
 </p>
 
 - [Angular Command Line (CLI)][cli]
