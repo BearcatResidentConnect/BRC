@@ -15,25 +15,13 @@ body {
     bottom: initial;
 }
 
-.website-logo img {
-    width: 100px;
-}
 
-.website-logo .logo {
-    background-image: url("../images/logo-dark.svg");
-}
 
-.website-logo .logo img {
-    width: 100px;
-}
 
 .website-logo-inside img {
     width: 100px;
 }
 
-.website-logo-inside .logo {
-    background-image: url("../images/logo-dark.svg");
-}
 
 .website-logo-inside .logo img {
     width: 100px;
@@ -69,7 +57,8 @@ body {
 
 .img-holder .bg {
     opacity: 1;
-    background-image: url("banner.webp");
+    background-image: url("banner.webp");]
+    background-color: gray;
 }
 
 .form-holder {
@@ -517,11 +506,4 @@ body {
         bottom: initial;
     }
 
-    .website-logo .logo {
-        background-image: url("../images/logo-light.svg");
-    }
-
-    .form-body.without-side .website-logo .logo {
-        background-image: url("../images/logo-dark.svg");
-    }
 }
