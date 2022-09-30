@@ -1,0 +1,2 @@
+alembic revision --autogenerate # Used to Genarate Database Tables from Python Code
+alembic upgrade head # Update the SCript 

@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+<h1 align="center">Angular - The modern web developer's platform.</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="img/angular.png" alt="angular-logo" width="120px" height="120px"/>
+  <br>
+  <i>Angular is a development platform for building mobile and desktop web applications
+    <br> using Typescript/JavaScript and other languages.</i>
+  <br>
+</p>
 
-## Available Scripts
+<p align="center">
+  <a href="https://www.angular.io"><strong>www.angular.io</strong></a>
+  <br>
+</p>
 
-In the project directory, you can run:
+<p align="center">
+  <a href="CONTRIBUTING.md">Contributing Guidelines</a>
+  ·
+  <a href="https://github.com/angular/angular/issues">Submit an Issue</a>
+  ·
+  <a href="https://blog.angular.io/">Blog</a>
+  <br>
+  <br>
+</p>
 
-### `npm start`
+<p align="center">
+  <a href="https://circleci.com/gh/angular/workflows/angular/tree/main">
+    <img src="https://img.shields.io/circleci/build/github/angular/angular/main.svg?logo=circleci&logoColor=fff&label=CircleCI" alt="CI status" />
+  </a>&nbsp;
+  <a href="https://www.npmjs.com/@angular/core">
+    <img src="https://img.shields.io/npm/v/@angular/core.svg?logo=npm&logoColor=fff&label=NPM+package&color=limegreen" alt="Angular on npm" />
+  </a>&nbsp;
+  <a href="https://discord.gg/angular">
+    <img src="https://img.shields.io/discord/463752820026376202.svg?logo=discord&logoColor=fff&label=Discord&color=7389d8" alt="Discord conversation" />
+  </a>
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<p align="center">
+  <a href="https://app.circleci.com/insights/github/angular/angular/workflows/default_workflow?branch=main">
+    <img src="https://dl.circleci.com/insights-snapshot/gh/angular/angular/main/default_workflow/badge.svg" alt="InsightsSnapshot" />
+  </a>
+</p>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<hr>
 
-### `npm test`
+## Documentation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Get started with Angular, learn the fundamentals and explore advanced topics on our documentation website.
 
-### `npm run build`
+- [Getting Started][quickstart]
+- [Architecture][architecture]
+- [Components and Templates][componentstemplates]
+- [Forms][forms]
+- [API][api]
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Advanced
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [Angular Elements][angularelements]
+- [Server Side Rendering][ssr]
+- [Schematics][schematics]
+- [Lazy Loading][lazyloading]
+- [Animations][animations]
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Development Setup
 
-### `npm run eject`
+### Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Install [Node.js] which includes [Node Package Manager][npm]
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Setting Up a Project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Install the Angular CLI globally:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+npm install -g @angular/cli
+```
 
-## Learn More
+Create workspace:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+ng new [PROJECT NAME]
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Run the application:
 
-### Code Splitting
+```
+cd [PROJECT NAME]
+ng serve
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Angular is cross-platform, fast, scalable, has incredible tooling, and is loved by millions.
 
-### Analyzing the Bundle Size
+## Quickstart
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+[Get started in 5 minutes][quickstart].
 
-### Making a Progressive Web App
+## Ecosystem
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<p>
+  <img src="img/angular-ecosystem-logos.png" alt="angular ecosystem logos" width="500px" height="auto">
+</p>
 
-### Advanced Configuration
+- [Angular Command Line (CLI)][cli]
+- [Angular Material][angularmaterial]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Changelog
 
-### Deployment
+[Learn about the latest improvements][changelog].
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Upgrading
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Check out our [upgrade guide](https://update.angular.io/) to find out the best way to upgrade your project.

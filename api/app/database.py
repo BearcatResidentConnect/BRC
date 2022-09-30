@@ -40,7 +40,6 @@ session_local = sessionmaker(
     **session_maker_kwargs, bind=engine, class_=session_maker_cls
 )
 
-
 async def get_db_session() -> AsyncIterator:
 
     """Async Db Session
@@ -51,30 +50,22 @@ async def get_db_session() -> AsyncIterator:
     Get Async Db Session everytime when IO operation to DB is requested.
     Inject it as Dependency to View / Path functions
     """
-
+    
+    # TODO check this in future
+    
     try:
         async with session_local() as session:
-
+            #
             async with session.begin():
                 logger.debug("Getting Database Session ")
                 yield session
             # Auto Commit Will Happen in this Context
-    except SQLAlchemyError as e:
-        logger.critical("Error getting Database Session %s ", e)
-
-    logger.debug("Closing Database Session ")
-
-
-async def close_session_raise_exception(
-    session: Session, status_code: int, status_msg: str = ""
-) -> None:
-
-    """Close DB session and Raise Exception on Failure
-
-    Raises:
-        HTTPException: User Errors
-    """
-
-    logger.debug("Closing Db Session")
-    await session.close()  # Should close db session before raising Exception
-    raise HTTPException(status_code=status_code, detail=status_msg)
+            
+    except HTTPException as e:
+        logger.error("Error : %s ", e.detail)
+        await session.rollback()
+        
+    finally:
+        logger.debug("Closing Database Session ")
+        await session.close()
+        logger.debug("Closed Database Session ")

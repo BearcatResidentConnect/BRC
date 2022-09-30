@@ -14,7 +14,8 @@ After downloading and setting up your Python environment run below commands to s
 
 ## Running `FastAPI`'s API Server using `Uvicorn` *ASGI* Server
 
-- *`uvicorn api.main:app --host {HOST_IP} --port {PORT}`*
+- _cd ~/api_
+- *`uvicorn app.main:app --host {HOST_IP} --port {PORT}`*
 
 ## Checking API Documentation
 #### *Swagger* is a set of open-source tools built around the *OpenAPI* Specification
