@@ -32,7 +32,7 @@ NOT_FOUND_USER_POSTINGS = "User Postings Not Found"
 
 # posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
 # #
-# user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False) # FK
+# user_id = Column(BigInteger, ForeignKey("user_postings.user_id"), nullable=False) # FK
 # available_date = Column(DateTime, nullable=True, default=None)
 # accomedation_type = Column(String(10), nullable=False, default="Temporary") #Temporary or Permanaent
 # num_days = Column(Integer, nullable=False, default=7)
@@ -45,7 +45,7 @@ router = APIRouter(
 
 
 # GET API's
-@router.get("/users/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)
+@router.get("/user_postings/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)
 async def get_user_postings_by_sis_id(
     user_id: int,
     session: Session = Depends(get_db_session),
@@ -60,7 +60,7 @@ async def get_user_postings_by_sis_id(
 
 
 # @router.get(
-#     "/users/{user_id}/sections",
+#     "/user_postings/{user_id}/sections",
 #     response_model=UserCourses,
 #     status_code=status.HTTP_200_OK,
 # )
@@ -88,7 +88,7 @@ async def get_user_postings_by_sis_id(
 #     await HTTPException( 404, NOT_FOUND_USER_POSTING)
 
 
-@router.get("/users", response_model=List[UserOut], status_code=status.HTTP_200_OK)
+@router.get("/user_postings", response_model=List[UserOut], status_code=status.HTTP_200_OK)
 async def get_all_users(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
@@ -98,7 +98,7 @@ async def get_all_users(
     Get all Users
     """
 
-    return await _get_all_users(session)
+    return await _get_all_user_postings(session)
 
 
 # POST API's
@@ -135,10 +135,10 @@ async def insert_user(
 
 
 @router.post(
-    "/users", response_model=List[UserOut], status_code=status.HTTP_201_CREATED
+    "/user_postings", response_model=List[UserOut], status_code=status.HTTP_201_CREATED
 )
 async def insert_users(
-    users: List[UserIn],
+    user_postings: List[UserIn],
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> List[UserOut]:
@@ -149,13 +149,13 @@ async def insert_users(
 
     try:
 
-        users = [
+        user_postings = [
             UserModel(**user.dict())
-            for user in users
+            for user in user_postings
             if "string" not in user.dict().values()
         ]
-        # session.bulk_save_objects(users)
-        session.add_all(users)
+        # session.bulk_save_objects(user_postings)
+        session.add_all(user_postings)
         await session.flush()
 
     except SQLAlchemyError as exc:
@@ -163,7 +163,7 @@ async def insert_users(
         logger.error("Exception happend %s ", exc)
         await HTTPException(400, "Invalid Data Provided")
 
-    return users
+    return user_postings
 
 
 # PUT Methods for Update operations
@@ -201,7 +201,7 @@ async def update_user(
 
 # Delete API
 @router.delete(
-    "/users/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK
+    "/user_postings/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK
 )
 async def delete_user_by_sis_id(
     user_id: int,
@@ -239,10 +239,10 @@ async def _get_user_postings(session: Session, user_id: int) -> UserOut:
     await HTTPException(404, NOT_FOUND_USER_POSTING)
 
 
-async def _get_all_users(session: Session) -> List[UserOut]:
+async def _get_all_user_postings(session: Session) -> List[UserOut]:
 
     """
-    Query DB for all User's
+    Query DB for all User Postings
     """
 
     _data = await session.execute(select(UserModel).order_by(UserModel.user_id))
