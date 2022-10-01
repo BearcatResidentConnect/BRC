@@ -56,7 +56,7 @@
                                 <input class="form-control" type="password" name="cPassword" placeholder="Confirm Password" required="">
                              </div>   
                            </div>
-                            <input type="checkbox" id="chk1" required><label for="chk1">I agree terms & conditions</label>
+                            <input type="checkbox" id="chk1" required=""><label for="chk1">I agree terms & conditions</label>
                             <div class="form-button">
                                 <button id="submit" type="submit" class="ibtn">Register</button> <a href="#">Already have account?</a>
                             </div>
