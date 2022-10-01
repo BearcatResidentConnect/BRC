@@ -98,7 +98,7 @@ async def get_all_users(
     Get all Users
     """
 
-    return await _get_all_users(session)
+    return await _get_all_user_postings(session)
 
 
 # POST API's
@@ -239,10 +239,10 @@ async def _get_user_postings(session: Session, user_id: int) -> UserOut:
     await HTTPException(404, NOT_FOUND_USER_POSTING)
 
 
-async def _get_all_users(session: Session) -> List[UserOut]:
+async def _get_all_user_postings(session: Session) -> List[UserOut]:
 
     """
-    Query DB for all User's
+    Query DB for all User Postings
     """
 
     _data = await session.execute(select(UserModel).order_by(UserModel.user_id))
