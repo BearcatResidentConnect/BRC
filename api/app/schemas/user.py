@@ -11,10 +11,15 @@ class Gender(str, Enum):
     FEMALE = "female" # 2
     OTHERS = "NA" # 0
 
+class UserInCheck(BaseModel):
+
+    user_name: str
+    password: str
+
 
 class UserIn(BaseModel):
     
-    sid: Union[int, None] = None
+    sid: Union[str, None] = None
     user_name: str
     password: str
     created: Union[datetime, None] = None
@@ -23,7 +28,8 @@ class UserIn(BaseModel):
     last_name: str
     email: str
     active: bool = True
-    avatar: Union[bytes, None] = None
+    #avatar: Union[bytes, None] = "ABCDEFGHIJKLMNOPQRSTUVWXY"
+    avatar: Union[str, None] = "ABCDEFGHIJKLMNOPQRSTUVWXY"
     # new fields
     # gender: int = 0
     # mobile: int = 0000000000

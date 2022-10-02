@@ -13,6 +13,7 @@ from sqlalchemy import select
 from ..schemas.user import (
     UserIn,
     UserOut,
+    UserInCheck,
     AccessRefreshTokenOut,
     AccessTokenOut,
     RefreshAccessTokenIn,
@@ -186,6 +187,25 @@ else:
 
 # ========================================= APIs =====================================
 
+@router.post("/users/auth/")
+async def basic_login(
+    user: UserInCheck,
+    #form_data: OAuth2PasswordRequestForm = Depends(),
+    session: Session = Depends(get_db_session),
+):
+    """ """
+    user_dict = user.dict()
+    user = await _get_user(session, user_dict["user_name"])
+    if not verify_password(user_dict["password"], user.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    else:
+        return {"status": "success"}
+
+
 @router.post("/users/auth/token", response_model=AccessRefreshTokenOut)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
@@ -193,6 +213,7 @@ async def login_for_access_token(
 ):
     """ """
     #
+    print(form_data.username)
     user = await _get_user(session, form_data.username)
     #
     if not verify_password(form_data.password, user.password):
@@ -229,13 +250,13 @@ async def validate_refresh_token_get_access_token(refresh_token : RefreshAccessT
 
     
 # Helper Methods
-async def _get_user(session: Session, user_id: int) -> UserOut:
+async def _get_user(session: Session, user_name: str) -> UserOut:
 
     """
     Query DB with given user_id
     """
 
-    _data = await session.execute(select(UserModel).where(UserModel.user_id == user_id))
+    _data = await session.execute(select(UserModel).where(UserModel.user_name == user_name))
 
     _data = _data.scalar()
 
@@ -243,7 +264,7 @@ async def _get_user(session: Session, user_id: int) -> UserOut:
         logger.debug("Fetched User ")
         return _data
 
-    raise HTTPException(session, 404, NOT_FOUND_USER)
+    raise HTTPException( 404, NOT_FOUND_USER)
 
 
 # async def _get_all_users(session: Session) -> List[UserOut]:
@@ -262,4 +283,4 @@ async def _get_user(session: Session, user_id: int) -> UserOut:
 #         logger.debug("Fetched Users ")
 #         return _data
 
-#     raise HTTPException(session, 404, NOT_FOUND_USERS)
+#     raise HTTPException( 404, NOT_FOUND_USERS)

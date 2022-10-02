@@ -24,7 +24,7 @@ class User(BaseDb):
     __tablename__ = "users"
 
     user_id = Column(BigInteger, primary_key=True, autoincrement=True, index=True)
-    sid = Column(Integer, unique=True, nullable=True)
+    sid = Column(String(10), unique=True, nullable=True)
     #
     user_name = Column(String(255), nullable=False, unique=True, index=True)
     password = Column(String(255), nullable=False)  # Hashed Password
@@ -37,7 +37,8 @@ class User(BaseDb):
     last_name = Column(String(80), nullable=False)
     email = Column(String(120), unique=True, nullable=False)
     active = Column(Boolean, default=True)
-    avatar = Column(LargeBinary(length=2048), nullable=True)  # MAx of 2 MB
+    #avatar = Column(LargeBinary(length=2048), nullable=True)  # MAx of 2 MB
+    avatar = Column(String(255), nullable=True)  # MAx of 2 MB
 
     def __init__(self, **kwargs):
         self.sid = kwargs["sid"]
