@@ -7,16 +7,11 @@ from enum import Enum
 
 class UserPostingIn(BaseModel):
     
-    sid: Union[int, None] = None
-    user_name: str
-    password: str
-    created: Union[datetime, None] = None
-    updated: Union[datetime, None] = None
-    first_name: str
-    last_name: str
-    email: str
-    active: bool = True
-    avatar: Union[bytes, None] = None
+
+    #posting_id = int
+    user_id : int
+    accomedation_type : str = "Temporary"
+    num_days : int = 7
 
     class Config:
         orm_mode = True
