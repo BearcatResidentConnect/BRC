@@ -203,7 +203,7 @@ async def basic_login(
             headers={"WWW-Authenticate": "Bearer"},
         )
     else:
-        return {"status": "success"}
+        return {"username": user_dict["user_name"]}
 
 
 @router.post("/users/auth/token", response_model=AccessRefreshTokenOut)
