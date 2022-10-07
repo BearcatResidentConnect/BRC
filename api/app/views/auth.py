@@ -187,7 +187,7 @@ else:
 
 # ========================================= APIs =====================================
 
-@router.post("/users/auth/")
+@router.post("/users/auth")
 async def basic_login(
     user: UserInCheck,
     #form_data: OAuth2PasswordRequestForm = Depends(),
