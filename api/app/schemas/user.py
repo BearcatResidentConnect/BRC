@@ -28,11 +28,7 @@ class UserIn(BaseModel):
     last_name: str
     email: str
     active: bool = True
-    #avatar: Union[bytes, None] = "ABCDEFGHIJKLMNOPQRSTUVWXY"
     avatar: Union[str, None] = "ABCDEFGHIJKLMNOPQRSTUVWXY"
-    # new fields
-    # gender: int = 0
-    # mobile: int = 0000000000
 
     class Config:
         orm_mode = True
