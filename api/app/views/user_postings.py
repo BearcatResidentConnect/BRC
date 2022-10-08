@@ -4,7 +4,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 
-from ..schemas.user import UserIn, UserOut, UserUpdate  # , UserCourses
+from ..schemas.user import UserPostingIn, UserPostingOut, UserPostingUpdate  
 from typing import List, Union
 
 from fastapi import APIRouter, status, Depends, HTTPException
@@ -14,8 +14,8 @@ from ..database import get_db_session
 from ..models.models import User as UserModel
 
 from .auth import (
-    UserIn as SuperUserIn,
-    UserOut as SuperUserOut,
+    UserPostingIn as SuperUserIn,
+    UserPostingOut as SuperUserOut,
     get_current_active_user,
 )  # Dependamcy
 
@@ -45,12 +45,12 @@ router = APIRouter(
 
 
 # GET API's
-@router.get("/user_postings/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)
+@router.get("/user_postings/{user_id}", response_model=UserPostingOut, status_code=status.HTTP_200_OK)
 async def get_user_postings_by_sis_id(
     user_id: int,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> UserOut:
+) -> UserPostingOut:
 
     """
     Get Matched User by user_id
@@ -59,40 +59,11 @@ async def get_user_postings_by_sis_id(
     return await _get_user_postings(session, user_id)
 
 
-# @router.get(
-#     "/user_postings/{user_id}/sections",
-#     response_model=UserCourses,
-#     status_code=status.HTTP_200_OK,
-# )
-# async def get_user_postings_by_sis_id(
-#     user_id: int,
-#     session: Session = Depends(get_db_session),
-#     super_user_in: SuperUserIn = Depends(get_current_active_user),
-# ) -> UserCourses:
-
-#     """
-#     Get Matched User by user_id
-#     """
-
-#     query = (
-#         select(UserModel)
-#         .where(UserModel.user_id == user_id)
-#         .options(selectinload(UserModel.sections))
-#     )
-#     result = await session.execute(query)
-#     user_with_sections = result.scalar_one_or_none()
-
-#     if user_with_sections:
-#         return user_with_sections
-
-#     await HTTPException( 404, NOT_FOUND_USER_POSTING)
-
-
-@router.get("/user_postings", response_model=List[UserOut], status_code=status.HTTP_200_OK)
+@router.get("/user_postings", response_model=List[UserPostingOut], status_code=status.HTTP_200_OK)
 async def get_all_users(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> List[UserOut]:
+) -> List[UserPostingOut]:
 
     """
     Get all Users
@@ -102,12 +73,12 @@ async def get_all_users(
 
 
 # POST API's
-@router.post("/user", response_model=UserOut, status_code=status.HTTP_201_CREATED)
+@router.post("/user", response_model=UserPostingOut, status_code=status.HTTP_201_CREATED)
 async def insert_user(
-    user: UserIn,
+    user: UserPostingIn,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> UserOut:
+) -> UserPostingOut:
 
     """
     Create User if Not found
@@ -135,13 +106,13 @@ async def insert_user(
 
 
 @router.post(
-    "/user_postings", response_model=List[UserOut], status_code=status.HTTP_201_CREATED
+    "/user_postings", response_model=List[UserPostingOut], status_code=status.HTTP_201_CREATED
 )
 async def insert_users(
-    user_postings: List[UserIn],
+    user_postings: List[UserPostingIn],
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> List[UserOut]:
+) -> List[UserPostingOut]:
 
     """
     Insert List of Users at a Time.
@@ -167,13 +138,13 @@ async def insert_users(
 
 
 # PUT Methods for Update operations
-@router.put("/user", response_model=UserOut, status_code=status.HTTP_201_CREATED)
+@router.put("/user", response_model=UserPostingOut, status_code=status.HTTP_201_CREATED)
 async def update_user(
-    user: UserUpdate,
+    user: UserPostingUpdate,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user)
-    # user: UserUpdate = Body(embed=True), session: Session = Depends(get_db_session)
-) -> UserOut:
+    # user: UserPostingUpdate = Body(embed=True), session: Session = Depends(get_db_session)
+) -> UserPostingOut:
 
     """
     Update User data for given body parameters based on user_id \
@@ -201,13 +172,13 @@ async def update_user(
 
 # Delete API
 @router.delete(
-    "/user_postings/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK
+    "/user_postings/{user_id}", response_model=UserPostingOut, status_code=status.HTTP_200_OK
 )
 async def delete_user_by_sis_id(
     user_id: int,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> UserOut:
+) -> UserPostingOut:
 
     """
     Delete User by user_id
@@ -222,7 +193,7 @@ async def delete_user_by_sis_id(
 
 
 # Helper Methods
-async def _get_user_postings(session: Session, user_id: int) -> UserOut:
+async def _get_user_postings(session: Session, user_id: int) -> UserPostingOut:
 
     """
     Query DB with given user_id
@@ -239,7 +210,7 @@ async def _get_user_postings(session: Session, user_id: int) -> UserOut:
     await HTTPException(404, NOT_FOUND_USER_POSTING)
 
 
-async def _get_all_user_postings(session: Session) -> List[UserOut]:
+async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
 
     """
     Query DB for all User Postings
