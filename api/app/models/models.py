@@ -87,6 +87,11 @@ class UserAddresses(BaseDb):
     #
     user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)
     address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
+
+    def __init__(self, **kwargs):
+        self.user_id = kwargs["user_id"]
+        self.address_id = kwargs["address_id"]
+
     
 class UserPosting(BaseDb):
     
