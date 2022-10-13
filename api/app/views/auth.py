@@ -239,7 +239,7 @@ async def login_for_access_token(
     }
 
 
-@router.post("/users/auth/refresh_token", response_model=AccessTokenOut)
+@router.post("/users/auth/refresh-token", response_model=AccessTokenOut)
 async def validate_refresh_token_get_access_token(refresh_token : RefreshAccessTokenIn
 
 ):
