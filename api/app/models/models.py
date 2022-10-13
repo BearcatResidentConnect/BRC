@@ -37,7 +37,7 @@ class User(BaseDb):
     last_name = Column(String(80), nullable=False)
     email = Column(String(120), unique=True, nullable=False)
     active = Column(Boolean, default=True)
-    #avatar = Column(LargeBinary(length=2048), nullable=True)  # MAx of 2 MB
+    # avatar = Column(LargeBinary(length=2048), nullable=True)  # MAx of 2 MB
     avatar = Column(String(255), nullable=True)  # MAx of 2 MB
 
     def __init__(self, **kwargs):
@@ -83,7 +83,9 @@ class UserAddresses(BaseDb):
 
     __tablename__ = "user_addresses"
 
-    user_address_id = Column(BigInteger, primary_key=True, autoincrement=True, index=True)
+    user_address_id = Column(
+        BigInteger, primary_key=True, autoincrement=True, index=True
+    )
     #
     user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)
     address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
@@ -92,37 +94,43 @@ class UserAddresses(BaseDb):
         self.user_address_id = kwargs["user_address_id"]
         self.address_id = kwargs["address_id"]
 
-    
+
 class UserPosting(BaseDb):
-    
+
     __tablename__ = "user_postings"
 
     posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     #
-    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False) # FK
+    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)  # FK
     available_date = Column(DateTime, nullable=True, default=None)
-    accomedation_type = Column(String(10), nullable=False, default="Temporary") #Temporary or Permanaent
+    accomedation_type = Column(
+        String(10), nullable=False, default="Temporary"
+    )  # Temporary or Permanaent
     num_days = Column(Integer, nullable=False, default=7)
 
     def __init__(self, **kwargs):
-        self.posting_id = kwargs["posting_id"]
+        #self.posting_id = kwargs["posting_id"]
         self.user_id = kwargs["user_id"]
         self.available_date = kwargs["available_date"]
         self.accomedation_type = kwargs["accomedation_type"]
         self.num_days = kwargs["num_days"]
 
-    
+
 class UserAccomedation(BaseDb):
-    
+
     __tablename__ = "user_accomedations"
 
     accomedatiom_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     #
-    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False) # FK
-    accomedated_user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False) # FK
+    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)  # FK
+    accomedated_user_id = Column(
+        BigInteger, ForeignKey("users.user_id"), nullable=False
+    )  # FK
     confirmed_date = Column(DateTime, nullable=True, default=None)
     accomedated_date = Column(DateTime, nullable=True, default=None)
-    accomedation_type = Column(String(10), nullable=False, default="Temporary") #Temporary or Permanaent
+    accomedation_type = Column(
+        String(10), nullable=False, default="Temporary"
+    )  # Temporary or Permanaent
     rating = Column(Integer, nullable=False, default=0)
     num_days = Column(Integer, nullable=False, default=7)
 
