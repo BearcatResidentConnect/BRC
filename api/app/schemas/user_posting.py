@@ -16,11 +16,22 @@ class UserPostingIn(BaseModel):
         orm_mode = True
 
 
-class UserPostingOut(UserPostingIn):
+class UserPostingOut(BaseModel):
 
-    pass
+    posting_id: int
+    user_id: int
+    accomedation_type: str
+    available_date: datetime
+    num_days: int
+    
+    class Config:
+        orm_mode = True
 
 
-class UserPostingUpdate(UserPostingIn):
+class UserPostingUpdate(BaseModel):
 
-    pass
+    posting_id: int
+    #user_id: int
+    accomedation_type: str
+    available_date: datetime
+    num_days: int
