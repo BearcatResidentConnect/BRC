@@ -21,7 +21,8 @@ export class AuthService {
       {
         user_name,
         password,
-      }, httpOptions
+      },
+      httpOptions
     );
   }
 
