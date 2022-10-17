@@ -101,8 +101,6 @@ class UserPosting(BaseDb):
 
     posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     #
-    address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
-    #
     user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)  # FK
     available_date = Column(DateTime, nullable=True, default=None)
     accomedation_type = Column(
@@ -112,7 +110,6 @@ class UserPosting(BaseDb):
 
     def __init__(self, **kwargs):
         #self.posting_id = kwargs["posting_id"]
-        self.address_id = kwargs["address_id"]
         self.user_id = kwargs["user_id"]
         self.available_date = kwargs["available_date"]
         self.accomedation_type = kwargs["accomedation_type"]
