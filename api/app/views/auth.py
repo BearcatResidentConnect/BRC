@@ -213,15 +213,24 @@ async def login_for_access_token(
 ):
     """ """
     #
-    print(form_data.username)
-    user = await _get_user(session, form_data.username)
+    #print(form_data.username)
+    try:
+        user = await _get_user(session, form_data.username)
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect User Name",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+        
     #
     if not verify_password(form_data.password, user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect Password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+        
     #
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
@@ -266,21 +275,3 @@ async def _get_user(session: Session, user_name: str) -> UserOut:
 
     raise HTTPException( 404, NOT_FOUND_USER)
 
-
-# async def _get_all_users(session: Session) -> List[UserOut]:
-
-#     """
-#     Query DB for all User's
-#     """
-
-#     _data = await session.execute(select(UserModel).order_by(UserModel.user_id))
-
-#     _data = _data.scalars().all()
-    
-#     print(_data, "***********************88")
-
-#     if len(_data):
-#         logger.debug("Fetched Users ")
-#         return _data
-
-#     raise HTTPException( 404, NOT_FOUND_USERS)
