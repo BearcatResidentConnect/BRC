@@ -195,15 +195,21 @@ async def basic_login(
 ):
     """ """
     user_dict = user.dict()
-    user = await _get_user(session, user_dict["user_name"])
+    try:
+        user = await _get_user(session, user_dict["user_name"])
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect User Name",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    #
     if not verify_password(user_dict["password"], user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect Password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    else:
-        return {"username": user_dict["user_name"]}
 
 
 @router.post("/users/auth/token", response_model=AccessRefreshTokenOut)
