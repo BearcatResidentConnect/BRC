@@ -210,6 +210,10 @@ async def basic_login(
             detail="Incorrect Password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+        
+    return {
+        "Msg": "Login Success"
+    }
 
 
 @router.post("/users/auth/token", response_model=AccessRefreshTokenOut)
