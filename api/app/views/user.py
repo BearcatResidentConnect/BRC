@@ -229,6 +229,22 @@ async def _get_user(session: Session, user_id: int) -> UserOut:
 
     raise HTTPException(404, NOT_FOUND_USER)
 
+async def _get_user_by_user_name(session: Session, user_name: str) -> UserOut:
+
+    """
+    Query DB with given user_id
+    """
+
+    _data = await session.execute(select(UserModel).where(UserModel.user_name == user_name))
+
+    _data = _data.scalar()
+
+    if _data:
+        logger.debug("Fetched User ")
+        return _data
+
+    raise HTTPException(404, NOT_FOUND_USER)
+
 
 async def _get_all_users(session: Session) -> List[UserOut]:
 
