@@ -41,6 +41,7 @@ class UserOut(BaseModel):
     last_name: str
     email: str
 
+
     class Config:
         orm_mode = True
 
@@ -48,7 +49,7 @@ class UserOut(BaseModel):
 
 class UserUpdate(BaseModel):
 
-    user_id: int  # Can.t be changed
+    user_name: str  # Can.t be changed
     email: Union[str, None] = None
     first_name: Union[str, None] = None
     last_name: Union[str, None] = None
@@ -63,7 +64,6 @@ class UserUpdate(BaseModel):
 class SuperUserOut(BaseModel):
     name: str
     email: str
-    user_id: int
     first_name: str
     last_name: str
     #department: str
@@ -76,7 +76,6 @@ class SuperUserOut(BaseModel):
 class SuperUserIn(BaseModel):
     name: str
     email: str
-    user_id: int
     first_name: str
     last_name: str
     department: str

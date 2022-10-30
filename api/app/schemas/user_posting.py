@@ -2,12 +2,13 @@ from pydantic import BaseModel
 
 from datetime import datetime
 from typing import Union, List, Optional
+from .common import CommonAddressInOut
 
 
 class UserPostingBase(BaseModel):
 
     # posting_id = int
-    user_id: int
+    user_name: str
 
     class Config:
         orm_mode = True
@@ -27,11 +28,16 @@ class UserPostingIn(UserPostingBase):
     approx_distance: float = 1.0
     is_pet_friendly: bool = False
     parking_available: bool = False
+    #
+    address: CommonAddressInOut
 
 
-class UserPostingOut(UserPostingBase):
+class UserPostingOut(BaseModel):
     posting_id = int
+    
+    class Config:
+        orm_mode = True
 
 
-class UserPostingUpdate(UserPostingBase):
+class UserPostingUpdate(UserPostingIn):
     posting_id = int
