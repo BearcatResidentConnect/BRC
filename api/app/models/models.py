@@ -23,10 +23,9 @@ class User(BaseDb):
 
     __tablename__ = "users"
 
-    user_id = Column(BigInteger, primary_key=True, autoincrement=True, index=True)
     sid = Column(String(10), unique=True, nullable=True)
     #
-    user_name = Column(String(255), nullable=False, unique=True, index=True)
+    user_name = Column(String(255), nullable=False, unique=True, index=True, primary_key=True)
     password = Column(String(255), nullable=False)  # Hashed Password
     #
     created = Column(DateTime, nullable=False, default=func.now())
@@ -59,35 +58,38 @@ class Address(BaseDb):
 
     address_id = Column(BigInteger, primary_key=True, autoincrement=True, index=True)
     #
-    #user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)
     address1 = Column(String(255), nullable=False)
     address2 = Column(String(255), nullable=True)
     address3 = Column(String(255), nullable=True)
-    city = Column(String(100), nullable=False)
-    state = Column(String(100), nullable=False)
-    country = Column(String(2), nullable=False)
-    default = Column(Boolean, default=False)
+    city = Column(String(50), nullable=False)
+    state = Column(String(50), nullable=False)
+    country = Column(String(50), nullable=False)
+    zipcode = Column(Integer, nullable=False)
+    #default = Column(Boolean, default=False)
 
     def __init__(self, **kwargs):
-        #self.user_id = kwargs["user_id"]
+
         self.address1 = kwargs["address1"]
         self.address2 = kwargs["address2"]
         self.address3 = kwargs["address3"]
         self.city = kwargs["city"]
         self.state = kwargs["state"]
         self.country = kwargs["country"]
-        self.default = kwargs["default"]
+        self.zipcode = kwargs["zipcode"]
+        #self.default = kwargs["default"]
 
 
-class UserAddresses(BaseDb):
+class PostingAddress(BaseDb):
+    
+    # Each Posting has 1 Address
 
-    __tablename__ = "user_addresses"
+    __tablename__ = "posting_address"
 
     user_address_id = Column(
         BigInteger, primary_key=True, autoincrement=True, index=True
     )
     #
-    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)
+    user_name = Column(String(255), ForeignKey("users.user_name"), nullable=False)
     address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
 
     def __init__(self, **kwargs):
@@ -103,7 +105,7 @@ class UserPosting(BaseDb):
     #
     address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
     #
-    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)  # FK
+    user_name = Column(String(255), ForeignKey("users.user_name"), nullable=False)  # FK
     available_date = Column(DateTime, nullable=False)
     accomedated_date = Column(DateTime, nullable=True, default=None)
     accomedation_type = Column(
@@ -120,9 +122,9 @@ class UserPosting(BaseDb):
     parking_available = Column(Boolean, default=False)
 
     def __init__(self, **kwargs):
-        #self.posting_id = kwargs["posting_id"]
+        # self.posting_id = kwargs["posting_id"]
         self.address_id = kwargs["address_id"]
-        self.user_id = kwargs["user_id"]
+        self.user_name = kwargs["user_name"]
         self.available_date = kwargs["available_date"]
         self.accomedation_type = kwargs["accomedation_type"]
         self.accomedated_date = kwargs["accomedated_date"]
@@ -134,3 +136,37 @@ class UserPosting(BaseDb):
         self.approx_distance = kwargs["approx_distance"]
         self.is_pet_friendly = kwargs["is_pet_friendly"]
         self.parking_available = kwargs["parking_available"]
+
+
+class RentalPosting(BaseDb):
+
+    __tablename__ = "rental_postings"
+
+    posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    #
+    # address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
+    #
+    phone = Column(BigInteger, nullable=False)
+    email = Column(BigInteger, nullable=False)
+    #
+    address1 = Column(String(255), nullable=False)
+    address2 = Column(String(255), nullable=True)
+    address3 = Column(String(255), nullable=True)
+    city = Column(String(50), nullable=False)
+    state = Column(String(50), nullable=False)
+    country = Column(String(50), nullable=False)
+    zipcode = Column(Integer, nullable=False)
+
+    def __init__(self, **kwargs):
+
+        self.phone = kwargs["phone"]
+        self.email = kwargs["email"]
+        #
+        self.address1 = kwargs["address1"]
+        self.address2 = kwargs["address2"]
+        self.address3 = kwargs["address3"]
+        self.city = kwargs["city"]
+        self.state = kwargs["state"]
+        self.country = kwargs["country"]
+        self.zipcode = kwargs["zipcode"]
+        self.default = kwargs["default"]
