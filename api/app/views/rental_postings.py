@@ -11,7 +11,7 @@ from fastapi import APIRouter, status, Depends, HTTPException
 
 from ..database import get_db_session
 
-from ..models.models import UserPosting as UserPostingModel, PostingAddress as PostingAddressModel , Address as AddressModel
+from ..models.models import UserPosting as UserPostingModel
 
 from .auth import (
     UserIn as SuperUserIn,
@@ -109,7 +109,6 @@ async def get_all_users_postings(
 # POST API's
 @router.post(
     "/user-posting", response_model=UserPostingOut, status_code=status.HTTP_201_CREATED
-    #"/user-posting", status_code=status.HTTP_201_CREATED
 )
 async def insert_user_posting(
     user_posting: UserPostingIn,
@@ -118,34 +117,19 @@ async def insert_user_posting(
 ) -> UserPostingOut:
 
     """
-    Create User Posting. if Not found
+    Create User if Not found
     """
 
     user_posting_dict = user_posting.dict()
     if "string" in user_posting_dict.values():
         raise HTTPException(400, "Invalid Data Provided")
-    
-    #print("*************** address_obj ***************", user_posting_dict)
 
     try:
-        
-        address = user_posting_dict["address"]
-        address_obj = AddressModel(**address)
-        session.add(address_obj)
-        await session.flush()
-        await session.refresh(address_obj)
-        
-        print("*************** address_obj ***************", address_obj)
-        
-        address_id = address_obj.address_id
-        
-        
-        del user_posting_dict["address"]
 
-        user_posting_obj = UserPostingModel(**user_posting_dict, address_id=address_id)
+        user_posting_obj = UserPostingModel(**user_posting_dict)
         session.add(user_posting_obj)
         await session.flush()
-        await session.refresh(user_posting_obj)
+        # await session.refresh(user)
 
     except SQLAlchemyError as exc:
 
@@ -153,8 +137,6 @@ async def insert_user_posting(
         raise HTTPException(400, "Invalid Data Provided")
 
     return user_posting_obj
-    
-    #return user_posting_dict
 
 
 @router.post(

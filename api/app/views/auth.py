@@ -121,9 +121,9 @@ async def generate_new_access_token(token_data : RefreshAccessTokenIn):
         payload = jwt.decode(
             token_data.refresh_token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
         )
-        user_id: int = payload.get("sub")
-        logging.debug("Token Sub is ", user_id)
-        if user_id is None:
+        user_name: str = payload.get("sub")
+        logging.debug("Token Sub is ", user_name)
+        if user_name is None:
             raise credentials_exception
         #token_data = TokenData(username=username)
     except JWTError as e:
@@ -133,7 +133,7 @@ async def generate_new_access_token(token_data : RefreshAccessTokenIn):
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 
     access_token = create_access_token(
-        data={"sub": user_id}, expires_delta=access_token_expires
+        data={"sub": user_name}, expires_delta=access_token_expires
     )
 
     return {"token_type": "bearer", "access_token": access_token}
@@ -154,15 +154,15 @@ async def _get_current_user(
         payload = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
         )
-        user_id: int = payload.get("sub")
-        logging.debug("Token Sub is ", user_id)
-        if user_id is None:
+        user_name: str = payload.get("sub")
+        logging.debug("Token Sub is ", user_name)
+        if user_name is None:
             raise credentials_exception
         #token_data = TokenData(username=username)
     except JWTError as e:
         logging.error("Exception %s", e)
         raise credentials_exception
-    user = await _get_user(session, user_id)
+    user = await _get_user(session, user_name)
     if user is None:
         raise credentials_exception
     return user
@@ -244,12 +244,12 @@ async def login_for_access_token(
     #
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": str(user.user_id)}, expires_delta=access_token_expires
+        data={"sub": str(user.user_name)}, expires_delta=access_token_expires
     )
     #
     refresh_token_expires = timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES)
     refresh_token = create_access_token(
-        data={"sub": str(user.user_id)}, expires_delta=refresh_token_expires
+        data={"sub": str(user.user_name)}, expires_delta=refresh_token_expires
     )
     return {
         "token_type": "bearer",
@@ -272,7 +272,7 @@ async def validate_refresh_token_get_access_token(refresh_token : RefreshAccessT
 async def _get_user(session: Session, user_name: str) -> UserOut:
 
     """
-    Query DB with given user_id
+    Query DB with given user_name
     """
 
     _data = await session.execute(select(UserModel).where(UserModel.user_name == user_name))
