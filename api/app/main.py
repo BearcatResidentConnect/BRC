@@ -13,6 +13,7 @@ from .views import auth
 from .views import basic_auth
 from .views import user
 from .views import user_postings
+from .views import address
 
 
 from .database import engine, BaseDb
@@ -45,6 +46,7 @@ app.include_router(user.router)
 app.include_router(auth.router)
 #app.include_router(basic_auth.router)
 app.include_router(user_postings.router)
+app.include_router(address.router)
 # ***********************************************
 
 
