@@ -21,3 +21,17 @@ class CommonAddressInOut(CommonBase):
     state: str
     country: str
     zipcode: int
+    
+class CommonAddressOut(CommonAddressInOut):
+
+    address_id: int
+    
+class CommonSuccess(CommonBase):
+    
+    msg: str = "Succes"
+    
+class CommonFail(CommonBase):
+    
+    msg: str = "Fail"
+    
+    
