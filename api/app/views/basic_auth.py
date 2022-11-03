@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from fastapi import Depends, FastAPI, APIRouter, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-from .user import _get_user, _get_user_by_user_name
+from .user import _get_user
 from ..database import get_db_session
 from .auth import verify_password
 
@@ -29,7 +29,7 @@ def get_current_username(
 ):
     current_username = credentials.username
     try:
-        user = _get_user_by_user_name(session, current_username)
+        user = _get_user(session, current_username)
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

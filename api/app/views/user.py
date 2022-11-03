@@ -36,47 +36,18 @@ router = APIRouter(
 
 
 # GET API's
-@router.get("/users/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)
-async def get_user_by_sis_id(
-    user_id: int,
+@router.get("/users/{user_name}", response_model=UserOut, status_code=status.HTTP_200_OK)
+async def get_user_by_user_name(
+    user_name: str,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> UserOut:
 
     """
-    Get Matched User by user_id
+    Get Matched User by user_name
     """
 
-    return await _get_user(session, user_id)
-
-
-# @router.get(
-#     "/users/{user_id}/sections",
-#     response_model=UserCourses,
-#     status_code=status.HTTP_200_OK,
-# )
-# async def get_user_by_sis_id(
-#     user_id: int,
-#     session: Session = Depends(get_db_session),
-#     super_user_in: SuperUserIn = Depends(get_current_active_user),
-# ) -> UserCourses:
-
-#     """
-#     Get Matched User by user_id
-#     """
-
-#     query = (
-#         select(UserModel)
-#         .where(UserModel.user_id == user_id)
-#         .options(selectinload(UserModel.sections))
-#     )
-#     result = await session.execute(query)
-#     user_with_sections = result.scalar_one_or_none()
-
-#     if user_with_sections:
-#         return user_with_sections
-
-#     raise HTTPException( 404, NOT_FOUND_USER)
+    return await _get_user(session, user_name)
 
 
 @router.get("/users", response_model=List[UserOut], status_code=status.HTTP_200_OK)
@@ -167,7 +138,7 @@ async def update_user(
 ) -> UserOut:
 
     """
-    Update User data for given body parameters based on user_id \
+    Update User data for given body parameters based on user_name \
 
         *** Only Include Modifiable Parameters ***
     """
@@ -178,11 +149,11 @@ async def update_user(
         raise HTTPException(400, "Invalid Data Provided")
 
     # Fetch User => Update
-    user = await _get_user(session, user_dict["user_id"])
+    user = await _get_user(session, user_dict["user_name"])
 
     logger.debug("Fetched User ")
     for k, v in user_dict.items():
-        if k == "user_id":
+        if k == "user_name":
             continue
         if v:
             setattr(user, k, v)
@@ -192,20 +163,20 @@ async def update_user(
 
 # Delete API
 @router.delete(
-    "/users/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK
+    "/users/{user_name}", response_model=UserOut, status_code=status.HTTP_200_OK
 )
 async def delete_user_by_sis_id(
-    user_id: int,
+    user_name: str,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> UserOut:
 
     """
-    Delete User by user_id
+    Delete User by user_name
     """
 
     # Fetch User => Delete
-    user = await _get_user(session, user_id)
+    user = await _get_user(session, user_name)
 
     await session.delete(user)
 
@@ -213,26 +184,10 @@ async def delete_user_by_sis_id(
 
 
 # Helper Methods
-async def _get_user(session: Session, user_id: int) -> UserOut:
+async def _get_user(session: Session, user_name: str) -> UserOut:
 
     """
-    Query DB with given user_id
-    """
-
-    _data = await session.execute(select(UserModel).where(UserModel.user_id == user_id))
-
-    _data = _data.scalar()
-
-    if _data:
-        logger.debug("Fetched User ")
-        return _data
-
-    raise HTTPException(404, NOT_FOUND_USER)
-
-async def _get_user_by_user_name(session: Session, user_name: str) -> UserOut:
-
-    """
-    Query DB with given user_id
+    Query DB with given user_name
     """
 
     _data = await session.execute(select(UserModel).where(UserModel.user_name == user_name))
@@ -245,14 +200,13 @@ async def _get_user_by_user_name(session: Session, user_name: str) -> UserOut:
 
     raise HTTPException(404, NOT_FOUND_USER)
 
-
 async def _get_all_users(session: Session) -> List[UserOut]:
 
     """
     Query DB for all User's
     """
 
-    _data = await session.execute(select(UserModel).order_by(UserModel.user_id))
+    _data = await session.execute(select(UserModel).order_by(UserModel.user_name))
 
     _data = _data.scalars().all()
 
