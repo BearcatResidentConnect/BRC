@@ -117,7 +117,7 @@ class UserPosting(BaseDb):
     num_bedrooms = Column(Integer, nullable=False, default=1)
     num_bathrooms = Column(Integer, nullable=False, default=1)
     approx_rent = Column(Float, nullable=False, default=200.0)
-    approx_distance = Column(Float, nullable=False, default=1.0)
+    #approx_distance = Column(Float, nullable=False, default=1.0)
     is_pet_friendly = Column(Boolean, default=False)
     parking_available = Column(Boolean, default=False)
 
@@ -133,7 +133,7 @@ class UserPosting(BaseDb):
         self.num_bedrooms = kwargs["num_bedrooms"]
         self.num_bathrooms = kwargs["num_bathrooms"]
         self.approx_rent = kwargs["approx_rent"]
-        self.approx_distance = kwargs["approx_distance"]
+        #self.approx_distance = kwargs["approx_distance"]
         self.is_pet_friendly = kwargs["is_pet_friendly"]
         self.parking_available = kwargs["parking_available"]
 
