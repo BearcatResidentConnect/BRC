@@ -145,5 +145,19 @@ class RentalPosting(BaseDb):
     country = Column(String(50), nullable=False)
     zipcode = Column(Integer, nullable=False)
 
+    def __init__(self, **kwargs):
+
+        self.phone = kwargs["phone"]
+        self.email = kwargs["email"]
+        #
+        self.address1 = kwargs["address1"]
+        self.address2 = kwargs["address2"]
+        self.address3 = kwargs["address3"]
+        self.city = kwargs["city"]
+        self.state = kwargs["state"]
+        self.country = kwargs["country"]
+        self.zipcode = kwargs["zipcode"]
+        self.default = kwargs["default"]
+
 
 
