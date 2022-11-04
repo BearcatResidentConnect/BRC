@@ -10,6 +10,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .views import auth
+from .views import basic_auth
 from .views import user
 from .views import user_postings
 
@@ -42,11 +43,12 @@ app.add_middleware(
 # *************** Register Routes ***************
 app.include_router(user.router)
 app.include_router(auth.router)
+#app.include_router(basic_auth.router)
 app.include_router(user_postings.router)
 # ***********************************************
 
 
-@app.get("/server-status", tags=["Heart Beat"])
+@app.get("/health", tags=["Heart Beat"])
 async def health():
     """
     Health Check API
