@@ -118,13 +118,6 @@ class UserPosting(BaseDb):
         self.accomedation_type = kwargs["accomedation_type"]
         self.num_days = kwargs["num_days"]
 
-class RentalNewPosting(BaseDb):
-
-    __tablename__ = "rental_new_postings"
-    posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
-    #
-    address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
-
 
 class RentalPosting(BaseDb):
 
