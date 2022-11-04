@@ -126,4 +126,24 @@ class RentalNewPosting(BaseDb):
     address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
 
 
+class RentalPosting(BaseDb):
+
+    __tablename__ = "rental_postings"
+
+    posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    #
+    # address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
+    #
+    phone = Column(BigInteger, nullable=False)
+    email = Column(BigInteger, nullable=False)
+    #
+    address1 = Column(String(255), nullable=False)
+    address2 = Column(String(255), nullable=True)
+    address3 = Column(String(255), nullable=True)
+    city = Column(String(50), nullable=False)
+    state = Column(String(50), nullable=False)
+    country = Column(String(50), nullable=False)
+    zipcode = Column(Integer, nullable=False)
+
+
 
