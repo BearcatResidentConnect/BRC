@@ -78,6 +78,30 @@ class Address(BaseDb):
         self.country = kwargs["country"]
         self.default = kwargs["default"]
 
+        class UserPosting(BaseDb):
+
+    __tablename__ = "user_postings"
+
+    posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    #
+    address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
+    #
+    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)  # FK
+    available_date = Column(DateTime, nullable=True, default=None)
+    accomedation_type = Column(
+        String(10), nullable=False, default="Temporary"
+    )  # Temporary or Permanaent
+    num_days = Column(Integer, nullable=False, default=7)
+
+    def __init__(self, **kwargs):
+        #self.posting_id = kwargs["posting_id"]
+        self.address_id = kwargs["address_id"]
+        self.user_id = kwargs["user_id"]
+        self.available_date = kwargs["available_date"]
+        self.accomedation_type = kwargs["accomedation_type"]
+        self.num_days = kwargs["num_days"]
+
+
 
 class UserAddresses(BaseDb):
 
