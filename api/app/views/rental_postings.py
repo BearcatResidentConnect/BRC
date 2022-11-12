@@ -314,3 +314,41 @@ async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
         return _data
 
     raise HTTPException(404, NOT_FOUND_USER_POSTINGS)
+
+
+# POST API's
+@router.post(
+    "/user-posting",
+    response_model=UserPostingOut,
+    status_code=status.HTTP_201_CREATED
+)
+async def insert_user_posting(
+    user_posting: UserPostingIn,
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> UserPostingOut:
+
+    """
+    Create User Posting. if Not found
+    """
+
+    user_posting_dict = user_posting.dict()
+    if "string" in user_posting_dict.values():
+        raise HTTPException(400, "Invalid Data Provided")
+
+    try:
+        address = user_posting_dict["address"]
+        address_obj = await _post_address(session, address)
+        address_id = address_obj.address_id
+        del user_posting_dict["address"]
+        user_posting_dict["address_id"] = address_id
+        user_posting_obj = UserPostingModel(**user_posting_dict)
+        session.add(user_posting_obj)
+        await session.flush()
+        await session.refresh(user_posting_obj)
+
+    except SQLAlchemyError as exc:
+        logger.error("Exception happend %s ", exc)
+        raise HTTPException(400, "Invalid Data Provided")
+
+    return user_posting_obj
