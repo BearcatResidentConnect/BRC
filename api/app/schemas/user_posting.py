@@ -35,3 +35,69 @@ class UserPostingOut(UserPostingBase):
 
 class UserPostingUpdate(UserPostingBase):
     posting_id = int
+
+
+
+
+
+
+
+
+
+
+class UserPosting(BaseDb):
+
+    __tablename__ = "user_postings"
+
+    posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    #
+    address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
+    #
+    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)  # FK
+    available_date = Column(DateTime, nullable=True, default=None)
+    accomedation_type = Column(
+        String(10), nullable=False, default="Temporary"
+    )  # Temporary or Permanaent
+    num_days = Column(Integer, nullable=False, default=7)
+
+    def __init__(self, **kwargs):
+        #self.posting_id = kwargs["posting_id"]
+        self.address_id = kwargs["address_id"]
+        self.user_id = kwargs["user_id"]
+        self.available_date = kwargs["available_date"]
+        self.accomedation_type = kwargs["accomedation_type"]
+        self.num_days = kwargs["num_days"]
+
+
+class RentalPosting(BaseDb):
+
+    __tablename__ = "rental_postings"
+
+    posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    #
+    # address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
+    #
+    phone = Column(BigInteger, nullable=False)
+    email = Column(BigInteger, nullable=False)
+    #
+    address1 = Column(String(255), nullable=False)
+    address2 = Column(String(255), nullable=True)
+    address3 = Column(String(255), nullable=True)
+    city = Column(String(50), nullable=False)
+    state = Column(String(50), nullable=False)
+    country = Column(String(50), nullable=False)
+    zipcode = Column(Integer, nullable=False)
+
+    def __init__(self, **kwargs):
+
+        self.phone = kwargs["phone"]
+        self.email = kwargs["email"]
+        #
+        self.address1 = kwargs["address1"]
+        self.address2 = kwargs["address2"]
+        self.address3 = kwargs["address3"]
+        self.city = kwargs["city"]
+        self.state = kwargs["state"]
+        self.country = kwargs["country"]
+        self.zipcode = kwargs["zipcode"]
+        self.default = kwargs["default"]
