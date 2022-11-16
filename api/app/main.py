@@ -14,6 +14,8 @@ from .views import basic_auth
 from .views import user
 from .views import user_postings
 from .views import address
+from .views import rental_postings
+from .views import mail_sender
 
 
 from .database import engine, BaseDb
@@ -47,6 +49,8 @@ app.include_router(auth.router)
 #app.include_router(basic_auth.router)
 app.include_router(user_postings.router)
 app.include_router(address.router)
+app.include_router(rental_postings.router)
+app.include_router(mail_sender.router)
 # ***********************************************
 
 
