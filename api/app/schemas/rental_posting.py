@@ -15,15 +15,24 @@ class RentalPostingBase(BaseModel):
 
 class RentalPostingIn(RentalPostingBase):
 
+    name: str
     phone: int
     email: str
     #
-    address: CommonAddressInOut
+    website: Union[str, None] = None
+    #
+    address1: str
+    address2: Union[str, None] = None
+    address3: Union[str, None] = None
+    city: str
+    state: str
+    country: str
+    zipcode: int
 
 
-class RentalPostingOut(RentalPostingBase):
-    posting_id = int
+class RentalPostingOut(RentalPostingIn):
+    rental_id: int
 
 
 class RentalPostingUpdate(RentalPostingBase):
-    posting_id = int
+    rental_id: int

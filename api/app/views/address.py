@@ -4,7 +4,10 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 
-from ..schemas.common import CommonAddressInOut as AddressInOut, CommonAddressOut as AddressOut
+from ..schemas.common import (
+    CommonAddressInOut as AddressInOut,
+    CommonAddressOut as AddressOut,
+)
 from typing import List, Union
 
 from fastapi import APIRouter, status, Depends, HTTPException
@@ -36,7 +39,9 @@ router = APIRouter(
 
 
 # GET API's
-@router.get("/addresses/{address_id}", response_model=AddressOut, status_code=status.HTTP_200_OK)
+@router.get(
+    "/addresses/{address_id}", response_model=AddressOut, status_code=status.HTTP_200_OK
+)
 async def get_address_by_sis_id(
     address_id: int,
     session: Session = Depends(get_db_session),
@@ -50,7 +55,9 @@ async def get_address_by_sis_id(
     return await _get_address(session, address_id)
 
 
-@router.get("/addresses", response_model=List[AddressInOut], status_code=status.HTTP_200_OK)
+@router.get(
+    "/addresses", response_model=List[AddressInOut], status_code=status.HTTP_200_OK
+)
 async def get_all_addresses(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
@@ -128,20 +135,7 @@ async def update_address(
 
     address_dict = address.dict()
 
-    if "string" in address_dict.values():
-        raise HTTPException(400, "Invalid Data Provided")
-
-    # Fetch Address => Update
-    address = await _get_address(session, address_dict["address_id"])
-
-    logger.debug("Fetched Address ")
-    for k, v in address_dict.items():
-        if k == "address_id":
-            continue
-        if v:
-            setattr(address, k, v)
-
-    return address
+    return await _update_address(session, address_dict)
 
 
 # Delete API
@@ -173,7 +167,9 @@ async def _get_address(session: Session, address_id: int) -> AddressInOut:
     Query DB with given address_id
     """
 
-    _data = await session.execute(select(AddressModel).where(AddressModel.address_id == address_id))
+    _data = await session.execute(
+        select(AddressModel).where(AddressModel.address_id == address_id)
+    )
 
     _data = _data.scalar()
 
@@ -190,7 +186,9 @@ async def _get_all_addresses(session: Session) -> List[AddressInOut]:
     Query DB for all Address's
     """
 
-    _data = await session.execute(select(AddressModel).order_by(AddressModel.address_id))
+    _data = await session.execute(
+        select(AddressModel).order_by(AddressModel.address_id)
+    )
 
     _data = _data.scalars().all()
 
@@ -200,8 +198,9 @@ async def _get_all_addresses(session: Session) -> List[AddressInOut]:
 
     raise HTTPException(404, NOT_FOUND_ADDRESSES)
 
+
 async def _post_address(session: Session, address_dict: dict):
-    
+
     if "string" in address_dict.values():
         raise HTTPException(400, "Invalid Data Provided")
 
@@ -216,5 +215,23 @@ async def _post_address(session: Session, address_dict: dict):
 
         logger.error("Exception happend %s ", exc)
         raise HTTPException(400, "Invalid Data Provided")
+
+    return address
+
+
+async def _update_address(session: Session, address_dict: dict):
+
+    if "string" in address_dict.values():
+        raise HTTPException(400, "Invalid Data Provided")
+
+    # Fetch Address => Update
+    address = await _get_address(session, address_dict["address_id"])
+
+    logger.debug("Fetched Address ")
+    for k, v in address_dict.items():
+        if k == "address_id":
+            continue
+        if v:
+            setattr(address, k, v)
 
     return address

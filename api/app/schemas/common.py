@@ -22,6 +22,16 @@ class CommonAddressInOut(CommonBase):
     country: str
     zipcode: int
     
+class CommonAddressUpdate(CommonBase):
+
+    address1: Union[str, None] = None
+    address2: Union[str, None] = None
+    address3: Union[str, None] = None
+    city: Union[str, None] = None
+    state: Union[str, None] = None
+    country: Union[str, None] = None
+    zipcode: Union[int, None] = None
+    
 class CommonAddressOut(CommonAddressInOut):
 
     address_id: int

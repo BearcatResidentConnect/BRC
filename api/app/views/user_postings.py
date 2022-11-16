@@ -18,7 +18,7 @@ from ..models.models import (
 )
 
 
-from .address import _post_address, _get_address, AddressModel
+from .address import _post_address, _get_address, _update_address, AddressModel
 
 from .auth import (
     UserIn as SuperUserIn,
@@ -81,7 +81,7 @@ async def get_user_posting_by_user_name_and_posting_id(
 
 @router.get(
     "/user-posting/postings/{posting_id}",
-    response_model=UserPostingOut,
+    # response_model=UserPostingOut,
     status_code=status.HTTP_200_OK,
 )
 async def get_user_posting_by_posting_id(
@@ -99,7 +99,7 @@ async def get_user_posting_by_posting_id(
 
 @router.get(
     "/user-postings",
-    #response_model=List[UserPostingOut],
+    # response_model=List[UserPostingOut],
     status_code=status.HTTP_200_OK,
 )
 async def get_all_users_postings(
@@ -117,8 +117,8 @@ async def get_all_users_postings(
 # POST API's
 @router.post(
     "/user-posting",
-    response_model=UserPostingOut,
-    status_code=status.HTTP_201_CREATED
+    # response_model=UserPostingOut,
+    status_code=status.HTTP_201_CREATED,
 )
 async def insert_user_posting(
     user_posting: UserPostingIn,
@@ -187,40 +187,45 @@ async def insert_user_posting(
 
 
 # # PUT Methods for Update operations
-# @router.put(
-#     "/user-posting/{posting_id}",
-#     response_model=UserPostingOut,
-#     status_code=status.HTTP_201_CREATED,
-# )
-# async def update_user(
-#     user_posting: UserPostingUpdate,
-#     session: Session = Depends(get_db_session),
-#     super_user_in: SuperUserIn = Depends(get_current_active_user)
-#     # user: UserPostingUpdate = Body(embed=True), session: Session = Depends(get_db_session)
-# ) -> UserPostingOut:
+@router.put(
+    "/user-posting",
+    # response_model=UserPostingOut,
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+async def update_user(
+    user_posting: UserPostingUpdate,
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> UserPostingOut:
 
-#     """
-#     Update User data for given body parameters based on user_name \
+    """
+    Update User data for given body parameters based on user_name \
 
-#         *** Only Include Modifiable Parameters ***
-#     """
+        *** Only Include Modifiable Parameters ***
+    """
 
-#     user_posting_dict = user_posting.dict()
+    user_posting_dict = user_posting.dict()
+    address_dict = user_posting_dict["address"]
+    del user_posting_dict["address"]
 
-#     if "string" in user_posting_dict.values():
-#         raise HTTPException(400, "Invalid Data Provided")
+    if "string" in user_posting_dict.values():
+        raise HTTPException(400, "Invalid Data Provided")
 
-#     # Fetch User => Update
-#     user = await _get_user_postings(session, user_posting_dict["user_name"])
+    # Fetch User => Update
+    user_posting = await _get_user_posting_obj(session, user_posting_dict["posting_id"])
 
-#     logger.debug("Fetched User ")
-#     for k, v in user_posting_dict.items():
-#         if k == "user_name":
-#             continue
-#         if v:
-#             setattr(user, k, v)
+    address_dict["address_id"] = user_posting.address_id
 
-#     return user
+    logger.debug("Fetched User Posting ")
+    for k, v in user_posting_dict.items():
+        if k == "posting_id":
+            continue
+        if v:
+            setattr(user_posting, k, v)
+
+    await _update_address(session, address_dict)
+
+    return
 
 
 # Delete API
@@ -259,9 +264,7 @@ async def _get_posting_by_id_alone(session: Session, posting_id: int) -> UserPos
             select(UserPostingModel, AddressModel)
             .select_from(UserPostingModel)
             .join(AddressModel)
-            .filter(
-                UserPostingModel.posting_id == posting_id
-            )
+            .filter(UserPostingModel.posting_id == posting_id)
         )
 
         _data = _data.one()
@@ -269,7 +272,7 @@ async def _get_posting_by_id_alone(session: Session, posting_id: int) -> UserPos
         if _data:
             logger.debug("Fetched User Posting ")
             return _data
-        
+
     except Exception as e:
         logger.error("No Records Found")
 
@@ -299,7 +302,7 @@ async def _get_user_posting(
         if _data:
             logger.debug("Fetched User Posting ")
             return _data
-    
+
     except Exception as e:
         logger.error("No Records Found")
 
@@ -325,7 +328,7 @@ async def _get_user_postings(session: Session, user_name: str) -> UserPostingOut
         if _data:
             logger.debug("Fetched User Postings")
             return _data
-    
+
     except Exception as e:
         logger.error("No Records Found")
 
@@ -353,3 +356,22 @@ async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
         logger.error("No Records Found")
 
     raise HTTPException(404, NOT_FOUND_USER_POSTINGS)
+
+
+async def _get_user_posting_obj(session: Session, posting_id: int):
+
+    """
+    Query DB with given address_id
+    """
+
+    _data = await session.execute(
+        select(UserPostingModel).where(UserPostingModel.posting_id == posting_id)
+    )
+
+    _data = _data.scalar()
+
+    if _data:
+        logger.debug("Fetched Posting ")
+        return _data
+
+    raise HTTPException(404, NOT_FOUND_USER_POSTING)

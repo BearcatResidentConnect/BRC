@@ -19,6 +19,8 @@ class SettingsBase(BaseSettings):
     LOG_LEVEL: str = os.getenv("LOG_LEVEL")
     DEV: bool = bool(os.getenv("DEV"))
     QUERY_DEBUG: bool = bool(os.getenv("QUERY_DEBUG"))
+    EMAIL_SERVER_API_KEY: str = os.getenv("EMAIL_SERVER_API_KEY")
+    SENDER_EMAIL: str = os.getenv("SENDER_EMAIL")
 
 
 class DevSettings(SettingsBase):
