@@ -32,7 +32,7 @@ class User(BaseDb):
     updated = Column(DateTime, nullable=False, default=func.now())
     #
     # name = Column(String(80), nullable=False)
-    first_name = Column(String(80), nullable=False)
+    first_name = Column(String(100), nullable=False)
     last_name = Column(String(80), nullable=False)
     email = Column(String(120), unique=True, nullable=False)
     active = Column(Boolean, default=True)
@@ -105,6 +105,8 @@ class UserPosting(BaseDb):
     #
     address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
     #
+    name = Column(String(255), nullable=False)
+    #
     user_name = Column(String(255), ForeignKey("users.user_name"), nullable=False)  # FK
     available_date = Column(DateTime, nullable=False)
     accomedated_date = Column(DateTime, nullable=True, default=None)
@@ -136,6 +138,7 @@ class UserPosting(BaseDb):
         #self.approx_distance = kwargs["approx_distance"]
         self.is_pet_friendly = kwargs["is_pet_friendly"]
         self.parking_available = kwargs["parking_available"]
+        self.name = kwargs["name"]
 
 
 class RentalPosting(BaseDb):
