@@ -17,7 +17,7 @@ from pydantic import parse_obj_as, BaseModel
 
 #
 from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+from sendgrid.helpers.mail import Mail, Cc
 
 logger = logging.getLogger("PROJECT_A")
 
@@ -87,8 +87,8 @@ def send_email(
     sender_name: Union[bool, None] = None,
 ) -> bool:
 
-    if not body:
-        body = f"<strong>{user_name} is Looking for a Apartment/strong>"
+    #if not body:
+    body = f"<strong>{user_name} is Looking for a Apartment/strong>"
 
     print("settings.SENDER_EMAIL ", settings.SENDER_EMAIL)
     message = Mail(
@@ -100,8 +100,12 @@ def send_email(
     
 
     print("user_email ", user_email)
-    # if user_email:
-    #     message.add_cc(user_email)
+    cc_emails = []
+    if user_email:
+        pass
+        # cc_emails.append(Cc(<user_email>,<cc_email>))
+    	# message.add_bcc(cc_emails)
+        # message.add_cc(user_email)
 
     try:
         sg = SendGridAPIClient(settings.EMAIL_SERVER_API_KEY)

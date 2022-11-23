@@ -212,7 +212,11 @@ async def basic_login(
         )
         
     return {
-        "Msg": "Login Success"
+        "username" : user.user_name,
+        "email" : user.email,
+        "firstname" : user.first_name,
+        "lastname": user.last_name,
+        "status": "Login Success"
     }
 
 
