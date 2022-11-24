@@ -40,6 +40,7 @@ class UserOut(BaseModel):
     first_name: str
     last_name: str
     email: str
+    sid: Union[str, None] = None
 
 
     class Config:

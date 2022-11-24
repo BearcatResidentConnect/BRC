@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from datetime import datetime
+from datetime import datetime, date
 from typing import Union, List, Optional
 from .common import CommonAddressInOut, CommonAddressUpdate
 
@@ -18,9 +18,9 @@ class UserPostingIn(UserPostingBase):
 
     accomedation_type: str = "Temporary"  # Temporary or Permanaent
     name: str
-    available_date: datetime = datetime.now()
+    available_date: date = datetime.now().date()
     num_days: int = 7
-    accomedated_date: Union[datetime, None] = None
+    accomedated_date: Union[date, None] = None
     num_people: int = 1
     num_people_living: int = 0
     num_bedrooms: int = 1
@@ -38,9 +38,9 @@ class UserPostingOut(BaseModel):
     posting_id: int
     name: str
     accomedation_type: str
-    available_date: datetime
+    available_date: date
     num_days: int
-    accomedated_date: Union[datetime, None]
+    accomedated_date: Union[date, None] = None
     num_people: int
     num_people_living: int
     num_bedrooms: int

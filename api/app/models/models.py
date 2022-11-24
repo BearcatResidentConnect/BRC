@@ -12,6 +12,7 @@ from sqlalchemy import (
     LargeBinary,
     Enum,
     func,
+    Date
 )
 
 from sqlalchemy.orm import relationship
@@ -108,8 +109,8 @@ class UserPosting(BaseDb):
     name = Column(String(255), nullable=False)
     #
     user_name = Column(String(255), ForeignKey("users.user_name"), nullable=False)  # FK
-    available_date = Column(DateTime, nullable=False)
-    accomedated_date = Column(DateTime, nullable=True, default=None)
+    available_date = Column(Date, nullable=False)
+    accomedated_date = Column(Date, nullable=True, default=None)
     accomedation_type = Column(
         String(10), nullable=False, default="Temporary"
     )  # Temporary or Permanaent
