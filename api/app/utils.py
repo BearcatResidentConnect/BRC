@@ -17,7 +17,7 @@ from pydantic import parse_obj_as, BaseModel
 
 #
 from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail, Cc
+from sendgrid.helpers.mail import Mail, To, Cc, Bcc
 
 logger = logging.getLogger("PROJECT_A")
 
@@ -76,8 +76,49 @@ def dump_to_pydantic_model_dict(pydantic_model: BaseModel, db_model, many=False)
     return resp
 
 
-def send_email(
+#
+html_body = """
+<!DOCTYPE html>
+<html lang="en">
+    <h4> Hello {rental_name},</h4>
+    <h4> Greeting of the Day!</h4>
+    <br>
+    <span>
+        A candidate from <strong><i>Northwest Missouri State University</i></strong> is looking for a Apartment for rent.
+        If you have any avialabilty please revert back to the candiate.
+    </span>
 
+    <br>
+    <span>
+        <h4>
+            <strong>Candidate Details to Connect</strong><br>
+            Name: <i>{user_name}</i> <br>
+            Email: <i>{user_email}</i> <br>
+            <strong><i>Candidate has been CC'ed into this email</i></strong>
+            <br>
+        </h4>
+    </span>
+
+    <br>
+    <p>
+        <strong><i> *this is an auto generated mail, please do not reply</i></strong>
+    </p>
+    
+    <span>
+        <h4>
+            Best regards,<br>
+            Bearcat Resident Connect (BRC)<br>
+            To find more about our project Visit: https://github.com/BearcatResidentConnect/BRC/blob/main/README.md<br>
+        </h4>
+    </span>
+
+</html>
+
+
+"""
+
+
+def send_email(
     subject: Union[str, None] = None,
     rental_name: Union[str, None] = None,
     rental_email: Union[str, None] = None,
@@ -86,36 +127,46 @@ def send_email(
     body: Union[bool, None] = None,
     sender_name: Union[bool, None] = None,
 ) -> bool:
+    """Send an Email via SendGrid API
 
-    #if not body:
-    body = f"<strong>{user_name} is Looking for a Apartment/strong>"
+    Args:
+        subject (Union[str, None], optional): _description_. Defaults to None.
+        rental_name (Union[str, None], optional): _description_. Defaults to None.
+        rental_email (Union[str, None], optional): _description_. Defaults to None.
+        user_email (Union[str, None], optional): _description_. Defaults to None.
+        user_name (Union[str, None], optional): _description_. Defaults to None.
+        body (Union[bool, None], optional): _description_. Defaults to None.
+        sender_name (Union[bool, None], optional): _description_. Defaults to None.
 
-    print("settings.SENDER_EMAIL ", settings.SENDER_EMAIL)
+    Returns:
+        bool: True/False
+    """
+
+    if not body:
+        body = html_body.format(user_name=user_name, user_email=user_email, rental_name=rental_name)
+
+    to_emails = [
+        To(rental_email, rental_name),
+        # Bcc('test+bcc@example.com', 'Example Bcc Name 1'),
+        Cc(user_email, user_name),
+    ]
+
+    # print("settings.SENDER_EMAIL ", settings.SENDER_EMAIL)
+
     message = Mail(
         from_email=settings.SENDER_EMAIL,
-        to_emails=rental_email,
+        to_emails=to_emails,
         subject=subject,
         html_content=body,
     )
-    
-
-    print("user_email ", user_email)
-    cc_emails = []
-    if user_email:
-        pass
-        # cc_emails.append(Cc(<user_email>,<cc_email>))
-    	# message.add_bcc(cc_emails)
-        # message.add_cc(user_email)
 
     try:
         sg = SendGridAPIClient(settings.EMAIL_SERVER_API_KEY)
-        # (os.environ.get('SENDGRID_API_KEY'))
         response = sg.send(message)
         print(response.status_code)
         # print(response.body)
         # print(response.headers)
-        # print("Done")
         return True
     except Exception as e:
-        #print("EXCEPTIONnnnnnnnnnnnnnnnn ", e)
+        # print("EXCEPTIONnnnnnnnnnnnnnnnn ", e)
         return False
