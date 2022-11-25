@@ -62,7 +62,7 @@ async def get_user_postings_by_user_name(
 
 @router.get(
     "/user-posting/{user_name}/postings/{posting_id}",
-    response_model=UserPostingOut,
+    #response_model=UserPostingOut,
     status_code=status.HTTP_200_OK,
 )
 async def get_user_posting_by_user_name_and_posting_id(
