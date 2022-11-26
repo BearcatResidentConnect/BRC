@@ -83,6 +83,54 @@ async def get_user_posting_by_posting_id(
     """
 
     return await _get_posting_by_id_alone(session, posting_id)
+@router.get(
+    "/user-postings",
+    response_model=List[UserPostingOut],
+    status_code=status.HTTP_200_OK,
+)
+async def get_all_users_postings(
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> List[UserPostingOut]:
+
+    """
+    Get all Users Postings
+    """
+
+    return await _get_all_user_postings(session)
+
+
+# POST API's
+@router.post(
+    "/user-posting", response_model=UserPostingOut, status_code=status.HTTP_201_CREATED
+)
+async def insert_user_posting(
+    user_posting: UserPostingIn,
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> UserPostingOut:
+
+    """
+    Create User if Not found
+    """
+
+    user_posting_dict = user_posting.dict()
+    if "string" in user_posting_dict.values():
+        raise HTTPException(400, "Invalid Data Provided")
+
+    try:
+
+        user_posting_obj = UserPostingModel(**user_posting_dict)
+        session.add(user_posting_obj)
+        await session.flush()
+        # await session.refresh(user)
+
+    except SQLAlchemyError as exc:
+
+        logger.error("Exception happend %s ", exc)
+        raise HTTPException(400, "Invalid Data Provided")
+
+    return user_posting_obj
 
 
 
