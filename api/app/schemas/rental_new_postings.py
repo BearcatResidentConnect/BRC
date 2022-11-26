@@ -1,124 +1,265 @@
-
-
-    import enum
-
-from sqlalchemy import (
-    Column,
-    ForeignKey,
-    Boolean,
-    Integer,
-    BigInteger,
-    Float,
-    String,
-    DateTime,
-    LargeBinary,
-    Enum,
-    func,
+@router.get(
+    "/user-posting/{user_id}/postings/{posting_id}",
+    response_model=UserPostingOut,
+    status_code=status.HTTP_200_OK,
 )
+async def get_user_posting_by_sis_id_and_posting_id(
+    user_id: int,
+    posting_id: int,
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> UserPostingOut:
 
-from sqlalchemy.orm import relationship
+    """
+    Get Matched Postings by user_id and Posting Id
+    """
 
-from ..database import BaseDb
-
-
-class User(BaseDb):
-
-    __tablename__ = "users"
-
-    user_id = Column(BigInteger, primary_key=True, autoincrement=True, index=True)
-    sid = Column(String(10), unique=True, nullable=True)
-    #
-    user_name = Column(String(255), nullable=False, unique=True, index=True)
-    password = Column(String(255), nullable=False)  # Hashed Password
-    #
-    created = Column(DateTime, nullable=False, default=func.now())
-    updated = Column(DateTime, nullable=False, default=func.now())
-    #
-    # name = Column(String(80), nullable=False)
-    first_name = Column(String(80), nullable=False)
-    last_name = Column(String(80), nullable=False)
-    email = Column(String(120), unique=True, nullable=False)
-    active = Column(Boolean, default=True)
-    # avatar = Column(LargeBinary(length=2048), nullable=True)  # MAx of 2 MB
-    avatar = Column(String(255), nullable=True)  # MAx of 2 MB
-
-    def __init__(self, **kwargs):
-        self.sid = kwargs["sid"]
-        self.user_name = kwargs["user_name"]
-        self.password = kwargs["password"]
-        self.created = kwargs["created"]
-        self.updated = kwargs["updated"]
-        self.first_name = kwargs["first_name"]
-        self.last_name = kwargs["last_name"]
-        self.email = kwargs["email"]
-        self.active = kwargs["active"]
-        self.avatar = kwargs["avatar"]
+    return await _get_user_posting(session, user_id, posting_id)
 
 
-class Address(BaseDb):
+@router.get(
+    "/user-posting/postings/{posting_id}",
+    response_model=UserPostingOut,
+    status_code=status.HTTP_200_OK,
+)
+async def get_user_posting_by_posting_id(
+    posting_id: int,
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> UserPostingOut:
 
-    __tablename__ = "addresses"
+    """
+    Get Matched Posting by Posting Id ALone
+    """
 
-    address_id = Column(BigInteger, primary_key=True, autoincrement=True, index=True)
-    #
-    #user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)
-    address1 = Column(String(255), nullable=False)
-    address2 = Column(String(255), nullable=True)
-    address3 = Column(String(255), nullable=True)
-    city = Column(String(100), nullable=False)
-    state = Column(String(100), nullable=False)
-    country = Column(String(2), nullable=False)
-    default = Column(Boolean, default=False)
-
-    def __init__(self, **kwargs):
-        #self.user_id = kwargs["user_id"]
-        self.address1 = kwargs["address1"]
-        self.address2 = kwargs["address2"]
-        self.address3 = kwargs["address3"]
-        self.city = kwargs["city"]
-        self.state = kwargs["state"]
-        self.country = kwargs["country"]
-        self.default = kwargs["default"]
-
-        class UserPosting(BaseDb):
-
-    __tablename__ = "user_postings"
-
-    posting_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
-    #
-    address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
-    #
-    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)  # FK
-    available_date = Column(DateTime, nullable=True, default=None)
-    accomedation_type = Column(
-        String(10), nullable=False, default="Temporary"
-    )  # Temporary or Permanaent
-    num_days = Column(Integer, nullable=False, default=7)
-
-    def __init__(self, **kwargs):
-        #self.posting_id = kwargs["posting_id"]
-        self.address_id = kwargs["address_id"]
-        self.user_id = kwargs["user_id"]
-        self.available_date = kwargs["available_date"]
-        self.accomedation_type = kwargs["accomedation_type"]
-        self.num_days = kwargs["num_days"]
+    return await _get_posting_by_id_alone(session, posting_id)
 
 
+@router.get(
+    "/user-postings",
+    response_model=List[UserPostingOut],
+    status_code=status.HTTP_200_OK,
+)
+async def get_all_users_postings(
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> List[UserPostingOut]:
 
-class UserAddresses(BaseDb):
+    """
+    Get all Users Postings
+    """
 
-    __tablename__ = "user_addresses"
+    return await _get_all_user_postings(session)
 
-    user_address_id = Column(
-        BigInteger, primary_key=True, autoincrement=True, index=True
+
+# POST API's
+@router.post(
+    "/user-posting", response_model=UserPostingOut, status_code=status.HTTP_201_CREATED
+)
+async def insert_user_posting(
+    user_posting: UserPostingIn,
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> UserPostingOut:
+
+    """
+    Create User if Not found
+    """
+
+    user_posting_dict = user_posting.dict()
+    if "string" in user_posting_dict.values():
+        raise HTTPException(400, "Invalid Data Provided")
+
+    try:
+
+        user_posting_obj = UserPostingModel(**user_posting_dict)
+        session.add(user_posting_obj)
+        await session.flush()
+        # await session.refresh(user)
+
+    except SQLAlchemyError as exc:
+
+        logger.error("Exception happend %s ", exc)
+        raise HTTPException(400, "Invalid Data Provided")
+
+    return user_posting_obj
+
+
+@router.post(
+    "/user-postings",
+    response_model=List[UserPostingOut],
+    status_code=status.HTTP_201_CREATED,
+)
+async def insert_user_postings(
+    user_postings: List[UserPostingIn],
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+) -> List[UserPostingOut]:
+
+    """
+    Insert List of Users at a Time.
+    """
+
+    try:
+
+        user_postings = [
+            UserPostingModel(**user_posting.dict())
+            for user_posting in user_postings
+            if "string" not in user_posting.dict().values()
+        ]
+        # session.bulk_save_objects(user_postings)
+        session.add_all(user_postings)
+        await session.flush()
+
+    except SQLAlchemyError as exc:
+
+        logger.error("Exception happend %s ", exc)
+        raise HTTPException(400, "Invalid Data Provided")
+
+    return user_postings
+
+
+# PUT Methods for Update operations
+@router.put(
+    "/user-posting/{posting_id}",
+    response_model=UserPostingOut,
+    status_code=status.HTTP_201_CREATED,
+)
+async def update_user(
+    user_posting: UserPostingUpdate,
+    session: Session = Depends(get_db_session),
+    super_user_in: SuperUserIn = Depends(get_current_active_user)
+    # user: UserPostingUpdate = Body(embed=True), session: Session = Depends(get_db_session)
+) -> UserPostingOut:
+
+    """
+    Update User data for given body parameters based on user_id \
+
+        *** Only Include Modifiable Parameters ***
+    """
+
+    user_posting_dict = user_posting.dict()
+
+    if "string" in user_posting_dict.values():
+        raise HTTPException(400, "Invalid Data Provided")
+
+    # Fetch User => Update
+    user = await _get_user_postings(session, user_posting_dict["user_id"])
+
+    logger.debug("Fetched User ")
+    for k, v in user_posting_dict.items():
+        if k == "user_id":
+            continue
+        if v:
+            setattr(user, k, v)
+
+    return user
+
+
+# # Delete API
+# @router.delete(
+#     "/user-postings/{posting_id}",
+#     response_model=UserPostingOut,
+#     status_code=status.HTTP_200_OK,
+# )
+# async def delete_user_by_sis_id(
+#     posting_id: int,
+#     session: Session = Depends(get_db_session),
+#     super_user_in: SuperUserIn = Depends(get_current_active_user),
+# ) -> UserPostingOut:
+
+#     """
+#     Delete UserPosting by posting_id
+#     """
+
+#     # Fetch UserPosting => Delete
+#     user_posting = await _get_user_postings(session, posting_id)
+
+#     await session.delete(user_posting)
+
+#     return user_posting
+
+
+# Helper Methods
+async def _get_posting_by_id_alone(session: Session, posting_id: int) -> UserPostingOut:
+
+    """
+    Query DB with given posting_id alone
+    """
+
+    _data = await session.execute(
+        select(UserPostingModel).where(UserPostingModel.posting_id == posting_id)
     )
-    #
-    user_id = Column(BigInteger, ForeignKey("users.user_id"), nullable=False)
-    address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
 
-    def __init__(self, **kwargs):
-        self.user_address_id = kwargs["user_address_id"]
-        self.address_id = kwargs["address_id"]
+    _data = _data.scalar()
+
+    if _data:
+        logger.debug("Fetched User Posting ")
+        return _data
+
+    raise HTTPException(404, "Posting Not Found")
+
+
+async def _get_user_posting(
+    session: Session, user_id: int, posting_id: int
+) -> UserPostingOut:
+
+    """
+    Query DB with given user_id and posting_id
+    """
+
+    _data = await session.execute(
+        select(UserPostingModel).where(
+            UserPostingModel.user_id == user_id,
+            UserPostingModel.posting_id == posting_id,
+        )
+    )
+
+    _data = _data.scalar()
+
+    if _data:
+        logger.debug("Fetched User Posting ")
+        return _data
+
+    raise HTTPException(404, NOT_FOUND_USER_POSTING)
+
+
+async def _get_user_postings(session: Session, user_id: int) -> UserPostingOut:
+
+    """
+    Query DB with given user_id
+    """
+
+    _data = await session.execute(
+        select(UserPostingModel).where(UserPostingModel.user_id == user_id)
+    )
+
+    _data = _data.scalars().all()
+
+    if _data:
+        logger.debug("Fetched User Postings")
+        return _data
+
+    raise HTTPException(404, NOT_FOUND_USER_POSTINGS)
+
+
+async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
+
+    """
+    Query DB for all User Postings
+    """
+
+    _data = await session.execute(
+        select(UserPostingModel).order_by(UserPostingModel.user_id)
+    )
+
+    _data = _data.scalars().all()
+
+    if len(_data):
+        logger.debug("Fetched All Users Postings")
+        return _data
+
+    raise HTTPException(404, NOT_FOUND_USER_POSTINGS)
 
 
 
