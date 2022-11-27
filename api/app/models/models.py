@@ -12,7 +12,7 @@ from sqlalchemy import (
     LargeBinary,
     Enum,
     func,
-    Date
+    Date,
 )
 
 from sqlalchemy.orm import relationship
@@ -26,7 +26,9 @@ class User(BaseDb):
 
     sid = Column(String(10), unique=True, nullable=True)
     #
-    user_name = Column(String(255), nullable=False, unique=True, index=True, primary_key=True)
+    user_name = Column(
+        String(255), nullable=False, unique=True, index=True, primary_key=True
+    )
     password = Column(String(255), nullable=False)  # Hashed Password
     #
     created = Column(DateTime, nullable=False, default=func.now())
@@ -66,7 +68,7 @@ class Address(BaseDb):
     state = Column(String(50), nullable=False)
     country = Column(String(50), nullable=False)
     zipcode = Column(Integer, nullable=False)
-    #default = Column(Boolean, default=False)
+    # default = Column(Boolean, default=False)
 
     def __init__(self, **kwargs):
 
@@ -77,11 +79,11 @@ class Address(BaseDb):
         self.state = kwargs["state"]
         self.country = kwargs["country"]
         self.zipcode = kwargs["zipcode"]
-        #self.default = kwargs["default"]
+        # self.default = kwargs["default"]
 
 
 class PostingAddress(BaseDb):
-    
+
     # Each Posting has 1 Address
 
     __tablename__ = "posting_address"
@@ -120,7 +122,7 @@ class UserPosting(BaseDb):
     num_bedrooms = Column(Integer, nullable=False, default=1)
     num_bathrooms = Column(Integer, nullable=False, default=1)
     approx_rent = Column(Float, nullable=False, default=200.0)
-    #approx_distance = Column(Float, nullable=False, default=1.0)
+    # approx_distance = Column(Float, nullable=False, default=1.0)
     is_pet_friendly = Column(Boolean, default=False)
     parking_available = Column(Boolean, default=False)
 
@@ -136,7 +138,7 @@ class UserPosting(BaseDb):
         self.num_bedrooms = kwargs["num_bedrooms"]
         self.num_bathrooms = kwargs["num_bathrooms"]
         self.approx_rent = kwargs["approx_rent"]
-        #self.approx_distance = kwargs["approx_distance"]
+        # self.approx_distance = kwargs["approx_distance"]
         self.is_pet_friendly = kwargs["is_pet_friendly"]
         self.parking_available = kwargs["parking_available"]
         self.name = kwargs["name"]
@@ -177,8 +179,8 @@ class RentalPosting(BaseDb):
         self.state = kwargs["state"]
         self.country = kwargs["country"]
         self.zipcode = kwargs["zipcode"]
-   
-     
+
+
 class UserApplication(BaseDb):
 
     __tablename__ = "user_applications"
@@ -186,10 +188,28 @@ class UserApplication(BaseDb):
     application_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     #
     user_name = Column(String(255), ForeignKey("users.user_name"), nullable=False)  # FK
-    rental_id = Column(Integer, ForeignKey("rental_postings.rental_id"), nullable=False)  # FK
-    
+    user_email = Column(String(120), nullable=False)
+    #
+    rental_name = Column(String(255), nullable=False)
+    rental_email = Column(String(50), nullable=False)
 
     def __init__(self, **kwargs):
 
         self.user_name = kwargs["user_name"]
-        self.rental_id = kwargs["rental_id"]
+        self.user_email = kwargs["user_email"]
+        #
+        self.rental_name = kwargs["rental_name"]
+        self.rental_email = kwargs["rental_email"]
+
+
+class BrcAnalytics(BaseDb):
+
+    __tablename__ = "brc_analytics"
+
+    a_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    #
+    visted_users_count = Column(BigInteger, nullable=False, default=0)
+
+    def __init__(self, **kwargs):
+
+        self.visted_users_count = kwargs["visted_users_count"]

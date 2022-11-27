@@ -29,3 +29,14 @@ class MailIn(MailBase):
 class MailOut(MailIn):
     pass
 
+class UserApplicationOut(MailBase):
+
+
+    #
+    rental_name: str
+    rental_email: str
+    #
+    user_email: str
+    user_name: str
+    #
+
