@@ -41,6 +41,7 @@ class User(BaseDb):
     active = Column(Boolean, default=True)
     # avatar = Column(LargeBinary(length=2048), nullable=True)  # MAx of 2 MB
     avatar = Column(String(255), nullable=True)  # MAx of 2 MB
+    admin = Column(Boolean, default=True)
 
     def __init__(self, **kwargs):
         self.sid = kwargs["sid"]
@@ -53,6 +54,7 @@ class User(BaseDb):
         self.email = kwargs["email"]
         self.active = kwargs["active"]
         self.avatar = kwargs["avatar"]
+        self.admin = kwargs["admin"]
 
 
 class Address(BaseDb):

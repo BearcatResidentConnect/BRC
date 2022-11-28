@@ -216,7 +216,9 @@ async def basic_login(
         "email" : user.email,
         "firstname" : user.first_name,
         "lastname": user.last_name,
+        "admin" : user.admin,
         "status": "Login Success"
+        
     }
 
 
