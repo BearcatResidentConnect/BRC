@@ -119,7 +119,7 @@ html_body = """
 
 
 def send_email(
-    subject: Union[str, None] = None,
+    subject: str = "Looking for Rentals",
     rental_name: Union[str, None] = None,
     rental_email: Union[str, None] = None,
     user_email: Union[str, None] = None,
