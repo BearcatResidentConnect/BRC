@@ -6,7 +6,7 @@ import { TokenStorageService } from '../../../auth/services/token-storage.servic
 
 @Component({
     selector: 'sb-login',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     templateUrl: './login.component.html',
     styleUrls: ['login.component.scss'],
 })
@@ -44,15 +44,25 @@ export class LoginComponent implements OnInit {
           this.isLoggedIn = true;
           console.log(data.access_token)
           console.log(data.refresh_token)
-          // this.roles = this.tokenStorage.getUser().roles;
+          this.getdetails(username);
           this.myRoute.navigateByUrl('dashboard');
         },
         
         error: err => {
-          this.errorMessage = err.detail;
+          this.errorMessage = err.error.detail;
           this.isLoginFailed = true;
-          console.log(this.errorMessage);
         }
       });
+    }
+    getdetails(username:any){
+      this.authService.getUserDetails(username).subscribe({
+            next: data1 => { console.log(data1, "dgdfg");
+            localStorage.setItem('email',data1.email); 
+            localStorage.setItem('first_name',data1.first_name); 
+            localStorage.setItem('last_name',data1.last_name); 
+            localStorage.setItem('user_name',data1.user_name); 
+            localStorage.setItem('sid',data1.sid); 
+          }
+          });
     }
   }

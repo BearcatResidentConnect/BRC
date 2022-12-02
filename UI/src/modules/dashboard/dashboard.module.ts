@@ -7,8 +7,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
-import { ChartsModule } from '@modules/charts/charts.module';
-import { TablesModule } from '@modules/tables/tables.module';
+import { ProfileModule } from '@modules/profile/profile.module';
+import { NewpropertyModule } from '@modules/newproperty/newproperty.module';
 
 /* Components */
 import * as dashboardComponents from './components';
@@ -30,8 +30,8 @@ import * as dashboardServices from './services';
         FormsModule,
         AppCommonModule,
         NavigationModule,
-        ChartsModule,
-        TablesModule,
+        ProfileModule,
+        NewpropertyModule,
     ],
     providers: [...dashboardServices.services, ...dashboardGuards.guards],
     declarations: [...dashboardContainers.containers, ...dashboardComponents.components],

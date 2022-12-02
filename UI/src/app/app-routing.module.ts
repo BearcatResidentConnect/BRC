@@ -5,12 +5,33 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/dashboard',
+        redirectTo: '/auth/login',
     },
     {
-        path: 'charts',
+        path: 'profile',
         loadChildren: () =>
-            import('modules/charts/charts-routing.module').then(m => m.ChartsRoutingModule),
+            import('@modules/profile/profile-routing.module').then(m => m.ProfileRoutingModule),
+    },
+    {
+        path: 'userlistings',
+        loadChildren: () =>
+            import('modules/userlistings/userlistings-routing.module').then(m => m.UserlistingsRoutingModule),
+    },
+    {
+        path: 'rentallistings',
+        loadChildren: () =>
+            import('modules/rentallistings/rentallistings-routing.module').then(m => m.RentallistingsRoutingModule),
+    },
+
+    {
+        path: 'userlistingsdetail/:id',
+        loadChildren: () =>
+            import('modules/userlistingsdetail/userlistingsdetail-routing.module').then(m => m.UserlistingsdetailRoutingModule),
+    },
+    {
+        path: 'rentallistingsdetail/:id',
+        loadChildren: () =>
+            import('@modules/rentallistingsdetail/rentallistings-routing.module').then(m => m.RentallistingsdetailRoutingModule),
     },
     {
         path: 'dashboard',
@@ -28,6 +49,16 @@ const routes: Routes = [
         path: 'error',
         loadChildren: () =>
             import('modules/error/error-routing.module').then(m => m.ErrorRoutingModule),
+    },
+    {
+        path: 'newproperty',
+        loadChildren: () =>
+            import('modules/newproperty/newproperty-routing.module').then(m => m.NewpropertyRoutingModule),
+    },
+    {
+        path: 'newproperty/:id',
+        loadChildren: () =>
+            import('modules/newproperty/newproperty-routing.module').then(m => m.NewpropertyRoutingModule),
     },
     {
         path: 'version',

@@ -1,112 +1,100 @@
-<h1 align="center">Angular - The modern web developer's platform.</h1>
+# SB Admin Angular
 
-<p align="center">
-  <img src="img/angular.png" alt="angular-logo" width="120px" height="120px"/>
-  <br>
-  <i>Angular is a development platform for building mobile and desktop web applications
-    <br> using Typescript/JavaScript and other languages.</i>
-  <br>
-</p>
+SB Admin Angular is a free and open-sourced Bootstrap themed Angular 9 starter project.
 
-<p align="center">
-  <a href="https://www.angular.io"><strong>www.angular.io</strong></a>
-  <br>
-</p>
+It shares the same project structure and subset of tooling from our professional offering,
+[SB Admin Pro Angular](https://themes.startbootstrap.com/sb-admin-pro-angular/),
+so much of the [SB Admin Pro Angular Documentation](https://docs.startbootstrap.com/sb-admin-pro-angular/quickstart) is applicable.
 
-<p align="center">
-  <a href="CONTRIBUTING.md">Contributing Guidelines</a>
-  ·
-  <a href="https://github.com/angular/angular/issues">Submit an Issue</a>
-  ·
-  <a href="https://blog.angular.io/">Blog</a>
-  <br>
-  <br>
-</p>
+In particular the documentation for [Structure](https://docs.startbootstrap.com/sb-admin-pro-angular/structure-root-level),
+and the documentation for [SBPro Schematics](https://docs.startbootstrap.com/sb-admin-pro-angular/development-general#sb-pro-schematics)
 
-<p align="center">
-  <a href="https://circleci.com/gh/angular/workflows/angular/tree/main">
-    <img src="https://img.shields.io/circleci/build/github/angular/angular/main.svg?logo=circleci&logoColor=fff&label=CircleCI" alt="CI status" />
-  </a>&nbsp;
-  <a href="https://www.npmjs.com/@angular/core">
-    <img src="https://img.shields.io/npm/v/@angular/core.svg?logo=npm&logoColor=fff&label=NPM+package&color=limegreen" alt="Angular on npm" />
-  </a>&nbsp;
-  <a href="https://discord.gg/angular">
-    <img src="https://img.shields.io/discord/463752820026376202.svg?logo=discord&logoColor=fff&label=Discord&color=7389d8" alt="Discord conversation" />
-  </a>
-</p>
+SB Admin Angular comes with a base implementation of navigation and layouts.
 
-<p align="center">
-  <a href="https://app.circleci.com/insights/github/angular/angular/workflows/default_workflow?branch=main">
-    <img src="https://dl.circleci.com/insights-snapshot/gh/angular/angular/main/default_workflow/badge.svg" alt="InsightsSnapshot" />
-  </a>
-</p>
+For professionally designed components (including an advanced SideNav), 100% code coverage,
+starter cypress tests and more, please consider our professional offering:
+[SB Admin Pro Angular](https://themes.startbootstrap.com/sb-admin-pro-angular/)
 
-<hr>
+## Quick Start
 
-## Documentation
-
-Get started with Angular, learn the fundamentals and explore advanced topics on our documentation website.
-
-- [Getting Started][quickstart]
-- [Architecture][architecture]
-- [Components and Templates][componentstemplates]
-- [Forms][forms]
-- [API][api]
-
-### Advanced
-
-- [Angular Elements][angularelements]
-- [Server Side Rendering][ssr]
-- [Schematics][schematics]
-- [Lazy Loading][lazyloading]
-- [Animations][animations]
-
-## Development Setup
-
-### Prerequisites
-
-- Install [Node.js] which includes [Node Package Manager][npm]
-
-### Setting Up a Project
-
-Install the Angular CLI globally:
-
-```
-npm install -g @angular/cli
+```bash
+git clone git@github.com:startbootstrap/sb-admin-angular.git
+cd sb-admin-angular
+npm install
+npm start
 ```
 
-Create workspace:
+`npm start` should open a browser window to <http://localhost:4200>
 
-```
-ng new [PROJECT NAME]
-```
+By default angular runs on port 4200. To change this port you can run:
 
-Run the application:
-
-```
-cd [PROJECT NAME]
-ng serve
+```bash
+# This starts the development server on port 4205,
+# but you can use any port you'd like
+export PORT=4205 && npm start
 ```
 
-Angular is cross-platform, fast, scalable, has incredible tooling, and is loved by millions.
+## Tests
 
-## Quickstart
+### Unit Tests
 
-[Get started in 5 minutes][quickstart].
+```bash
+npm run test
+```
 
-## Ecosystem
+### e2e
 
-<p>
-  <img src="img/angular-ecosystem-logos.png" alt="angular ecosystem logos" width="500px" height="auto">
-</p>
+```bash
+npm run e2e
+```
 
-- [Angular Command Line (CLI)][cli]
-- [Angular Material][angularmaterial]
+## Production
 
-## Changelog
+SB Admin Angular come with a production ready Dockerfile and build scripts.
 
-[Learn about the latest improvements][changelog].
+You can get Docker [here](https://www.docker.com/get-started)
 
-## Upgrading
+```bash
+npm run docker:build
+npm run docker:run
+```
 
-Check out our [upgrade guide](https://update.angular.io/) to find out the best way to upgrade your project.
+## Generate Code
+
+```bash
+npm run generate:module -- --path src/modules --name Test
+npm run generate:component -- --path src/modules/test/containers --name Test
+npm run generate:component -- --path src/modules/test/components --name Test
+npm run generate:directive -- --path src/modules/test/directives --name Test
+npm run generate:service -- --path src/modules/test/services --name Test
+```
+
+_Note: Creating a Component and a Container use the same command,
+the difference is just the paths and how they are used._
+
+### MVCC
+
+Containers and Components are both Angular Components, but used in different ways.
+
+Containers should arrange Components.
+
+Obviously this can become subjective, but MVCC is the paradigm that we subscribe to.
+
+## Troubleshooting
+
+### npm start
+
+If you receive memory issues adjust
+`max_old_space_size` in the `ng` command of the `package.json`:
+
+```json
+"ng": "cross-env NODE_OPTIONS=--max_old_space_size=2048 ./node_modules/.bin/ng",
+```
+
+You can adjust 2048 to any number you need.
+
+For more information about why you may need `--max_old_space_size`
+see [this article](https://medium.com/@ashleydavis75/node-js-memory-limitations-30d3fe2664c0).
+
+Keep in mind that this project only uses node to build the angular application.
+There is no production dependency on node.

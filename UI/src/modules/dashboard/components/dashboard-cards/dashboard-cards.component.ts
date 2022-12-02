@@ -9,4 +9,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 export class DashboardCardsComponent implements OnInit {
     constructor() {}
     ngOnInit() {}
+
+     name = localStorage.getItem('first_name')
 }

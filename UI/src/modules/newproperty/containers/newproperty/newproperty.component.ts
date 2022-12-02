@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { newpropertyService } from '../../services/newproperty.service';
 
 @Component({
@@ -9,6 +10,10 @@ import { newpropertyService } from '../../services/newproperty.service';
     styleUrls: ['newproperty.component.scss'],
 })
 export class NewpropertyComponent implements OnInit {
+
+  rentalid :any;
+  rentallisting: any;
+
     form = {
         "user_name": "string",
         "accomedation_type": "Temporary",
@@ -52,8 +57,14 @@ export class NewpropertyComponent implements OnInit {
     country:any;
     zipcode:any;
     name: any;
-    constructor( private newpropertyService : newpropertyService, private datePipe: DatePipe) {}
-    ngOnInit() {}
+    constructor( private newpropertyService : newpropertyService, private datePipe: DatePipe, private route: ActivatedRoute) {}
+    ngOnInit() {
+      this.rentalid = this.route.snapshot.params.id;
+      this.newpropertyService.getUserrental(this.rentalid,this.user_name).subscribe((data: any) => {
+        this.rentallisting = data;
+        console.log(this.rentallisting, "user listing detils");
+    });
+    }
     onSubmit(): void {
         this.form = {
             "user_name": this.user_name,
@@ -83,5 +94,7 @@ export class NewpropertyComponent implements OnInit {
             this.newpropertyService.postPropertydetails(this.form).subscribe({ 
                 next: postingproperty => { console.log(postingproperty, "postingproperty");}
             });
+
+            alert("New property details added successfully")
     }
 }

@@ -8,7 +8,7 @@
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                     <div class="card-body">
-                        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
                             <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group">
@@ -123,7 +123,7 @@
                               </div>
                             </div>
                             <div class="form-group">
-                              <button class="btn btn-primary btn-block">Sign Up</button>
+                              <button class="btn btn-block btn-outline-primary " [disabled]="f.invalid">Sign Up</button>
                             </div>
                     
                             <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">

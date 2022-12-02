@@ -17,7 +17,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: newpropertyContainers.NewpropertyComponent,
         data: {
-            title: 'BRC - Bearcat Resident Connect',
+            title: 'New Property',
             breadcrumbs: [
                 {
                     text: 'Dashboard',

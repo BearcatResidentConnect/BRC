@@ -36,6 +36,10 @@ export class AuthService {
         const headers = new HttpHeaders({ enctype: 'multipart/form-data' });
         return this.http.post(AUTH_API + '/users/auth/token', formData, { headers });
     }
+    getUserDetails(user_name: string): Observable<any> {
+      return this.http.get(AUTH_API + '/users/'+  user_name ) 
+      
+    }
 
     register(
         user_name: string,

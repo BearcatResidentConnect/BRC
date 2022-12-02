@@ -13,4 +13,9 @@ export class newpropertyService {
       return this.http.post<any>(API_URL + "/user-posting", formdetails);
 
     }
+
+    getUserrental(rental_id:any, user_name:any): Observable<any> {
+      return this.http.get(API_URL + '/user-posting/' + user_name + '/postings/' + rental_id ) 
+      
+    }
 }
