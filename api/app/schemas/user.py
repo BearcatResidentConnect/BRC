@@ -29,6 +29,7 @@ class UserIn(BaseModel):
     email: str
     active: bool = True
     avatar: Union[str, None] = "ABCDEFGHIJKLMNOPQRSTUVWXY"
+    admin: bool = False
 
     class Config:
         orm_mode = True
@@ -41,6 +42,7 @@ class UserOut(BaseModel):
     last_name: str
     email: str
     sid: Union[str, None] = None
+    admin: bool
 
 
     class Config:

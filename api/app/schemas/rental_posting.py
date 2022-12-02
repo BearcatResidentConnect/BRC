@@ -19,7 +19,7 @@ class RentalPostingIn(RentalPostingBase):
     phone: int
     email: str
     #
-    website: Union[str, None] = None
+    website: str = "www.google.com"
     #
     address1: str
     address2: Union[str, None] = None
