@@ -1,4 +1,5 @@
 import logging
+import datetime
 
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
@@ -73,6 +74,7 @@ async def insert_mail(
 
         del mail_in["subject"]
         del mail_in["body"]
+        mail_in["applied_date"] = datetime.datetime.now().date()
         user_application = UserApplicationModel(**mail_in)
         session.add(user_application)
         await session.flush()
@@ -118,7 +120,7 @@ async def get_all_applications(
     Get all Users Submitted Applications
     """
 
-    return await _get_user_appliactions(session)
+    return await _get_user_appliactions(session, user_name)
 
 
 async def _get_user_appliactions(
@@ -130,15 +132,17 @@ async def _get_user_appliactions(
     """
 
     if user_name:
+        print("**********************************", user_name)
         _data = await session.execute(
             select(UserApplicationModel).filter(
                 UserApplicationModel.user_name == user_name
             )
         )
 
-    _data = await session.execute(
-        select(UserApplicationModel).order_by(UserApplicationModel.application_id)
-    )
+    else:
+        _data = await session.execute(
+            select(UserApplicationModel).order_by(UserApplicationModel.application_id)
+        )
 
     _data = _data.scalars().all()
 
