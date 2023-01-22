@@ -194,6 +194,7 @@ class UserApplication(BaseDb):
     #
     rental_name = Column(String(255), nullable=False)
     rental_email = Column(String(50), nullable=False)
+    applied_date = Column(Date, nullable=False)
 
     def __init__(self, **kwargs):
 
@@ -202,6 +203,7 @@ class UserApplication(BaseDb):
         #
         self.rental_name = kwargs["rental_name"]
         self.rental_email = kwargs["rental_email"]
+        self.applied_date = kwargs["applied_date"]
 
 
 class BrcAnalytics(BaseDb):
