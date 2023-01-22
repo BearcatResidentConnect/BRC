@@ -26,7 +26,7 @@
     background-color: #ffffff;
     border-color: #f5c6cb;
 }
-.alert { 
+.alert {
     border: 0px solid transparent;
 }
 
@@ -82,7 +82,7 @@
     font-weight: 500;
     line-height: 1;
     text-align: center;
-    white-space: nowrap;
+    white-space: nowrap; 
     vertical-align: baseline;
     border-radius: 3px;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -100,13 +100,13 @@ button:disabled {
   }
 
 .media-body {
-   
+
     flex: 0.5 !important;
-}    
+}
 .tbbb{
-    width: 45%; 
+    width: 45%;
 }
 
 .tccc{
-    width: 20%; 
+    width: 20%;
 }
