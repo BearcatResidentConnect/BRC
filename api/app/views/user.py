@@ -251,7 +251,7 @@ async def _get_all_users(session: Session) -> List[UserOut]:
     """
     Query DB for all User's
     """
-
+## READ OPERATION
     _data = await session.execute(select(UserModel).order_by(UserModel.user_id))
 
     _data = _data.scalars().all()
