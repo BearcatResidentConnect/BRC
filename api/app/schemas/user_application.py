@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 from datetime import datetime
-from typing import Union, List, Optional
+from typing import Union, List, Optional, Any
 from .common import CommonAddressInOut
 
 
@@ -39,4 +39,5 @@ class UserApplicationOut(MailBase):
     user_email: str
     user_name: str
     #
+    applied_date: Any
 
