@@ -11,7 +11,7 @@
                     <input type="text" class="form-control form-control-md" [ngModel]="user_name"  id="username" name="username" disabled/>
                 </div>
                 <div class="form-group col-md-6 px-4">
-                    <label for="sid" class="text-heading">SID </label>
+                    <label for="sid" class="text-heading">SID</label>
                     <input type="text" class="form-control form-control-md" [ngModel]="userDetails.sid"  id="sid" name="sid" disabled/>
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="form-row mx-n4">
                 <div class="form-group col-md-6 px-4 mb-md-0">
                     <label for="email" class="text-heading">Email</label>
-                    <input type="email" class="form-control form-control-md" [(ngModel)]="userDetails.email" id="email" name="email" required
+                    <input type="email" class="form-control form-control-md" [(ngModel)]="userDetails.email" id="email" name="email" required 
                     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
                     <div class="alert-danger" *ngIf="email.errors && f.submitted">
                         <div *ngIf="email.errors['required']">Email is required</div>
@@ -38,12 +38,12 @@
                       </div>
                 </div>
             </div>
-
+           
             <div class="d-flex justify-content-end flex-wrap pt-3">
                 <button class="btn btn-outline-primary mr-0" [disabled]="nf.invalid">Update</button>
             </div>
             </form>
         </div>
-
+        
     </sb-card>
 </sb-layout-dashboard>
