@@ -190,7 +190,7 @@ async def insert_user_posting(
 @router.put(
     "/user-posting",
     # response_model=UserPostingOut,
-    status_code=status.HTTP_204_NO_CONTENT,
+    status_code=status.HTTP_201_CREATED,
 )
 async def update_user(
     user_posting: UserPostingUpdate,
