@@ -15,6 +15,6 @@ async def test_login():
     async with AsyncClient(app=app, base_url="http://login") as ac:
         response = await ac.post("/api/users/auth", json=data)
 
-    assert response.status_code == 401
-    # assert response.json() == {"username":"test"}
+    assert response.status_code == 200
+  
     
