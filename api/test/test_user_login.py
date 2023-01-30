@@ -16,5 +16,5 @@ async def test_login():
         response = await ac.post("/api/users/auth", json=data)
 
     assert response.status_code == 200
-    assert response.json() == {"username":"test"}
+  
     

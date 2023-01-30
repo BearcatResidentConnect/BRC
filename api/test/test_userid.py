@@ -3,17 +3,26 @@ import pytest
 from httpx import AsyncClient
 
 from ..app.main import app
+from fastapi.testclient import TestClient
 
+
+client = TestClient(app)
 
 @pytest.mark.asyncio
-async def test_get_user_postings_by_sis_id():
-    data = {
-        "user_id":"userId",
-         
-    }
-    
-    async with AsyncClient(app=app, base_url="/user-postings/{user_id}") as ac:
-        response = await ac.post("/api/users/user_postings", json=data)
+async def test_get_all_users():
+        response = client.get("/api/users/1")
+        assert response.status_code == 200
+        assert response.json() == {"user_name":"michael","first_name":"manikanta",
+        "last_name":"gaddameda","email":"manikanta1@gmail.com"}
 
-    assert response.status_code == 200
-    assert response.json() == {"user_id":"userId"}
+@pytest.mark.asyncio
+async def test_get_all_users():
+        response = client.get("/api/users/")
+        assert response.status_code == 200
+        
+        
+    
+    
+    
+
+   
