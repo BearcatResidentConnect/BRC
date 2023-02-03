@@ -12,6 +12,18 @@ After downloading and setting up your Python environment run below commands to s
 3. *`source ./{your_venv_name}/bin/activate`* # Activating Virtual environment in Linux or MAC
 4. *`python -m pip install -r ~/BRC/api/requirements.txt`* # To install all Python dependencies for the project
 
+## Setting Up your local Database Environment
+
+### DB creation
+1. drop database <db_name>; # if you have already or skip this step
+2. create database <db_name>;
+3. DATABASE_URL = "mysql+aiomysql://root:1234@localhost/<db_name>"  add your db path in .env
+4. delete files from ~BRC/api/app/migrations/versions
+### python db migration manager commands
+5. alembic upgrade head             
+6. alembic revision --autogenerate
+7. alembic upgrade head
+
 ## Running `FastAPI`'s API Server using `Uvicorn` *ASGI* Server
 
 - _cd ~/api_
