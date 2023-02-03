@@ -22,7 +22,7 @@ class MailIn(MailBase):
     user_email: str
     user_name: str
     #
-    body: Union[str, None] = None
+    #body: Union[str, None] = None
     #sender_name: Union[bool, None] = None
 
 
