@@ -54,7 +54,7 @@ app.include_router(user_application.router)
 # ***********************************************
 
 
-@app.get("/health", tags=["Heart Beat"])
+@app.get("/api/health", tags=["Heart Beat"])
 async def health():
     """
     Health Check API
