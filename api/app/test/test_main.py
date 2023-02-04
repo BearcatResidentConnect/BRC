@@ -1,22 +1,29 @@
 
-from fastapi.testclient import TestClient
 
-from ..main import app
+import requests
+import pytest
+import asyncio
 
-client = TestClient(app)
+BASE_URL = "http://localhost:5000"
 
-def test_read_main():
-    response = client.get("/health")
+@pytest.mark.asyncio
+async def test_health():
+    response = requests.get(f"{BASE_URL}/health")
     assert response.status_code == 200
-    assert response.json() == {
+    assert response.json() ==  {
         "message": "Go Bearcats!! Welcome to Bearcat Resident Connect",
-        "Status": "Server Running 😊",
-    }
-    
-def test_read_main1():
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json() == {
+        "Status": "Server Running 😊"
+        }
+@pytest.mark.asyncio
+async def test_health_neg():
+    response = requests.get(f"{BASE_URL}/health")
+    assert response.status_code != 404
+    assert response.json() ==  {
         "message": "Go Bearcats!! Welcome to Bearcat Resident Connect",
-        "Status": "Server Runnin",
-    }
+        "Status": "Server Running 😊"
+        }
+
+# @pytest.mark.asyncio
+# async def test_users404():
+#     response = requests.get(f"{BASE_URL}/api/users")
+#     assert response.status_code != 404
