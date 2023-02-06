@@ -127,6 +127,7 @@ class UserPosting(BaseDb):
     # approx_distance = Column(Float, nullable=False, default=1.0)
     is_pet_friendly = Column(Boolean, default=False)
     parking_available = Column(Boolean, default=False)
+    description = Column(String(255), nullable=True, default="NA")  # FK
 
     def __init__(self, **kwargs):
         # self.posting_id = kwargs["posting_id"]

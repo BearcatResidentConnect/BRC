@@ -31,6 +31,7 @@ class UserPostingIn(UserPostingBase):
     parking_available: bool = False
     #
     address: CommonAddressInOut
+    description: str = "NA"
 
 
 class UserPostingOut(BaseModel):

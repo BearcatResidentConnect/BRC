@@ -126,7 +126,7 @@ async def insert_user_posting(
     user_posting: UserPostingIn,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> UserPostingOut:
+) -> None:
 
     """
     Create User Posting. if Not found
@@ -138,20 +138,23 @@ async def insert_user_posting(
 
     try:
         address = user_posting_dict["address"]
+        #print("address", address)
         address_obj = await _post_address(session, address)
         address_id = address_obj.address_id
         del user_posting_dict["address"]
         user_posting_dict["address_id"] = address_id
+        #print("user_posting_dict", user_posting_dict)
         user_posting_obj = UserPostingModel(**user_posting_dict)
         session.add(user_posting_obj)
         await session.flush()
         await session.refresh(user_posting_obj)
 
     except SQLAlchemyError as exc:
+        #print("EXCEPTIOMMMMMMMMMMMMMMM ", exc)
         logger.error("Exception happend %s ", exc)
         raise HTTPException(400, "Invalid Data Provided")
 
-    return user_posting_obj
+    #return user_posting_obj
 
 
 # @router.post(
@@ -449,7 +452,7 @@ async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
         _data = parse_obj_as(List[UserPostingOut], _data)
 
         if len(_data):
-            logger.debug("Fetched All Users Postings", _data)
+            #logger.debug("Fetched All Users Postings", _data)
             return _data
     except Exception as e:
         print("*************** ", e)
