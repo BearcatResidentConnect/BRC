@@ -11,6 +11,8 @@ from fastapi import APIRouter, status, Depends, HTTPException
 
 from ..database import get_db_session
 
+from pydantic import parse_obj_as
+
 from ..models.models import (
     UserPosting as UserPostingModel,
     PostingAddress as PostingAddressModel,
@@ -44,7 +46,7 @@ router = APIRouter(
 # GET API's
 @router.get(
     "/user-postings/{user_name}",
-    # response_model=List[UserPostingOut],
+    response_model=List[UserPostingOut],
     status_code=status.HTTP_200_OK,
 )
 async def get_user_postings_by_user_name(
@@ -62,7 +64,7 @@ async def get_user_postings_by_user_name(
 
 @router.get(
     "/user-posting/{user_name}/postings/{posting_id}",
-    #response_model=UserPostingOut,
+    response_model=UserPostingOut,
     status_code=status.HTTP_200_OK,
 )
 async def get_user_posting_by_user_name_and_posting_id(
@@ -81,7 +83,7 @@ async def get_user_posting_by_user_name_and_posting_id(
 
 @router.get(
     "/user-posting/postings/{posting_id}",
-    # response_model=UserPostingOut,
+    response_model=UserPostingOut,
     status_code=status.HTTP_200_OK,
 )
 async def get_user_posting_by_posting_id(
@@ -99,13 +101,13 @@ async def get_user_posting_by_posting_id(
 
 @router.get(
     "/user-postings",
-    # response_model=List[UserPostingOut],
+    response_model=List[UserPostingOut],
     status_code=status.HTTP_200_OK,
 )
 async def get_all_users_postings(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> List[UserPostingOut]:
+)-> List[UserPostingOut]:
 
     """
     Get all Users Postings
@@ -261,13 +263,37 @@ async def _get_posting_by_id_alone(session: Session, posting_id: int) -> UserPos
 
     try:
         _data = await session.execute(
-            select(UserPostingModel, AddressModel)
+            select(
+                UserPostingModel.name,
+                UserPostingModel.accomedation_type,
+                UserPostingModel.available_date,
+                UserPostingModel.posting_id,
+                UserPostingModel.num_days,
+                UserPostingModel.accomedated_date,
+                UserPostingModel.num_people,
+                UserPostingModel.num_people_living,
+                UserPostingModel.num_bedrooms,
+                UserPostingModel.approx_rent,
+                UserPostingModel.num_bathrooms,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.parking_available,
+                AddressModel.address1.label("address1"),
+                AddressModel.address2.label("address2"),
+                AddressModel.address3.label("address3"),
+                AddressModel.city.label("city"),
+                AddressModel.state.label("state"),
+                AddressModel.country.label("country"),
+                AddressModel.zipcode.label("zipcode")
+                )
             .select_from(UserPostingModel)
             .join(AddressModel)
             .filter(UserPostingModel.posting_id == posting_id)
         )
 
         _data = _data.one()
+        
+        _data = parse_obj_as(UserPostingOut, _data)
 
         if _data:
             logger.debug("Fetched User Posting ")
@@ -288,7 +314,29 @@ async def _get_user_posting(
     """
     try:
         _data = await session.execute(
-            select(UserPostingModel, AddressModel)
+            select(
+                UserPostingModel.name,
+                UserPostingModel.accomedation_type,
+                UserPostingModel.available_date,
+                UserPostingModel.posting_id,
+                UserPostingModel.num_days,
+                UserPostingModel.accomedated_date,
+                UserPostingModel.num_people,
+                UserPostingModel.num_people_living,
+                UserPostingModel.num_bedrooms,
+                UserPostingModel.approx_rent,
+                UserPostingModel.num_bathrooms,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.parking_available,
+                AddressModel.address1.label("address1"),
+                AddressModel.address2.label("address2"),
+                AddressModel.address3.label("address3"),
+                AddressModel.city.label("city"),
+                AddressModel.state.label("state"),
+                AddressModel.country.label("country"),
+                AddressModel.zipcode.label("zipcode")
+                )
             .select_from(UserPostingModel)
             .join(AddressModel)
             .filter(
@@ -298,6 +346,8 @@ async def _get_user_posting(
         )
 
         _data = _data.one()
+        
+        _data = parse_obj_as(UserPostingOut, _data)
 
         if _data:
             logger.debug("Fetched User Posting ")
@@ -317,14 +367,38 @@ async def _get_user_postings(session: Session, user_name: str) -> UserPostingOut
 
     try:
         _data = await session.execute(
-            select(UserPostingModel, AddressModel)
+            select(
+                UserPostingModel.name,
+                UserPostingModel.accomedation_type,
+                UserPostingModel.available_date,
+                UserPostingModel.posting_id,
+                UserPostingModel.num_days,
+                UserPostingModel.accomedated_date,
+                UserPostingModel.num_people,
+                UserPostingModel.num_people_living,
+                UserPostingModel.num_bedrooms,
+                UserPostingModel.approx_rent,
+                UserPostingModel.num_bathrooms,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.parking_available,
+                AddressModel.address1.label("address1"),
+                AddressModel.address2.label("address2"),
+                AddressModel.address3.label("address3"),
+                AddressModel.city.label("city"),
+                AddressModel.state.label("state"),
+                AddressModel.country.label("country"),
+                AddressModel.zipcode.label("zipcode")
+                )
             .select_from(UserPostingModel)
             .join(AddressModel)
             .filter(UserPostingModel.user_name == user_name)
         )
 
         _data = _data.all()
-
+        
+        _data = parse_obj_as(List[UserPostingOut], _data)
+        
         if _data:
             logger.debug("Fetched User Postings")
             return _data
@@ -340,19 +414,45 @@ async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
     """
     Query DB for all User Postings
     """
+
     try:
         _data = await session.execute(
-            select(UserPostingModel, AddressModel)
+            select(
+                UserPostingModel.name,
+                UserPostingModel.accomedation_type,
+                UserPostingModel.available_date,
+                UserPostingModel.posting_id,
+                UserPostingModel.num_days,
+                UserPostingModel.accomedated_date,
+                UserPostingModel.num_people,
+                UserPostingModel.num_people_living,
+                UserPostingModel.num_bedrooms,
+                UserPostingModel.approx_rent,
+                UserPostingModel.num_bathrooms,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.parking_available,
+                AddressModel.address1.label("address1"),
+                AddressModel.address2.label("address2"),
+                AddressModel.address3.label("address3"),
+                AddressModel.city.label("city"),
+                AddressModel.state.label("state"),
+                AddressModel.country.label("country"),
+                AddressModel.zipcode.label("zipcode")
+                )
             .select_from(UserPostingModel)
             .join(AddressModel)
         )
 
         _data = _data.all()
+        
+        _data = parse_obj_as(List[UserPostingOut], _data)
 
         if len(_data):
-            logger.debug("Fetched All Users Postings")
+            logger.debug("Fetched All Users Postings", _data)
             return _data
     except Exception as e:
+        print("*************** ", e)
         logger.error("No Records Found")
 
     raise HTTPException(404, NOT_FOUND_USER_POSTINGS)
