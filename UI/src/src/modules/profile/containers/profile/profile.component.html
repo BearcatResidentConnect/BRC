@@ -1,0 +1,49 @@
+<sb-layout-dashboard>
+    <sb-dashboard-head title="Update Profile" [hideBreadcrumbs]="false"></sb-dashboard-head>
+    <sb-card>
+        <div class="card-body">
+            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Contact information</h3>
+            <!-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p> -->
+            <form *ngIf="!isSuccessful" name="form" (ngSubmit)="nf.form.valid && onSubmit()" #nf="ngForm">
+             <div class="form-row mx-n4">
+                <div class="form-group col-md-6 px-4">
+                    <label for="username" class="text-heading">Username</label>
+                    <input type="text" class="form-control form-control-md" [ngModel]="user_name"  id="username" name="username" disabled/>
+                </div>
+                <div class="form-group col-md-6 px-4">
+                    <label for="sid" class="text-heading">SID</label>
+                    <input type="text" class="form-control form-control-md" [ngModel]="userDetails.sid"  id="sid" name="sid" disabled/>
+                </div>
+            </div>
+            <div class="form-row mx-n4">
+                <div class="form-group col-md-6 px-4">
+                    <label for="phone" class="text-heading">FirstName</label>
+                    <input type="text" class="form-control form-control-md" [(ngModel)]="userDetails.first_name" id="first_name" name="first_name" />
+                </div>
+                <div class="form-group col-md-6 px-4">
+                    <label for="mobile" class="text-heading">LastName</label>
+                    <input type="text" class="form-control form-control-md" [(ngModel)]="userDetails.last_name" id="last_name" name="last_name" />
+                </div>
+            </div>
+            <div class="form-row mx-n4">
+                <div class="form-group col-md-6 px-4 mb-md-0">
+                    <label for="email" class="text-heading">Email</label>
+                    <input type="email" class="form-control form-control-md" [(ngModel)]="userDetails.email" id="email" name="email" required 
+                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
+                    <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                        <div *ngIf="email.errors['required']">Email is required</div>
+                        <div *ngIf="email.errors && email.pattern">
+                          Email must be a valid email address
+                        </div>
+                      </div>
+                </div>
+            </div>
+           
+            <div class="d-flex justify-content-end flex-wrap pt-3">
+                <button class="btn btn-outline-primary mr-0" [disabled]="nf.invalid">Update</button>
+            </div>
+            </form>
+        </div>
+        
+    </sb-card>
+</sb-layout-dashboard>
