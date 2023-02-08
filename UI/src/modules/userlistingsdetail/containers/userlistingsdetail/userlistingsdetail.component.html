@@ -6,18 +6,18 @@
             <section class="pb-7 border-bottom" >
                 <ul class="list-inline d-sm-flex align-items-sm-center mb-2">
                     <li class="list-inline-item badge badge-orange mr-2">Avialble</li>
-                    <li class="list-inline-item badge badge-primary mr-3">{{userlisting?.UserPosting?.accomedation_type}}</li>
+                    <li class="list-inline-item badge badge-primary mr-3">{{userlisting?.accomedation_type}}</li>
                     <li class="list-inline-item mr-2 mt-2 mt-sm-0"><i class="fal fa-clock mr-1"></i>1 months ago</li>
 
                 </ul>
                 <div class="d-sm-flex justify-content-sm-between">
                     <div>
-                        <h2 class="fs-35 font-weight-600 lh-15 text-heading">{{userlisting?.UserPosting?.name}}</h2>
-                        <p class="mb-0"><i class="fal fa-map-marker-alt mr-2"></i>{{userlisting?.Address?.address1}}{{userlisting?.Address?.city}}</p>
+                        <h2 class="fs-35 font-weight-600 lh-15 text-heading">{{userlisting?.name}}</h2>
+                        <p class="mb-0"><i class="fal fa-map-marker-alt mr-2"></i>{{userlisting?.address1}}{{userlisting?.city}}</p>
                     </div>
                     <div class="mt-2 text-lg-right">
                         <!-- <p class="fs-22 text-heading font-weight-bold mb-0">${{userlisting?.UserPosting?.approx_rent}}</p> -->
-                        <p class="mb-0">${{userlisting?.UserPosting?.approx_rent}}/SqFt</p>
+                        <p class="mb-0">${{userlisting?.approx_rent}}/SqFt</p>
                     </div>
                 </div>
                 <h4 class="fs-22 text-heading mt-6 mb-2">Description</h4>

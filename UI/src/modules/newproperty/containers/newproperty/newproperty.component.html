@@ -10,7 +10,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="name" class="text-heading">Property name*</label>
                         <input type="text" class="form-control form-control-md" required #nam="ngModel" name="nam" 
-                        [(ngModel)]="name"    minlength="3" maxlength="20">
+                        [(ngModel)]="name"    minlength="3" maxlength="30">
                         <div class="alert-danger" *ngIf="nam.errors && nf.submitted">
                             <div *ngIf="nam.errors['required']">Property Name is required</div>
                             <div *ngIf="nam.errors['minlength']">

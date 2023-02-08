@@ -4,6 +4,7 @@
 
 export const environment = {
     production: false,
+    basePath: 'http://192.168.1.23:5000/api'
 };
 
 /*
