@@ -1,0 +1,112 @@
+// Import Custom Variables
+@import "variables.scss";
+
+// Import Bootstrap
+@import "bootstrap/scss/bootstrap.scss";
+
+// Import Custom SCSS
+@import "global.scss";
+
+// Layout
+@import "layout/authentication.scss";
+@import "layout/dashboard-default.scss";
+@import "layout/dashboard-fixed.scss";
+@import "layout/error.scss";
+
+// Navigation
+@import "navigation/nav.scss";
+@import "navigation/topnav.scss";
+@import "navigation/sidenav/sidenav.scss";
+@import "navigation/sidenav/sidenav-dark.scss";
+@import "navigation/sidenav/sidenav-light.scss";
+
+
+.alert-danger {
+    color: #fa0019;
+    background-color: #ffffff;
+    border-color: #f5c6cb;
+}
+.alert { 
+    border: 0px solid transparent;
+}
+
+*{
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 5px;
+    padding: 2.25rem;
+}
+.dropdown-header {
+   cursor: pointer;
+}
+.dropdown-item{
+    cursor: pointer;
+ }
+#userDropdown span{
+    padding: 8px;
+}
+
+
+.badge-yellow {
+    background-color: rgba(246,181,0,.06);
+    border: 1px solid rgba(246,181,0,.2);
+    color: #f6b500;
+}
+
+.badge {
+    line-height: 1.15;
+    letter-spacing: .87px;
+    text-transform: uppercase;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #eee;
+}
+
+
+
+.badge-orange {
+    color: #fff;
+    background-color: #ff6935;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 8px;
+    font-size: .8125rem;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 3px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.badge {
+    line-height: 1.15;
+    letter-spacing: .87px;
+    text-transform: uppercase;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
+
+.media-body {
+   
+    flex: 0.5 !important;
+}    
+.tbbb{
+    width: 45%; 
+}
+
+.tccc{
+    width: 20%; 
+}

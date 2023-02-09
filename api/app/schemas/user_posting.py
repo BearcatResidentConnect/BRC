@@ -31,6 +31,7 @@ class UserPostingIn(UserPostingBase):
     parking_available: bool = False
     #
     address: CommonAddressInOut
+    description: str = "NA"
 
 
 class UserPostingOut(BaseModel):
@@ -49,6 +50,14 @@ class UserPostingOut(BaseModel):
     # approx_distance: float
     is_pet_friendly: bool
     parking_available: bool
+    #
+    address1: str
+    address2: str
+    address3: str
+    city: str
+    state: str
+    country: str
+    zipcode: int
 
     class Config:
         orm_mode = True

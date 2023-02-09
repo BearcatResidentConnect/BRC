@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {environment} from 'environments/environment';
 
-const AUTH_API = 'http://127.0.0.1:5000/api';
+// const AUTH_API = 'http://18.207.93.25:5000/api';
+// const AUTH_API  = 'http://192.168.1.23:5000/api';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -34,10 +36,10 @@ export class AuthService {
         formData.append('password', password);
 
         const headers = new HttpHeaders({ enctype: 'multipart/form-data' });
-        return this.http.post(AUTH_API + '/users/auth/token', formData, { headers });
+        return this.http.post(environment.basePath + '/users/auth/token', formData, { headers });
     }
     getUserDetails(user_name: string): Observable<any> {
-      return this.http.get(AUTH_API + '/users/'+  user_name ) 
+      return this.http.get(environment.basePath + '/users/'+  user_name ) 
       
     }
 
@@ -50,7 +52,7 @@ export class AuthService {
         password: string
     ): Observable<any> {
         return this.http.post(
-            AUTH_API + '/user',
+            environment.basePath + '/user',
             {
                 user_name,
                 sid,
