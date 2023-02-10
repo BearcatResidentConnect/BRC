@@ -22,8 +22,3 @@ async def test_health_neg():
         "message": "Go Bearcats!! Welcome to Bearcat Resident Connect",
         "Status": "Server Running 😊"
         }
-
-# @pytest.mark.asyncio
-# async def test_users404():
-#     response = requests.get(f"{BASE_URL}/api/users")
-#     assert response.status_code != 404
