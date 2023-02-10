@@ -31,3 +31,8 @@ async def test_users_with_user():
     user_name = "mani"
     response = requests.get(f"{BASE_URL}/api/users/{user_name}")
     assert response.status_code == 200
+
+@pytest.mark.asyncio
+async def test_users404_neg():
+    response = requests.get(f"{BASE_URL}/api/user")
+    assert response.status_code == 404
