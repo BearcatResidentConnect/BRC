@@ -33,6 +33,12 @@ async def test_users_with_user():
     assert response.status_code == 200
 
 @pytest.mark.asyncio
+<<<<<<< Updated upstream
 async def test_users404_neg():
     response = requests.get(f"{BASE_URL}/api/user")
+=======
+async def test_users_with_user_neg():
+    user_name = "Ravi"
+    response = requests.get(f"{BASE_URL}/api/users/{user_name}")
+>>>>>>> Stashed changes
     assert response.status_code == 404
