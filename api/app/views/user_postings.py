@@ -150,7 +150,7 @@ async def insert_user_posting(
         await session.refresh(user_posting_obj)
 
     except SQLAlchemyError as exc:
-        #print("EXCEPTIOMMMMMMMMMMMMMMM ", exc)
+        print("EXCEPTIOMMMMMMMMMMMMMMM ", exc)
         logger.error("Exception happend %s ", exc)
         raise HTTPException(400, "Invalid Data Provided")
 
