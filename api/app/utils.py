@@ -6,6 +6,8 @@
 import logging
 
 from datetime import datetime, timedelta
+from dateutil.tz import tzlocal
+from dateutil import parser
 from typing import Union, List
 
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -170,3 +172,19 @@ def send_email(
     except Exception as e:
         # print("EXCEPTIONnnnnnnnnnnnnnnnn ", e)
         return False
+    
+def get_utc_to_local(utc_datetime: datetime):
+    
+    iso_datetime_utc = parser.isoparse(utc_datetime)
+    utc_date = str(iso_datetime_utc.date())
+    utc_time = str(iso_datetime_utc.time())
+    
+    local_time = str(iso_datetime_utc.astimezone(tzlocal()).time())
+    local_date = str(iso_datetime_utc.astimezone(tzlocal()).date())
+    
+    return {
+        "utc_date" : utc_date,
+        "utc_time" : utc_time,
+        "local_time" : local_time,
+        "local_date" : local_date     
+    }
