@@ -287,6 +287,7 @@ async def _get_posting_by_id_alone(session: Session, posting_id: int) -> UserPos
                 UserPostingModel.is_pet_friendly,
                 UserPostingModel.is_pet_friendly,
                 UserPostingModel.parking_available,
+                UserPostingModel.description,
                 #
                 AddressModel.address1.label("address1"),
                 AddressModel.address2.label("address2"),
@@ -345,6 +346,7 @@ async def _get_user_posting(
                 UserPostingModel.is_pet_friendly,
                 UserPostingModel.is_pet_friendly,
                 UserPostingModel.parking_available,
+                UserPostingModel.description,
                 #
                 AddressModel.address1.label("address1"),
                 AddressModel.address2.label("address2"),
@@ -405,6 +407,7 @@ async def _get_user_postings(session: Session, user_name: str) -> UserPostingOut
                 UserPostingModel.is_pet_friendly,
                 UserPostingModel.is_pet_friendly,
                 UserPostingModel.parking_available,
+                UserPostingModel.description,
                 #
                 AddressModel.address1.label("address1"),
                 AddressModel.address2.label("address2"),
@@ -462,6 +465,7 @@ async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
                 UserPostingModel.is_pet_friendly,
                 UserPostingModel.is_pet_friendly,
                 UserPostingModel.parking_available,
+                UserPostingModel.description,
                 #
                 AddressModel.address1.label("address1"),
                 AddressModel.address2.label("address2"),
@@ -484,7 +488,7 @@ async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
             #logger.debug("Fetched All Users Postings", _data)
             return _data
     except Exception as e:
-        print("*************** ", e)
+        #print("*************** ", e)
         logger.error("No Records Found")
 
     raise HTTPException(404, NOT_FOUND_USER_POSTINGS)

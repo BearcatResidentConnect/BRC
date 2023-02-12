@@ -57,6 +57,7 @@ class UserPostingOut(BaseModel):
     # approx_distance: float
     is_pet_friendly: bool
     parking_available: bool
+    description: str = "NA"
     
     # Address
     address1: str
