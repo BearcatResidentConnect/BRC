@@ -23,8 +23,10 @@
                     </div>
                     <div class="form-group col-md-6 px-4">
                         <label for="accomtype" class="text-heading">Accomedation Type*</label>
+                        <!-- <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
+                                [(ngModel)]="accomdationtype" onchange="if (this.selectedIndex==1){this.form['numdays'].style.visibility='visible'}else {this.form['numdays'].style.visibility='hidden'};"> -->
                         <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
-                                [(ngModel)]="accomdationtype" onchange="if (this.selectedIndex==1){this.form['numdays'].style.visibility='visible'}else {this.form['numdays'].style.visibility='hidden'};">
+                                [(ngModel)]="accomdationtype" >
                             <option selected>Select</option>
                             <option value="Temporary">Temporary</option>
                             <option value="Permanent">Permanent</option>
@@ -61,7 +63,9 @@
                     <div class="form-group col-md-6 px-4 mb-md-0" >
                         <label for="email" class="text-heading">Num of Days?*</label>
                         <input type="number" class="form-control form-control-md" name="numdays" 
-                        [(ngModel)]="numDays"   #numdays="ngModel" style="visibility:hidden;">
+                        [(ngModel)]="numDays"   #numdays="ngModel" >
+                        <!-- <input type="number" class="form-control form-control-md" name="numdays" 
+                        [(ngModel)]="numDays"   #numdays="ngModel" style="visibility:hidden;"> -->
                         <div class="alert-danger" *ngIf="numdays?.errors && nf.submitted">
                             <div *ngIf="numdays?.errors['required']">Number days is required</div>
                         </div>
@@ -99,7 +103,7 @@
                         <label for="parkingAvail" class="text-heading">Parking available ?*</label>
                         <select class="form-select" aria-label="Default select example" [(ngModel)]="parkingAvail" >
                             <option selected>Select</option>
-                            <option value="Yes">Yes<option> 
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
                     </div>
@@ -163,6 +167,14 @@
                     </div>
                     
                 </div>
+
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-12 px-4 mb-md-0">
+                        <label for="zipCode" class="text-heading">Description</label>
+                        <textarea id="description" class="form-control form-control-md" 
+                        name="description" rows="4" cols="60"></textarea>
+                   </div>
+                </div>  <br>      
                 <div class="d-flex justify-content-end flex-wrap">
                     <button class="btn btn-primary mr-0" [disabled]="nf.invalid">Submit</button>
                  </div>
