@@ -22,7 +22,7 @@ from ..schemas.user import (
 
 from ..database import get_db_session
 
-from ..models.models import User as UserModel
+from ..models.models import User as UserModel, BrcAnalytics as BrcAnalyticsModel
 
 from datetime import datetime, timedelta
 from typing import Union
@@ -257,6 +257,9 @@ async def login_for_access_token(
     refresh_token = create_access_token(
         data={"sub": str(user.user_name)}, expires_delta=refresh_token_expires
     )
+    #
+    await _increment_website_vistors(session)
+    #
     return {
         "token_type": "bearer",
         "access_token": access_token,
@@ -290,4 +293,27 @@ async def _get_user(session: Session, user_name: str) -> UserOut:
         return _data
 
     raise HTTPException( 404, NOT_FOUND_USER)
+
+
+async def _increment_website_vistors(session: Session) -> None:
+
+    """
+    Ass website vistor count by 1
+    """
+
+    _data = await session.execute(select(BrcAnalyticsModel))
+
+    _data = _data.scalar()
+    
+    if _data:
+    
+        _data.visted_users_count += 1
+        
+    else:
+        
+        _data = BrcAnalyticsModel(visted_users_count=1)
+        
+    session.add(_data)
+    await session.flush()
+    await session.refresh(_data)
 
