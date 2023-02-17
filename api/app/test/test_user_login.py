@@ -31,4 +31,19 @@ def test_login_response_neg():
 
     assert response.status_code == 200
     assert response.json()["username"] == "mani"
-    assert isinstance(response.json(),dict)  
+    assert isinstance(response.json(),dict) 
+
+def test_user_response_put():
+    data = {
+  "user_name": "mani",
+  "password": "mani@123"
+}
+    response = requests.put(f"{BASE_URL}/api/user", json=data)
+
+    assert response.status_code == 201
+    
+    assert isinstance(response.json(),dict)
+  
+
+
+ 
