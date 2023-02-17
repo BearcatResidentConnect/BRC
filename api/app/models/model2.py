@@ -63,6 +63,13 @@ class RentalPostingIn(RentalPostingBase):
         self.default = kwargs["default"]
 
 
+class RentalPostingOut(RentalPostingIn):
+    rental_id: int
+
+
+class RentalPostingUpdate(RentalPostingBase):
+    rental_id: int
+
 
 
 
