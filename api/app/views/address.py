@@ -140,13 +140,13 @@ async def update_address(
 
 # Delete API
 @router.delete(
-    "/addresses/{address_id}", response_model=AddressOut, status_code=status.HTTP_200_OK
+    "/addresses/{address_id}", status_code=status.HTTP_200_OK
 )
 async def delete_address_by_sis_id(
     address_id: int,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> AddressInOut:
+) -> str:
 
     """
     Delete Address by address_id
@@ -157,7 +157,7 @@ async def delete_address_by_sis_id(
 
     await session.delete(address)
 
-    return address
+    return "Deleted"
 
 
 # Helper Methods
