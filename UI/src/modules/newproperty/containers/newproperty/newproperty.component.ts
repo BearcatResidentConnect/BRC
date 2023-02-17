@@ -36,7 +36,8 @@ export class NewpropertyComponent implements OnInit {
           "state": "string",
           "country": "string",
           "zipcode": 0
-        }
+        },
+        "description": "any"
       };
     localStorage: any;
     user_name:any = localStorage.getItem("user_name");
@@ -57,6 +58,7 @@ export class NewpropertyComponent implements OnInit {
     country:any;
     zipcode:any;
     name: any;
+    description: any;
     constructor( private newpropertyService : newpropertyService, private datePipe: DatePipe, private route: ActivatedRoute) {}
     ngOnInit() {
       this.rentalid = this.route.snapshot.params.id;
@@ -88,7 +90,9 @@ export class NewpropertyComponent implements OnInit {
               "state": this.state,
               "country": this.country,
               "zipcode": this.zipcode,
-            }
+              
+            },
+            "description":this.description,
           };
         
             this.newpropertyService.postPropertydetails(this.form).subscribe({ 

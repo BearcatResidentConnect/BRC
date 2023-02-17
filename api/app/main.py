@@ -16,6 +16,7 @@ from .views import user_postings
 from .views import address
 from .views import rental_postings
 from .views import user_application
+from .views import dashboard
 
 
 from .database import engine, BaseDb
@@ -51,6 +52,7 @@ app.include_router(user_postings.router)
 app.include_router(address.router)
 app.include_router(rental_postings.router)
 app.include_router(user_application.router)
+app.include_router(dashboard.router)
 # ***********************************************
 
 

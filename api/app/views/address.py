@@ -212,7 +212,7 @@ async def _post_address(session: Session, address_dict: dict):
         # await session.refresh(address)
 
     except SQLAlchemyError as exc:
-
+        #print("EXCEPTIOMMMMMMMMMMMMMMM ADD ", exc)
         logger.error("Exception happend %s ", exc)
         raise HTTPException(400, "Invalid Data Provided")
 

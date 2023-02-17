@@ -35,7 +35,14 @@ class UserPostingIn(UserPostingBase):
 
 
 class UserPostingOut(BaseModel):
+    
+    #user
+    user_name: str
+    first_name: str
+    last_name: str
+    email: str
 
+    #Posting
     posting_id: int
     name: str
     accomedation_type: str
@@ -50,7 +57,9 @@ class UserPostingOut(BaseModel):
     # approx_distance: float
     is_pet_friendly: bool
     parking_available: bool
-    #
+    description: str = "NA"
+    
+    # Address
     address1: str
     address2: str
     address3: str

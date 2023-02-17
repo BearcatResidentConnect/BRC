@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { DashboardService } from '@modules/dashboard/services';
 
 @Component({
     selector: 'sb-dashboard-cards',
@@ -7,8 +8,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
     styleUrls: ['dashboard-cards.component.scss'],
 })
 export class DashboardCardsComponent implements OnInit {
-    constructor() {}
+    constructor( private dashboardService:DashboardService ) {}
     ngOnInit() {}
 
-     name = localStorage.getItem('first_name')
 }
