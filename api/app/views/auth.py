@@ -183,6 +183,59 @@ else:
             raise HTTPException(status_code=400, detail="Inactive user")
 
         return current_user
+    
+async def _verify_admin(
+    token: str = Depends(oauth2_scheme), session: Session = Depends(get_db_session)
+) -> bool:
+
+    """ """
+
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    insufficient_permissions_exception = HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Not Enough Permissions",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(
+            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
+        username: str = payload.get("sub")
+        # print("User Name is ", username)
+        if username is None:
+            raise credentials_exception
+        #token_data = TokenData(username=username)
+    except JWTError as e:
+        # print("ERROR ", e)
+        raise credentials_exception
+    user = await _get_user(session, username)
+    #
+    if user is None:
+        raise credentials_exception
+    # TODO Check Here
+    if not user.admin:
+        raise insufficient_permissions_exception
+    else:
+        return user
+  
+if settings.DEV:
+
+    async def verify_admin() -> bool:
+        #
+        return True
+
+else:  
+    async def verify_admin(
+            current_user: UserIn = Depends(_verify_admin),
+        ) -> bool:
+            if not current_user.active:
+                raise HTTPException(status_code=400, detail="Inactive user")
+
+            return True
 
 
 # ========================================= APIs =====================================
