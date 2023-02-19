@@ -78,7 +78,7 @@ async def get_user_posting_by_user_name_and_posting_id(
     """
     Get Matched Postings by user_name and Posting Id
     """
-    print("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+
     return await _get_user_posting(session, user_name, posting_id)
 
 
@@ -359,13 +359,11 @@ async def _get_user_posting(
             .select_from(UserModel)
             .join(UserPostingModel)
             .join(AddressModel)
-            # .filter(
-            #     UserPostingModel.user_name.lower() == user_name.lower(),
-            #     #UserPostingModel.posting_id == posting_id,
-            # )
+            .filter(
+                UserPostingModel.user_name == user_name,
+                UserPostingModel.posting_id == posting_id,
+            )
         )
-        
-        print("GHKJL:NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN", _data, _data.scalar())
 
         _data = _data.one()
         
@@ -389,7 +387,7 @@ async def _get_user_postings(session: Session, user_name: str) -> UserPostingOut
 
     try:
         _data = await session.execute(
-             select(
+            select(
                 UserModel.user_name,
                 UserModel.first_name,
                 UserModel.last_name,
@@ -422,7 +420,7 @@ async def _get_user_postings(session: Session, user_name: str) -> UserPostingOut
             .select_from(UserModel)
             .join(UserPostingModel)
             .join(AddressModel)
-            #.filter(UserPostingModel.user_name == user_name)
+            .filter(UserPostingModel.user_name == user_name)
         )
 
         _data = _data.all()
