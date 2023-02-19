@@ -11,8 +11,17 @@ import {environment} from 'environments/environment';
 export class UserlistingsdetailService {
     constructor(private http: HttpClient) { }
    
+    // getUserrental(userName: string, postingId:number): Observable<any> {
+    //   return this.http.get(environment.basePath + '/user-posting/'+  userName + '/postings/' + postingId ) 
+      
+    // }
+    // setFormData(userData: any): Observable<any> {
+    //   return this.http.post(environment.basePath + '/mail-service', userData) 
+      
+    // }
+
     getUserrental(userName: string, postingId:number): Observable<any> {
-        return this.http.get(environment.basePath + '/user-posting/'+  userName + '/postings/' + postingId ) 
+        return this.http.get(environment.basePath + '/user-posting/'+  'postings/' + postingId ) 
         
       }
       setFormData(userData: any): Observable<any> {
