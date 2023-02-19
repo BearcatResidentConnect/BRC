@@ -365,7 +365,7 @@ async def _get_user_posting(
             )
         )
         
-        print("GHKJL:NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN", _data)
+        print("GHKJL:NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN", _data, _data.scalar())
 
         _data = _data.one()
         
