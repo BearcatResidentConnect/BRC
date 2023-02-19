@@ -78,7 +78,7 @@ async def get_user_posting_by_user_name_and_posting_id(
     """
     Get Matched Postings by user_name and Posting Id
     """
-
+    print("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
     return await _get_user_posting(session, user_name, posting_id)
 
 
@@ -364,6 +364,8 @@ async def _get_user_posting(
                 #UserPostingModel.posting_id == posting_id,
             )
         )
+        
+        print("GHKJL:NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN", _data)
 
         _data = _data.one()
         
