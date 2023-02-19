@@ -50,11 +50,11 @@
 
                     <dl class="col-sm-6 mb-0 d-flex">
                         <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Tenant email</dt>
-                        <dd>{{ userlisting?.first_name }}</dd>
+                        <dd><i>{{ userlisting?.first_name }}</i></dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
                         <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Tenant ID</dt>
-                        <dd>{{ userlisting?.email }}</dd>
+                        <dd><a href="{{ userlisting?.email }}">{{ userlisting?.email }}</a></dd>
                     </dl>
 
                     
@@ -63,7 +63,7 @@
                         <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">
                             Property Name
                         </dt>
-                        <dd>{{ userlisting?.name }}</dd>
+                        <dd><i>{{ userlisting?.name }}</i></dd>
                     </dl>
 
                     <dl class="col-sm-6 mb-0 d-flex">
