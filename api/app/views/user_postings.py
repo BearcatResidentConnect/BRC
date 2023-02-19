@@ -360,7 +360,7 @@ async def _get_user_posting(
             .join(UserPostingModel)
             .join(AddressModel)
             .filter(
-                UserPostingModel.user_name == user_name,
+                UserPostingModel.user_name.lower() == user_name.lower(),
                 #UserPostingModel.posting_id == posting_id,
             )
         )
