@@ -12,22 +12,22 @@
     <br><br><br>
     <div class="col-md-6">
         <sb-card-view-details link="/dashboard" background="bg-primary">
-            <div class="card-body">4 Total Properties</div>
+            <div class="card-body">{{dashDetails.num_users}} Total Users</div>
         </sb-card-view-details>
     </div>
     <div class="col-md-6">
         <sb-card-view-details link="/dashboard" background="bg-warning">
-            <div class="card-body">10 Views</div>
+            <div class="card-body">{{dashDetails.num_rental_postings}} Total Rental Postings</div>
         </sb-card-view-details>
     </div>
     <div class="col-md-6">
         <sb-card-view-details link="/dashboard" background="bg-success">
-            <div class="card-body">3 User postings</div>
+            <div class="card-body">{{dashDetails.num_user_postings}} Total User Postings</div>
         </sb-card-view-details>
     </div>
     <div class="col-md-6">
         <sb-card-view-details link="/dashboard" background="bg-danger">
-            <div class="card-body">5 Rental postings</div>
+            <div class="card-body">{{dashDetails.num_visitors}} Total No of Visitors</div>
         </sb-card-view-details>
     </div>
-</div>
+</div> 

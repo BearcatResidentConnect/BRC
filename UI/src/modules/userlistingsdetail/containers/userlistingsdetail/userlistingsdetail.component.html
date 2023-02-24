@@ -2,149 +2,107 @@
     <sb-dashboard-head title="Property Listings" [hideBreadcrumbs]="false"></sb-dashboard-head>
     <sb-card>
         <div class="card-body">
-
-            <section class="pb-7 border-bottom" >
+            <section class="pb-7 border-bottom">
                 <ul class="list-inline d-sm-flex align-items-sm-center mb-2">
                     <li class="list-inline-item badge badge-orange mr-2">Avialble</li>
-                    <li class="list-inline-item badge badge-primary mr-3">{{userlisting?.accomedation_type}}</li>
-                    <li class="list-inline-item mr-2 mt-2 mt-sm-0"><i class="fal fa-clock mr-1"></i>1 months ago</li>
-
+                    <li class="list-inline-item badge badge-primary mr-3">
+                        {{ userlisting?.accomedation_type }}
+                    </li>
+                    <li class="list-inline-item mr-2 mt-2 mt-sm-0">
+                        <i class="fal fa-clock mr-1"></i>1 months ago
+                    </li>
                 </ul>
                 <div class="d-sm-flex justify-content-sm-between">
                     <div>
-                        <h2 class="fs-35 font-weight-600 lh-15 text-heading">{{userlisting?.name}}</h2>
-                        <p class="mb-0"><i class="fal fa-map-marker-alt mr-2"></i>{{userlisting?.address1}}{{userlisting?.city}}</p>
+                        <h2 class="fs-35 font-weight-600 lh-15 text-heading">
+                            {{ userlisting?.name }}
+                        </h2>
+                        <p class="mb-0">
+                            <i class="fal fa-map-marker-alt mr-2"></i>{{ userlisting?.address1
+                            }}{{ userlisting?.city }}
+                        </p>
                     </div>
                     <div class="mt-2 text-lg-right">
                         <!-- <p class="fs-22 text-heading font-weight-bold mb-0">${{userlisting?.UserPosting?.approx_rent}}</p> -->
-                        <p class="mb-0">${{userlisting?.approx_rent}}/SqFt</p>
+                        <p class="mb-0">${{ userlisting?.approx_rent }}/Person</p>
                     </div>
                 </div>
                 <h4 class="fs-22 text-heading mt-6 mb-2">Description</h4>
-                <p class="mb-0 lh-214">Massa tempor nec feugiat nisl pretium. Egestas fringilla phasellus faucibus
-                    scelerisque eleifend donec.
-                    Porta nibh venenatis cras sed felis eget velit aliquet. Neque volutpat ac tincidunt vitae semper
-                    quis lectus. Turpis in eu mi bibendum neque
-                    egestas congue quisque. Sed elementum tempus egestas sed sed risus pretium quam. Dignissim
-                    sodales
-                    ut eu sem. Nibh mauris cursus mattis molestie a
-                    iaculis at erat pellentesque. Id interdum velit laoreet id donec ultrices tincidunt.</p>
+                <p class="mb-0 lh-214">
+                    {{userlisting?.description}}
+                </p>
             </section>
 
-            <!-- <button class="btn btn-success mt-4 float-right" (click)="submitForm()">Submit application</button> -->
-            <!-- <section class="pt-6 border-bottom">
-                <h4 class="fs-22 text-heading mb-6">Facts and Features</h4>
+            <section class="pt-6 border-bottom pb-4 pt-4">
+                <h4 class="fs-22 text-heading mb-4">Additional Details</h4>
                 <div class="row">
-                    <div class="col-lg-3 col-sm-4 mb-6">
-                        <div class="media">
-                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                <svg class="icon icon-family fs-32 text-primary">
-                                    <use xlink:href="#icon-family"></use>
-                                </svg>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">Type</h5>
-                                <p class="mb-0 fs-13 font-weight-bold text-heading">Single Family</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-4 mb-6">
-                        <div class="media">
-                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                <svg class="icon icon-year fs-32 text-primary">
-                                    <use xlink:href="#icon-year"></use>
-                                </svg>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">year built
-                                </h5>
-                                <p class="mb-0 fs-13 font-weight-bold text-heading">2020</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-4 mb-6">
-                        <div class="media">
-                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                <svg class="icon icon-heating fs-32 text-primary">
-                                    <use xlink:href="#icon-heating"></use>
-                                </svg>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">heating</h5>
-                                <p class="mb-0 fs-13 font-weight-bold text-heading">Radiant</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-4 mb-6">
-                        <div class="media">
-                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                <svg class="icon icon-price fs-32 text-primary">
-                                    <use xlink:href="#icon-price"></use>
-                                </svg>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">SQFT</h5>
-                                <p class="mb-0 fs-13 font-weight-bold text-heading">979.0</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-4 mb-6">
-                        <div class="media">
-                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                <svg class="icon icon-bedroom fs-32 text-primary">
-                                    <use xlink:href="#icon-bedroom"></use>
-                                </svg>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">Bedrooms
-                                </h5>
-                                <p class="mb-0 fs-13 font-weight-bold text-heading">3</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-4 mb-6">
-                        <div class="media">
-                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                <svg class="icon icon-sofa fs-32 text-primary">
-                                    <use xlink:href="#icon-sofa"></use>
-                                </svg>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">bathrooms
-                                </h5>
-                                <p class="mb-0 fs-13 font-weight-bold text-heading">2</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-4 mb-6">
-                        <div class="media">
-                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                <svg class="icon icon-Garage fs-32 text-primary">
-                                    <use xlink:href="#icon-Garage"></use>
-                                </svg>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">GARAGE</h5>
-                                <p class="mb-0 fs-13 font-weight-bold text-heading">1</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-4 mb-6">
-                        <div class="media">
-                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                <svg class="icon icon-status fs-32 text-primary">
-                                    <use xlink:href="#icon-status"></use>
-                                </svg>
-                            </div>
-                            <div class="media-body">
-                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">Status</h5>
-                                <p class="mb-0 fs-13 font-weight-bold text-heading">Active</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> -->
+                     
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Rental id</dt>
+                        <dd>{{ userlisting?.posting_id }}</dd>
+                    </dl>
 
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Tenant email</dt>
+                        <dd><i>{{ userlisting?.first_name }}</i></dd>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Tenant ID</dt>
+                        <dd><a href="{{ userlisting?.email }}">{{ userlisting?.email }}</a></dd>
+                    </dl>
+
+                    
+
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">
+                            Property Name
+                        </dt>
+                        <dd><i>{{ userlisting?.name }}</i></dd>
+                    </dl>
+
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Price</dt>
+                        <dd>{{ userlisting?.approx_rent }}$/ Person</dd>
+                    </dl>
+                    
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">
+                            Property status
+                        </dt>
+                        <dd>Avialble</dd>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of people living</dt>
+                        <dd>{{ userlisting?.num_people_living }}</dd>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of people wants accommodation</dt>
+                        <dd>{{ userlisting?.num_people }}</dd>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of days accommodation avialble</dt>
+                        <dd>{{ userlisting?.num_days }}</dd>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of Bedrooms</dt>
+                        <dd>{{ userlisting?.num_bedrooms }}</dd>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of Bathrooms</dt>
+                        <dd>{{ userlisting?.num_bathrooms }}</dd>
+                    </dl>
+                    
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Property available date</dt>
+                        <dd>{{ userlisting?.available_date }}</dd>
+                    </dl>
+                    
+    
+                </div>
+            </section>
+            <a href = "mailto: S547187@nwmissouri.edu"><button class="btn btn-success mt-4 float-right" >
+               Contact Tenant
+            </button></a>
         </div>
     </sb-card>
 </sb-layout-dashboard>

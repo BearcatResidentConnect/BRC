@@ -237,14 +237,14 @@ async def update_user(
 # Delete API
 @router.delete(
     "/user-postings/{posting_id}",
-    response_model=UserPostingOut,
+    #response_model=UserPostingOut,
     status_code=status.HTTP_200_OK,
 )
 async def delete_user_by_user_name(
     posting_id: int,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> UserPostingOut:
+) -> str:
 
     """
     Delete UserPosting by posting_id
@@ -255,7 +255,7 @@ async def delete_user_by_user_name(
 
     await session.delete(user_posting)
 
-    return user_posting
+    return "Deleted"
 
 
 # Helper Methods

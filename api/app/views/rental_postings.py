@@ -21,6 +21,7 @@ from .auth import (
     UserIn as SuperUserIn,
     UserOut as SuperUserOut,
     get_current_active_user,
+    verify_admin,
 )  # Dependamcy
 
 
@@ -46,6 +47,7 @@ async def get_rental_posting_by_id(
     rental_id: int,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
+    #admin_in: SuperUserIn = Depends(verify_admin),
 ) -> RentalPostingOut:
 
     """
@@ -82,6 +84,7 @@ async def insert_rental_posting(
     rental_posting: RentalPostingIn,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
+    admin_in: SuperUserIn = Depends(verify_admin),
 ) -> RentalPostingOut:
 
     """
@@ -116,7 +119,8 @@ async def insert_rental_posting(
 async def update_rental(
     rental_posting: RentalPostingUpdate,
     session: Session = Depends(get_db_session),
-    super_user_in: SuperUserIn = Depends(get_current_active_user)
+    super_user_in: SuperUserIn = Depends(get_current_active_user),
+    admin_in: SuperUserIn = Depends(verify_admin),
     # user: RentalPostingUpdate = Body(embed=True), session: Session = Depends(get_db_session)
 ) -> RentalPostingOut:
 
@@ -153,7 +157,8 @@ async def delete_user_by_sis_id(
     rental_id: int,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> RentalPostingOut:
+    admin_in: SuperUserIn = Depends(verify_admin),
+) -> str:
 
     """
     Delete RentalPosting by posting_id
@@ -164,7 +169,7 @@ async def delete_user_by_sis_id(
 
     await session.delete(rental_posting)
 
-    return
+    return "Deleted"
 
 
 # Helper Methods
