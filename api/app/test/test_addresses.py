@@ -16,4 +16,5 @@ async def test_users_addres_id():
     address_id = 1
     response = requests.get(f"{BASE_URL}/api/addresses/{address_id}")
     assert response.status_code == 200
+    assert response.status_code != 404
     assert isinstance(response.json(), dict)
