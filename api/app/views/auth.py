@@ -184,12 +184,7 @@ else:
 
         return current_user
     
-async def _verify_admin(
-    token: str = Depends(oauth2_scheme), session: Session = Depends(get_db_session)
-) -> bool:
-
-    """ """
-
+async def _verify_admin( token: str = Depends(oauth2_scheme), session: Session = Depends(get_db_session) ):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -205,18 +200,14 @@ async def _verify_admin(
             token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
         )
         username: str = payload.get("sub")
-        # print("User Name is ", username)
         if username is None:
             raise credentials_exception
-        #token_data = TokenData(username=username)
     except JWTError as e:
-        # print("ERROR ", e)
         raise credentials_exception
     user = await _get_user(session, username)
     #
     if user is None:
         raise credentials_exception
-    # TODO Check Here
     if not user.admin:
         raise insufficient_permissions_exception
     else:
