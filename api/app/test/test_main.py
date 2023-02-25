@@ -25,3 +25,4 @@ async def test_health_neg():
 async def test_health_neg2():
     response = requests.get(f"{BASE_URL}/api/healt")
     assert response.status_code == 404
+    assert response.status_code != 200

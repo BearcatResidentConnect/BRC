@@ -41,6 +41,7 @@ def test_user_response_put():
     response = requests.put(f"{BASE_URL}/api/user", json=data)
 
     assert response.status_code == 201
+    assert response.status_code != 404
     
     assert isinstance(response.json(),dict)
   
