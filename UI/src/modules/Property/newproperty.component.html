@@ -1,0 +1,186 @@
+<sb-layout-dashboard>
+    <sb-dashboard-head title="Add New Property" [hideBreadcrumbs]="false"></sb-dashboard-head>
+    <sb-card>
+        <div class="card-body">
+            <div class="card-body px-6 pt-6 pb-5">
+                <!-- <h3 class="card-title mb-0 text-heading fs-22 lh-15">Add new property</h3> -->
+                <!-- <p class="card-text">You can update details</p> -->
+               <form *ngIf="!isSuccessful" name="form" (ngSubmit)="nf.form.valid && onSubmit()" #nf="ngForm">
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-6 px-4">
+                        <label for="name" class="text-heading">Property name*</label>
+                        <input type="text" class="form-control form-control-md" required #nam="ngModel" name="nam" 
+                        [(ngModel)]="name"    minlength="3" maxlength="30">
+                        <div class="alert-danger" *ngIf="nam.errors && nf.submitted">
+                            <div *ngIf="nam.errors['required']">Property Name is required</div>
+                            <div *ngIf="nam.errors['minlength']">
+                                Property must be at least 3 characters
+                            </div>
+                            <div *ngIf="nam.errors['maxlength']">
+                                Property must be at most 20 characters
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 px-4">
+                        <label for="accomtype" class="text-heading">Accomedation Type*</label>
+                        <!-- <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
+                                [(ngModel)]="accomdationtype" onchange="if (this.selectedIndex==1){this.form['numdays'].style.visibility='visible'}else {this.form['numdays'].style.visibility='hidden'};"> -->
+                        <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
+                                [(ngModel)]="accomdationtype" >
+                            <option selected>Select</option>
+                            <option value="Temporary">Temporary</option>
+                            <option value="Permanent">Permanent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-6 px-4">
+                        <label for="numppl" class="text-heading">Num People Currently living?*</label>
+                        <input type="number" class="form-control form-control-md" id="numppl" name="numppl"
+                        [(ngModel)]="numpeople"   #numppl="ngModel" required>
+                        <div class="alert-danger" *ngIf="numppl?.errors && nf.submitted">
+                            <div *ngIf="numppl?.errors['required']">Number People Currently living is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 px-4">
+                        <label for="numppln" class="text-heading">Num People Wants Accommodation?*</label>
+                        <input type="number" class="form-control form-control-md" id="numppln" name="numppln"
+                        [(ngModel)]="numpeopleneed"   #numppln="ngModel" required>
+                        <div class="alert-danger" *ngIf="numppln?.errors && nf.submitted">
+                            <div *ngIf="numppln?.errors['required']">Number People needs accomdation is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 px-4">
+                        <label for="mobile" class="text-heading">Num Of Bedrooms?*</label>
+                        <input type="number" class="form-control form-control-md" id="numRooms" name="numRom"
+                        [(ngModel)]="numRooms"   #numRom="ngModel" required>
+                        <div class="alert-danger" *ngIf="numRom?.errors && nf.submitted">
+                            <div *ngIf="numRom?.errors['required']">Number of bedrooms is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-6 px-4 mb-md-0" >
+                        <label for="email" class="text-heading">Num of Days?*</label>
+                        <input type="number" class="form-control form-control-md" name="numdays" 
+                        [(ngModel)]="numDays"   #numdays="ngModel" >
+                        <!-- <input type="number" class="form-control form-control-md" name="numdays" 
+                        [(ngModel)]="numDays"   #numdays="ngModel" style="visibility:hidden;"> -->
+                        <div class="alert-danger" *ngIf="numdays?.errors && nf.submitted">
+                            <div *ngIf="numdays?.errors['required']">Number days is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 px-4">
+                        <label for="mobile" class="text-heading">Num Of Baths?*</label>
+                        <input type="number" class="form-control form-control-md" id="numbat" name="numbat"
+                        [(ngModel)]="numBaths"   #numbat="ngModel" required>
+                        <div class="alert-danger" *ngIf="numbat?.errors && nf.submitted">
+                            <div *ngIf="numbat?.errors['required']">Number Baths is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-6 px-4 mb-md-0">
+                        <label for="accomStart" class="text-heading">Accomedated Start Date?*</label>
+                        <input type="date" class="form-control form-control-md"  name="accstar"
+                        [(ngModel)]="accomStart"   #accstar="ngModel" required>
+                        <div class="alert-danger" *ngIf="accstar?.errors && nf.submitted">
+                            <div *ngIf="accstar?.errors['required']">Accomedated start date is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 px-4 mb-md-0">
+                        <label for="appRent" class="text-heading">Approx Rent/Month ?*</label>
+                        <input type="number" class="form-control form-control-md"  name="appren"
+                        [(ngModel)]="appRent" #appren="ngModel" required>
+                        <div class="alert-danger" *ngIf="appren?.errors && nf.submitted">
+                            <div *ngIf="appren?.errors['required']">Approx rent is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-6 px-4 mb-md-0">
+                        <label for="parkingAvail" class="text-heading">Parking available ?*</label>
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="parkingAvail" >
+                            <option selected>Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 px-4 ">
+                        <label for="petFriendly" class="text-heading">Pets friendly ?*</label>
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="petFriendly" >
+                            <option selected>Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+                
+            
+                <hr>
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-6 px-4 mb-md-0">
+                        <label for="Address" class="text-heading">Address*</label>
+                        <input type="text" class="form-control form-control-md" id="address" name="addre"
+                        [(ngModel)]="address"  #addre="ngModel" required>
+                        <div class="alert-danger" *ngIf="addre?.errors && nf.submitted">
+                            <div *ngIf="addre?.errors['required']">Address is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 px-4 mb-md-0">
+                        <label for="City" class="text-heading">City*</label>
+                        <input type="text" class="form-control form-control-md" name="cit"
+                        [(ngModel)]="city"  #cit="ngModel" required>
+                        <div class="alert-danger" *ngIf="cit?.errors && nf.submitted">
+                            <div *ngIf="cit?.errors['required']">City is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-6 px-4 mb-md-0">
+                        <label for="State" class="text-heading">State*</label>
+                        <input type="text" class="form-control form-control-md" name="stat"
+                        [(ngModel)]="state"  #stat="ngModel" required>
+                        <div class="alert-danger" *ngIf="stat?.errors && nf.submitted">
+                            <div *ngIf="stat?.errors['required']">State is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 px-4 mb-md-0">
+                        <label for="Country" class="text-heading">Country*</label>
+                        <input type="text" class="form-control form-control-md"  name="countr"
+                        [(ngModel)]="country"  #countr="ngModel" required>
+                        <div class="alert-danger" *ngIf="countr?.errors && nf.submitted">
+                            <div *ngIf="countr?.errors['required']">Country is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-6 px-4 mb-md-0">
+                        <label for="zipCode" class="text-heading">Zip Code*</label>
+                        <input type="number" class="form-control form-control-md"  name="zipcod"
+                        [(ngModel)]="zipcode"  #zipcod="ngModel" required>
+                        <div class="alert-danger" *ngIf="zipcod?.errors && nf.submitted">
+                            <div *ngIf="zipcod?.errors['required']">ZipCode is required</div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="form-row mx-n4">
+                    <div class="form-group col-md-12 px-4 mb-md-0">
+                        <label for="zipCode" class="text-heading">Description</label>
+                        <textarea id="description" class="form-control form-control-md" 
+                        name="description" rows="4" cols="60"></textarea>
+                   </div>
+                </div>  <br>      
+                <div class="d-flex justify-content-end flex-wrap">
+                    <button class="btn btn-primary mr-0" [disabled]="nf.invalid">Submit</button>
+                 </div>
+              </form>
+            </div>
+            
+        </div>
+    </sb-card>
+</sb-layout-dashboard>
