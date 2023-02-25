@@ -183,8 +183,8 @@ def get_utc_to_local(utc_datetime: datetime):
     local_date = str(iso_datetime_utc.astimezone(tzlocal()).date())
     
     return {
-        "utc_date" : utc_date,
-        "utc_time" : utc_time,
+        # "utc_date" : utc_date,
+        # "utc_time" : utc_time,
         "local_time" : local_time,
         "local_date" : local_date     
     }
