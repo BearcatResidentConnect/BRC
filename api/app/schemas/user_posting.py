@@ -41,6 +41,16 @@ class UserPostingUpdate(UserPostingBase):
 
 
 
+  
+# PUT Methods for Update operations
+
+
+
+
+
+
+
+
 
 
 
