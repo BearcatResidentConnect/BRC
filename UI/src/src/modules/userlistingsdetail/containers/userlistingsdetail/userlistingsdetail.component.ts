@@ -43,12 +43,12 @@ export class UserlistingsdetailComponent implements OnInit {
     }
 }
 
-export interface UserListings {
-    Address: Address;
-}
+// export interface UserListings {
+//     Address: Address;
+// }
 
-export interface Address {
-    address1: string;
-    address2: string;
-    address3: string;
-}
+// export interface Address {
+//     address1: string;
+//     address2: string;
+//     address3: string;
+// }

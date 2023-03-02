@@ -28,6 +28,7 @@ export class RentallistingsComponent implements OnInit {
             // localStorage.setItem('rental_id',this.rentallistings[1].rental_id); 
             this.rental_id = localStorage.getItem('rental_id')
             console.log(this.rental_id, "rental id sfsdf");
+            console.log(this.rental_id, "Rental id");
             }
           });
     
