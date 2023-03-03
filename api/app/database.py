@@ -50,3 +50,30 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
             await session.close()
             logger.debug("Closed Database Session ")
 
+async def get_db_session():
+    """Async Db Session
+
+    Yields:
+        AsyncIterator: DB Session Iterator
+
+    Get Async Db Session everytime when IO operation to DB is requested.
+    Inject it as Dependency to View / Path functions
+    """
+
+    # TODO check this in future
+
+    try:
+        async with async_session() as session:
+            #
+            async with session.begin():
+                logger.debug("Getting Database Session ")
+                yield session
+                # Auto Commit Will Happen in this Context
+                logger.debug("Closed Database Session ")
+
+    except Exception as e:
+        logger.error("Error : %s ", e.detail)
+        await session.rollback()
+        logger.debug("Closing Database Session ")
+        await session.close()
+        logger.debug("Closed Database Session ")
