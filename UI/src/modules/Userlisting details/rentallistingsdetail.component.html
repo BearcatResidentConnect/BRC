@@ -1,0 +1,71 @@
+<sb-layout-dashboard>
+    <sb-dashboard-head title="Property Listings" [hideBreadcrumbs]="false"></sb-dashboard-head>
+    <sb-card>
+        <div class="card-body">
+
+            <section class="pb-7 border-bottom">
+                <ul class="list-inline d-sm-flex align-items-sm-center mb-2">
+                    <li class="list-inline-item badge badge-orange mr-2">Avialble</li>
+                    <li class="list-inline-item badge badge-primary mr-3">Permenent</li>
+                    <li class="list-inline-item mr-2 mt-2 mt-sm-0"><i class="fal fa-clock mr-1"></i>1 months ago
+                    </li>
+
+                </ul>
+                <div class="d-sm-flex justify-content-sm-between">
+                    <div>
+                        <h2 class="fs-35 font-weight-600 lh-15 text-heading">{{rentallisting.name}}</h2>
+                        <p class="mb-0"><i class="fal fa-map-marker-alt mr-2"></i>{{rentallisting.address1}}</p>
+                    </div>
+                    <div class="mt-2 text-lg-right">
+                        <!-- <p class="fs-22 text-heading font-weight-bold mb-0">$1.250.000</p> -->
+                        <!-- <p class="mb-0">$9350/SqFt</p> -->
+                    </div>
+                </div>
+                <h4 class="fs-22 text-heading mt-6 mb-2">Description</h4>
+                <p class="mb-0 lh-214">Massa tempor nec feugiat nisl pretium. Egestas fringilla phasellus faucibus
+                    scelerisque eleifend donec.
+                    Porta nibh venenatis cras sed felis eget velit aliquet. Neque volutpat ac tincidunt vitae semper
+                    quis lectus. Turpis in eu mi bibendum neque
+                    egestas congue quisque. Sed elementum tempus egestas sed sed risus pretium quam. Dignissim
+                    sodales
+                    ut eu sem. Nibh mauris cursus mattis molestie a
+                    iaculis at erat pellentesque. Id interdum velit laoreet id donec ultrices tincidunt.</p>
+            </section>
+
+
+            <section class="pt-6 border-bottom pb-4 pt-4">
+                <h4 class="fs-22 text-heading mb-4">Additional Details</h4>
+                <div class="row">
+
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Rental id</dt>
+                        <dd>{{ rentallisting?.rental_id }}</dd>
+                    </dl>
+
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Lease owner name</dt>
+                        <dd>{{ rentallisting?.name }}</dd>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Lease owner email</dt>
+                        <dd>{{ rentallisting?.email }}</dd>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Lease owner phone</dt>
+                        <a href="{{ rentallisting?.phone }}">
+                            <dd>{{ rentallisting?.phone }}</dd>
+                        </a>
+                    </dl>
+                    <dl class="col-sm-6 mb-0 d-flex">
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Website</dt>
+                        <a href="{{ rentallisting?.website }}">
+                            <dd>{{ rentallisting?.website }}</dd>
+                        </a>
+                    </dl>
+
+                </div>
+            </section>
+            <button class="btn btn-success mt-4 float-right" (click)="submitForm()">Submit application</button>
+        </div>
+    </sb-card>
+</sb-layout-dashboard>
