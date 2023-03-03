@@ -15,7 +15,7 @@ async def test_user_auth_token():
   "password": "mani@123"
 }
     response = requests.post(f"{BASE_URL}/api/users/auth/token", json=data)
-    assert response.status_code == 422
+    assert response.status_code == 200
 
 
 
@@ -29,3 +29,12 @@ async def test_user_auth_token_wrong_data():
     response = requests.post(f"{BASE_URL}/api/users/auth/token", json=data)
     assert response.status_code == 422
     assert isinstance(response.json(), dict)
+
+@pytest.mark.asyncio
+async def test_user_auth_token_wrong_data_neg():
+    data = {
+  "user_name": "maaaaa",
+  "password": "mani@12"
+}
+    response = requests.post(f"{BASE_URL}/api/users/auth/token", json=data)
+    assert response.status_code == 422
