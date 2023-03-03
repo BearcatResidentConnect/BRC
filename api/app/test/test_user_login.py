@@ -44,7 +44,15 @@ def test_user_response_put():
     assert response.status_code != 404
     
     assert isinstance(response.json(),dict)
-  
+
+def test_login_response_neg_neg():
+    data = {
+  "user_name": "mani123",
+  "password": "mani@123"
+}
+    response = requests.post(f"{BASE_URL}/api/users/auth", json=data)
+
+    assert response.status_code == 404 
 
 
  
