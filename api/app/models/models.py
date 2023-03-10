@@ -84,22 +84,22 @@ class User(BaseDb):
 #         # self.default = kwargs["default"]
 
 
-class PostingAddress(BaseDb):
+# class PostingAddress(BaseDb):
 
-    # Each Posting has 1 Address
+#     # Each Posting has 1 Address
 
-    __tablename__ = "posting_address"
+#     __tablename__ = "posting_address"
 
-    user_address_id = Column(
-        BigInteger, primary_key=True, autoincrement=True, index=True
-    )
-    #
-    user_name = Column(String(255), ForeignKey("users.user_name"), nullable=False)
-    address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
+#     user_address_id = Column(
+#         BigInteger, primary_key=True, autoincrement=True, index=True
+#     )
+#     #
+#     user_name = Column(String(255), ForeignKey("users.user_name"), nullable=False)
+#     address_id = Column(BigInteger, ForeignKey("addresses.address_id"), nullable=False)
 
-    def __init__(self, **kwargs):
-        self.user_address_id = kwargs["user_address_id"]
-        self.address_id = kwargs["address_id"]
+#     def __init__(self, **kwargs):
+#         self.user_address_id = kwargs["user_address_id"]
+#         self.address_id = kwargs["address_id"]
 
 
 class UserPosting(BaseDb):
