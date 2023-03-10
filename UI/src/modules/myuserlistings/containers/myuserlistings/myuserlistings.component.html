@@ -1,5 +1,5 @@
 <sb-layout-dashboard>
-    <sb-dashboard-head title="Property Listings" [hideBreadcrumbs]="false"></sb-dashboard-head>
+    <sb-dashboard-head title="My Listings" [hideBreadcrumbs]="false"></sb-dashboard-head>
     <sb-card>
         <div class="card-body">
             <!-- <h3 class="card-title mb-0 text-heading fs-22 lh-15">Property Listings</h3> -->
@@ -11,12 +11,12 @@
                   <th scope="col" style="width:21%;" class="border-top-0 pt-5 pb-4">Date Avdailable</th>
                   <th scope="col" style="width:10%;" class="border-top-0 pt-5 pb-4">Status</th>
                   <th scope="col" class="border-top-0 pt-5 pb-4">Type of Accommodation</th>
-                  <!-- <th scope="col" class="border-top-0 pt-5 pb-4">Action</th> -->
+                  <th scope="col" class="border-top-0 pt-5 pb-4">Action</th>
                 </tr>
               </thead>
               </table>
             </div>
-            <div class="table-responsive" *ngFor="let item of userlistings">
+            <div class="table-responsive" *ngFor="let item of myuserlistings" let i=index>
                 <table class="table table-hover bg-white border rounded-lg">
                   
                   <tbody>
@@ -24,13 +24,13 @@
                       <td class="align-middle pt-6 pb-4 tbbb">
                         <div class="media">
                           <div class="w-120px mr-4 position-relative">
-                            <a href="javascript:void(0)">
+                            <a href="single-property-1.html">
                               <img src="../../../../assets/img/house.png" alt="Home in Metric Way">
                             </a>
                         
                           </div>
                           <div class="media-body">
-                            <a routerLink="../userlistingsdetail/{{item.posting_id}}" class="text-dark hover-primary">
+                            <a routerLink="../myuserlistingsdetail/{{item.posting_id}}" class="text-dark hover-primary">
                               <h5 class="fs-16 mb-0 lh-18">{{item.name}}</h5>
                             </a>
                             <p class="mb-1 font-weight-500">{{item.address1}}</p>
@@ -44,7 +44,12 @@
                         <span class="badge text-capitalize font-weight-normal fs-12 badge badge-success">Avialble</span>
                       </td>
                       <td class="align-middle">{{item.accomedation_type}}</td>
-                      <!-- <td style="padding-top:40px"><button class="btn btn-secondary " (click)="navigateWithId(item.UserPosting.posting_id)">Edit</button></td> -->
+                      <td style="padding-top:40px"><button class="btn btn-secondary " (click)="navigateWithId(item.posting_id)">Edit</button></td>
+                      <!-- <span *ngIf="confirmDelete" >
+                         <span style="position: relative;top: 26px;">Are you sure want to Delte?</span>
+                         <button style="margin-top:40px;margin-left: 40px;" class="btn btn-danger" (click)="deleteUserrental(item.posting_id)">Yes</button>
+                         <button style="margin-top:40px;margin-left: 40px;" class="btn btn-primary" (click)="confirmDelete=false">No</button>
+                      </span> -->
                     </tr>
                   </tbody>
                 </table>

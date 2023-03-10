@@ -6,8 +6,20 @@ export const sideNavSections: SideNavSection[] = [
         items: ['dashboard'],
     },
     {
-        text: 'Manage Listings',
-        items: ['profile', 'newproperty', 'userlistings', 'rentallistings'],
+        text: 'Profile',
+        items: ['profile'],
+    },
+    {
+        text: 'Add New Property',
+        items: [ 'newproperty'],
+    },
+    {
+        text: 'Manage My Listings',
+        items: ['userlistings', 'myuserlistings'],
+    },
+    {
+        text: 'Manage Rental Listings',
+        items: ['rentallistings'],
     },
     // {
     //     text: 'Manage Accounts',
@@ -41,6 +53,11 @@ export const sideNavItems: SideNavItems = {
         icon: 'user',
         text: 'Add New Property',
         link: '/newproperty',
+    },
+    myuserlistings: {
+        icon: 'user',
+        text: 'My Listings',
+        link: '/myuserlistings',
     },
     // layouts: {
     //     icon: 'columns',

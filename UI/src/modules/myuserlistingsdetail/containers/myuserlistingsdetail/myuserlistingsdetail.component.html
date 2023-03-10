@@ -9,7 +9,7 @@
                         {{ userlisting?.accomedation_type }}
                     </li>
                     <li class="list-inline-item mr-2 mt-2 mt-sm-0">
-                        <i class="fal fa-clock mr-1"></i>1 month ago
+                        <i class="fal fa-clock mr-1"></i>1 months ago
                     </li>
                 </ul>
                 <div class="d-sm-flex justify-content-sm-between">
@@ -18,7 +18,7 @@
                             {{ userlisting?.name }}
                         </h2>
                         <p class="mb-0">
-                            <i class="fal fa-map-marker-alt mr-2"></i><b>Address:</b> {{ userlisting?.address1
+                            <i class="fal fa-map-marker-alt mr-2"></i>{{ userlisting?.address1
                             }}{{ userlisting?.city }}
                         </p>
                     </div>
@@ -27,7 +27,7 @@
                         <p class="mb-0">${{ userlisting?.approx_rent }}/Person</p>
                     </div>
                 </div>
-                <h4 class="fs-22 text-heading mt-6 mb-2">Description : </h4>
+                <h4 class="fs-22 text-heading mt-6 mb-2">Description</h4>
                 <p class="mb-0 lh-214">
                     {{userlisting?.description}}
                 </p>
@@ -38,16 +38,16 @@
                 <div class="row">
                      
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Rental id : </dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Rental id</dt>
                         <dd>{{ userlisting?.posting_id }}</dd>
                     </dl>
 
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Tenant Name :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Tenant Name</dt>
                         <dd><i>{{ userlisting?.first_name }}</i></dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Tenant Email :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Tenant Email ID</dt>
                         <dd><a href="{{ userlisting?.email }}">{{ userlisting?.email }}</a></dd>
                     </dl>
 
@@ -55,54 +55,53 @@
 
                     <dl class="col-sm-6 mb-0 d-flex">
                         <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">
-                            Property Name :
+                            Property Name
                         </dt>
                         <dd><i>{{ userlisting?.name }}</i></dd>
                     </dl>
 
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Rent/Month :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Price</dt>
                         <dd>{{ userlisting?.approx_rent }}$/ Person</dd>
                     </dl>
                     
                     <dl class="col-sm-6 mb-0 d-flex">
                         <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">
-                            Property status :
+                            Property status
                         </dt>
                         <dd>Avialble</dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of people living :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of people living</dt>
                         <dd>{{ userlisting?.num_people_living }}</dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of people wants accommodation :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of people wants accommodation</dt>
                         <dd>{{ userlisting?.num_people }}</dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of days accommodation avialble :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of days accommodation avialble</dt>
                         <dd>{{ userlisting?.num_days }}</dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of Bedrooms :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of Bedrooms</dt>
                         <dd>{{ userlisting?.num_bedrooms }}</dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of Bathrooms :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of Bathrooms</dt>
                         <dd>{{ userlisting?.num_bathrooms }}</dd>
                     </dl>
                     
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Property available date :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Property available date</dt>
                         <dd>{{ userlisting?.available_date }}</dd>
                     </dl>
                     
     
                 </div>
             </section>
-            <a href = "mailto: S547187@nwmissouri.edu"><button class="btn btn-success mt-4 float-right" >
-               Contact Tenant
-            </button></a>
+            <td style="padding-top:40px;float:right"><button class="btn btn-danger mt-4 " (click)="deleteUserrental()">Delete</button></td>
+
         </div>
     </sb-card>
 </sb-layout-dashboard>

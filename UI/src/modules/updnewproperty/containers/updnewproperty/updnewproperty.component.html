@@ -1,5 +1,5 @@
 <sb-layout-dashboard>
-    <sb-dashboard-head title="Add New Property" [hideBreadcrumbs]="false"></sb-dashboard-head>
+    <sb-dashboard-head title="Update Property" [hideBreadcrumbs]="false"></sb-dashboard-head>
     <sb-card>
         <div class="card-body">
             <div class="card-body px-6 pt-6 pb-5">
@@ -10,7 +10,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="name" class="text-heading">Property name*</label>
                         <input type="text" class="form-control form-control-md" required #nam="ngModel" name="nam" 
-                        [(ngModel)]="name"    minlength="3" maxlength="30">
+                        [(ngModel)]="rentallisting.name"    minlength="3" maxlength="30">
                         <div class="alert-danger" *ngIf="nam.errors && nf.submitted">
                             <div *ngIf="nam.errors['required']">Property Name is required</div>
                             <div *ngIf="nam.errors['minlength']">
@@ -26,7 +26,7 @@
                         <!-- <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
                                 [(ngModel)]="accomdationtype" onchange="if (this.selectedIndex==1){this.form['numdays'].style.visibility='visible'}else {this.form['numdays'].style.visibility='hidden'};"> -->
                         <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
-                                [(ngModel)]="accomdationtype" >
+                                [(ngModel)]="rentallisting.accomedation_type" >
                             <option selected>Select</option>
                             <option value="Temporary">Temporary</option>
                             <option value="Permanent">Permanent</option>
@@ -37,7 +37,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="numppl" class="text-heading">Num people Currently living?*</label>
                         <input type="number" class="form-control form-control-md" id="numppl" name="numppl"
-                        [(ngModel)]="numpeopleneed"   #numppl="ngModel" required>
+                        [(ngModel)]="rentallisting.num_people_living"   #numppl="ngModel" required>
                         <div class="alert-danger" *ngIf="numppl?.errors && nf.submitted">
                             <div *ngIf="numppl?.errors['required']">Number People Currently living is required</div>
                         </div>
@@ -45,7 +45,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="numppln" class="text-heading">Num people can accommodate?*</label>
                         <input type="number" class="form-control form-control-md" id="numppln" name="numppln"
-                        [(ngModel)]="numpeople"   #numppln="ngModel" required>
+                        [(ngModel)]="rentallisting.num_people"   #numppln="ngModel" required>
                         <div class="alert-danger" *ngIf="numppln?.errors && nf.submitted">
                             <div *ngIf="numppln?.errors['required']">Number People needs accomdation is required</div>
                         </div>
@@ -53,7 +53,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="mobile" class="text-heading">Num of Bedrooms?*</label>
                         <input type="number" class="form-control form-control-md" id="numRooms" name="numRom"
-                        [(ngModel)]="numRooms"   #numRom="ngModel" required>
+                        [(ngModel)]="rentallisting.num_bedrooms"   #numRom="ngModel" required>
                         <div class="alert-danger" *ngIf="numRom?.errors && nf.submitted">
                             <div *ngIf="numRom?.errors['required']">Number of bedrooms is required</div>
                         </div>
@@ -63,7 +63,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0" >
                         <label for="email" class="text-heading">Num of days?*</label>
                         <input type="number" class="form-control form-control-md" name="numdays" 
-                        [(ngModel)]="numDays"   #numdays="ngModel" >
+                        [(ngModel)]="rentallisting.num_days"   #numdays="ngModel" >
                         <!-- <input type="number" class="form-control form-control-md" name="numdays" 
                         [(ngModel)]="numDays"   #numdays="ngModel" style="visibility:hidden;"> -->
                         <div class="alert-danger" *ngIf="numdays?.errors && nf.submitted">
@@ -73,7 +73,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="mobile" class="text-heading">Num Of baths?*</label>
                         <input type="number" class="form-control form-control-md" id="numbat" name="numbat"
-                        [(ngModel)]="numBaths"   #numbat="ngModel" required>
+                        [(ngModel)]="rentallisting.num_bathrooms"   #numbat="ngModel" required>
                         <div class="alert-danger" *ngIf="numbat?.errors && nf.submitted">
                             <div *ngIf="numbat?.errors['required']">Number baths is required</div>
                         </div>
@@ -83,7 +83,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="accomStart" class="text-heading">Accomedated start date?*</label>
                         <input type="date" class="form-control form-control-md"  name="accstar"
-                        [(ngModel)]="accomStart"   #accstar="ngModel" required>
+                        [(ngModel)]="rentallisting.available_date"   #accstar="ngModel" required>
                         <div class="alert-danger" *ngIf="accstar?.errors && nf.submitted">
                             <div *ngIf="accstar?.errors['required']">Accomedated start date is required</div>
                         </div>
@@ -91,7 +91,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="appRent" class="text-heading">Approx rent/Month ?*</label>
                         <input type="number" class="form-control form-control-md"  name="appren"
-                        [(ngModel)]="appRent" #appren="ngModel" required>
+                        [(ngModel)]="rentallisting.approx_rent" #appren="ngModel" required>
                         <div class="alert-danger" *ngIf="appren?.errors && nf.submitted">
                             <div *ngIf="appren?.errors['required']">Approx rent is required</div>
                         </div>
@@ -101,18 +101,20 @@
                 <div class="form-row mx-n4">
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="parkingAvail" class="text-heading">Parking available ?*</label>
-                        <select class="form-select" aria-label="Default select example" [(ngModel)]="parkingAvail" >
+                        <select class="form-select" aria-label="Default select example"
+                        #parki="ngModel" id="parki" name="parki" [(ngModel)]="rentallisting.parking_available" >
                             <option selected>Select</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6 px-4 ">
                         <label for="petFriendly" class="text-heading">Pets friendly ?*</label>
-                        <select class="form-select" aria-label="Default select example" [(ngModel)]="petFriendly" >
+                        <select class="form-select" aria-label="Default select example" 
+                        #pet="ngModel" id="pet" name="pet" [(ngModel)]="rentallisting.is_pet_friendly" >
                             <option selected>Select</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
                         </select>
                     </div>
                 </div>
@@ -123,7 +125,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="Address" class="text-heading">Address*</label>
                         <input type="text" class="form-control form-control-md" id="address" name="addre"
-                        [(ngModel)]="address"  #addre="ngModel" required>
+                        [(ngModel)]="rentallisting.address1"  #addre="ngModel" required>
                         <div class="alert-danger" *ngIf="addre?.errors && nf.submitted">
                             <div *ngIf="addre?.errors['required']">Address is required</div>
                         </div>
@@ -131,7 +133,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="City" class="text-heading">City*</label>
                         <input type="text" class="form-control form-control-md" name="cit"
-                        [(ngModel)]="city"  #cit="ngModel" required>
+                        [(ngModel)]="rentallisting.city"  #cit="ngModel" required>
                         <div class="alert-danger" *ngIf="cit?.errors && nf.submitted">
                             <div *ngIf="cit?.errors['required']">City is required</div>
                         </div>
@@ -141,7 +143,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="State" class="text-heading">State*</label>
                         <input type="text" class="form-control form-control-md" name="stat"
-                        [(ngModel)]="state"  #stat="ngModel" required>
+                        [(ngModel)]="rentallisting.state"  #stat="ngModel" required>
                         <div class="alert-danger" *ngIf="stat?.errors && nf.submitted">
                             <div *ngIf="stat?.errors['required']">State is required</div>
                         </div>
@@ -149,7 +151,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="Country" class="text-heading">Country*</label>
                         <input type="text" class="form-control form-control-md"  name="countr"
-                        [(ngModel)]="country"  #countr="ngModel" required>
+                        [(ngModel)]="rentallisting.country"  #countr="ngModel" required>
                         <div class="alert-danger" *ngIf="countr?.errors && nf.submitted">
                             <div *ngIf="countr?.errors['required']">Country is required</div>
                         </div>
@@ -160,7 +162,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="zipCode" class="text-heading">Zip Code*</label>
                         <input type="number" class="form-control form-control-md"  name="zipcod"
-                        [(ngModel)]="zipcode"  #zipcod="ngModel" required>
+                        [(ngModel)]="rentallisting.zipcode"  #zipcod="ngModel" required>
                         <div class="alert-danger" *ngIf="zipcod?.errors && nf.submitted">
                             <div *ngIf="zipcod?.errors['required']">ZipCode is required</div>
                         </div>
@@ -170,9 +172,9 @@
 
                 <div class="form-row mx-n4">
                     <div class="form-group col-md-12 px-4 mb-md-0">
-                        <label for="zipCode" class="text-heading">Description</label>
+                        <label for="des" class="text-heading">Description</label>
                         <textarea id="description"  class="form-control form-control-md" 
-                        name="descriptio" [(ngModel)]="description" #descriptio=""ngModel rows="4" cols="60"></textarea>
+                        name="description" [(ngModel)]="rentallisting.description" rows="4" cols="60"></textarea>
                    </div>
                 </div>  <br>      
                 <div class="d-flex justify-content-end flex-wrap">

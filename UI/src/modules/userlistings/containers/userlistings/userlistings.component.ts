@@ -28,7 +28,7 @@ export class UserlistingsComponent implements OnInit {
             this.userlistings = data;  
             console.log(this.userlistings,"fskdjhfk")
             // console.log(this.userlistings[0].UserPosting.posting_id);
-            // console.log(this.userlistings.address1,"address")
+             console.log(this.userlistings.address1,"address")
             
             localStorage.setItem('posting_id',this.userlistings[1].posting_id); 
             this.posting_id = localStorage.getItem('posting_id')
@@ -37,6 +37,6 @@ export class UserlistingsComponent implements OnInit {
           });
     }
     navigateWithId(id: any){
-        this.router.navigate(['newproperty/'+id])
+        this.router.navigate(['updnewproperty/'+id])
     }
 }

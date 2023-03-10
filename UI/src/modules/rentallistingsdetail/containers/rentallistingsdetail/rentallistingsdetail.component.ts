@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RentallistingsdetailService } from '@modules/rentallistingsdetail/services';
 
 @Component({
@@ -16,7 +16,7 @@ export class RentallistingsdetailComponent implements OnInit {
     email :any = localStorage.getItem("email");
     rentalid :any;
 
-    constructor(private rentallistingsdetailservice: RentallistingsdetailService,  private route: ActivatedRoute) {}
+    constructor(private rentallistingsdetailservice: RentallistingsdetailService,  private route: ActivatedRoute,private router: Router) {}
     ngOnInit() {
         this.rentalid = this.route.snapshot.params.id;
         this.rentallistingsdetailservice.getUserrental(this.rentalid).subscribe((data: any) => {
@@ -41,5 +41,8 @@ export class RentallistingsdetailComponent implements OnInit {
             this.rentallisting = data;
             console.log(data);
         });
+        alert("Application has been submitted you will recive a mail!")
+        this.router.navigate([`rentallistings`]);
+
     }
 }

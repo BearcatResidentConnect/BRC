@@ -17,7 +17,7 @@ export const ROUTES: Routes = [
     {
         path: '',
         data: {
-            title: 'Dashboard - SB Admin Angular',
+            title: 'Dashboard - Bearcat Resident Connect',
             breadcrumbs: [
                 {
                     text: 'Dashboard',
@@ -31,7 +31,7 @@ export const ROUTES: Routes = [
     {
         path: 'light',
         data: {
-            title: 'Dashboard Light - SB Admin Angular',
+            title: 'Dashboard Light - Bearcat Resident Connect',
             breadcrumbs: [
                 {
                     text: 'Dashboard',

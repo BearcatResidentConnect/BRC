@@ -1,55 +1,57 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { newpropertyService } from '../../services/newproperty.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { updnewpropertyService } from '../../services/updnewproperty.service';
 
 @Component({
-    selector: 'sb-newproperty',
+    selector: 'sb-updnewproperty',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './newproperty.component.html',
-    styleUrls: ['newproperty.component.scss'],
+    templateUrl: './updnewproperty.component.html',
+    styleUrls: ['updnewproperty.component.scss'],
 })
-export class NewpropertyComponent implements OnInit {
+export class UpdnewpropertyComponent implements OnInit {
 
-  posting_id :any;
   rentallisting: any;
 
     form = {
         "user_name": "string",
-        "accomedation_type": "Temporary",
+        "accomedation_type": "string",
         "name": "string",
-        "available_date": "2022-11-23",
-        "num_days": 7,
-        "accomedated_date": "2022-11-24",
-        "num_people": 1,
-        "num_people_living": 2,
-        "num_bedrooms": 1,
-        "num_bathrooms": 1,
-        "approx_rent": 200,
-        "is_pet_friendly": false,
-        "parking_available": false,
-          "address": "string",
+        "available_date": "any",
+        "num_days": "any",
+        "accomedated_date": "any",
+        "num_people": "any",
+        "num_people_living":"any",
+        "num_bedrooms": "any",
+        "num_bathrooms": "any",
+        "approx_rent": "any",
+        "is_pet_friendly": "any",
+        "parking_available": "any",
+        "address": "string",
           "address1": "string",
           "address2": "string",
           "address3": "string",
           "city": "string",
           "state": "string",
           "country": "string",
-          "zipcode": 0,
-        "description": "any"
+          "zipcode": "any",
+          "description": "any"
       };
     localStorage: any;
-    user_name:any = localStorage.getItem("user_name");
-    accomdationtype: any;
+    user_name:any = "";
+    posting_id:any = localStorage.getItem("posting_id")
+    accomedation_type: any;
+    available_date:any;
+    accomedated_date:any;
     propDesc:any;
-    numpeople:any;
+    num_people:any;
     numpeopleneed:any;
     numRooms:any;
     numDays:any;
     numBaths:any;
     accomStart: any;
     appRent:any;
-    parkingAvail:any;
+    parking_available:any;
     petFriendly:any;
     address:any;
     city:any;
@@ -58,10 +60,10 @@ export class NewpropertyComponent implements OnInit {
     zipcode:any;
     name: any;
     description: any;
-    constructor( private newpropertyService : newpropertyService, private datePipe: DatePipe, private route: ActivatedRoute) {}
+    constructor( private updnewpropertyService : updnewpropertyService, private datePipe: DatePipe, private route: ActivatedRoute,private router: Router) {}
     ngOnInit() {
       this.posting_id = this.route.snapshot.params.id;
-      this.newpropertyService.getUserrental(this.posting_id,this.user_name).subscribe((data: any) => {
+      this.updnewpropertyService.getUserrental(this.posting_id).subscribe((data: any) => {
         this.rentallisting = data;
         console.log(this.rentallisting, "user listing detils");
     });
@@ -70,19 +72,19 @@ export class NewpropertyComponent implements OnInit {
         this.form = {
             "user_name": this.user_name,
             "name": this.name,
-            "accomedation_type": this.accomdationtype,
-            "available_date": this.accomStart,
+            "accomedation_type": this.accomedation_type,
+            "available_date": this.available_date,
             "num_days": this.numDays,
-            "accomedated_date": this.accomStart,
-            "num_people": this.numpeople,
+            "accomedated_date": this.accomedated_date,
+            "num_people": this.num_people,
             "num_people_living": this.numpeopleneed,
             "num_bedrooms": this.numRooms,
             "num_bathrooms": this.numBaths,
             "approx_rent": this.appRent,
             "is_pet_friendly": this.petFriendly,
-            "parking_available": this.parkingAvail,
-              "address": "string",
-              "address1": this.address,
+            "parking_available": this.parking_available,
+             "address": this.address,
+              "address1": "",
               "address2": "",
               "address3": "",
               "city": this.city,
@@ -92,11 +94,11 @@ export class NewpropertyComponent implements OnInit {
             "description":this.description,
           };
         
-            this.newpropertyService.postPropertydetails(this.form).subscribe({ 
-                next: postingproperty => { console.log(postingproperty, "postingproperty");}
+            this.updnewpropertyService.updatePropertydetails(this.rentallisting).subscribe({ 
+                next: postingproperty => { console.log(postingproperty, "updatingproperty");}
             });
-
-            alert("New property details added successfully")
+            this.router.navigate([`myuserlistings`]);
+            alert("Property details updated successfully")
     }
 }
 
@@ -111,16 +113,14 @@ export interface User{
   country: string,
   description: string,
   email: string,
-  first_name: string,
-  is_pet_friendly: any,
-  last_name: string,
+  is_pet_friendly: boolean,
   name: string,
   num_bathrooms: string,
   num_bedrooms: string,
   num_days: string,
   num_people: string,
   num_people_living: string,
-  parking_available: any,
+  parking_available: boolean,
   posting_id: any,
   state: string,
   user_name: string,

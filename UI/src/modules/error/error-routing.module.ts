@@ -24,7 +24,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: errorContainers.Error401Component,
         data: {
-            title: 'Error 401 - SB Admin Angular',
+            title: 'Error 401 - Bearcat Resident Connect',
         } as SBRouteData,
     },
     {
@@ -32,7 +32,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: errorContainers.Error404Component,
         data: {
-            title: 'Error 404 - SB Admin Angular',
+            title: 'Error 404 - Bearcat Resident Connect',
         } as SBRouteData,
     },
     {
@@ -40,7 +40,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: errorContainers.Error500Component,
         data: {
-            title: 'Error 500 - SB Admin Angular',
+            title: 'Error 500 - Bearcat Resident Connect',
         } as SBRouteData,
     },
     {
