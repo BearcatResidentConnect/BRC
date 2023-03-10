@@ -16,12 +16,8 @@ from pydantic import parse_obj_as
 from ..models.models import (
     User as UserModel,
     UserPosting as UserPostingModel,
-    PostingAddress as PostingAddressModel,
-    Address as AddressModel,
 )
 
-
-from .address import _post_address, _get_address, _update_address, AddressModel
 
 from .auth import (
     UserIn as SuperUserIn,
@@ -55,7 +51,6 @@ async def get_user_postings_by_user_name(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> List[UserPostingOut]:
-
     """
     Get Matched Postings by user_name
     """
@@ -74,7 +69,6 @@ async def get_user_posting_by_user_name_and_posting_id(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> UserPostingOut:
-
     """
     Get Matched Postings by user_name and Posting Id
     """
@@ -92,7 +86,6 @@ async def get_user_posting_by_posting_id(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> UserPostingOut:
-
     """
     Get Matched Posting by Posting Id ALone
     """
@@ -108,8 +101,7 @@ async def get_user_posting_by_posting_id(
 async def get_all_users_postings(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-)-> List[UserPostingOut]:
-
+) -> List[UserPostingOut]:
     """
     Get all Users Postings
     """
@@ -128,7 +120,6 @@ async def insert_user_posting(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> None:
-
     """
     Create User Posting. if Not found
     """
@@ -138,58 +129,16 @@ async def insert_user_posting(
         raise HTTPException(400, "Invalid Data Provided")
 
     try:
-        address = user_posting_dict["address"]
-        #print("address", address)
-        address_obj = await _post_address(session, address)
-        address_id = address_obj.address_id
-        del user_posting_dict["address"]
-        user_posting_dict["address_id"] = address_id
-        #print("user_posting_dict", user_posting_dict)
         user_posting_obj = UserPostingModel(**user_posting_dict)
         session.add(user_posting_obj)
         await session.flush()
         await session.refresh(user_posting_obj)
 
     except SQLAlchemyError as exc:
-        print("EXCEPTIOMMMMMMMMMMMMMMM ", exc)
         logger.error("Exception happend %s ", exc)
         raise HTTPException(400, "Invalid Data Provided")
 
-    #return user_posting_obj
-
-
-# @router.post(
-#     "/user-postings",
-#     response_model=List[UserPostingOut],
-#     status_code=status.HTTP_201_CREATED,
-# )
-# async def insert_user_postings(
-#     user_postings: List[UserPostingIn],
-#     session: Session = Depends(get_db_session),
-#     super_user_in: SuperUserIn = Depends(get_current_active_user),
-# ) -> List[UserPostingOut]:
-
-#     """
-#     Insert List of Users at a Time.
-#     """
-
-#     try:
-
-#         user_postings = [
-#             UserPostingModel(**user_posting.dict())
-#             for user_posting in user_postings
-#             if "string" not in user_posting.dict().values()
-#         ]
-#         # session.bulk_save_objects(user_postings)
-#         session.add_all(user_postings)
-#         await session.flush()
-
-#     except SQLAlchemyError as exc:
-
-#         logger.error("Exception happend %s ", exc)
-#         raise HTTPException(400, "Invalid Data Provided")
-
-#     return user_postings
+    return "Created"
 
 
 # # PUT Methods for Update operations
@@ -202,8 +151,7 @@ async def update_user(
     user_posting: UserPostingUpdate,
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
-) -> UserPostingOut:
-
+):
     """
     Update User data for given body parameters based on user_name \
 
@@ -211,16 +159,12 @@ async def update_user(
     """
 
     user_posting_dict = user_posting.dict()
-    address_dict = user_posting_dict["address"]
-    del user_posting_dict["address"]
 
     if "string" in user_posting_dict.values():
         raise HTTPException(400, "Invalid Data Provided")
 
     # Fetch User => Update
     user_posting = await _get_user_posting_obj(session, user_posting_dict["posting_id"])
-
-    address_dict["address_id"] = user_posting.address_id
 
     logger.debug("Fetched User Posting ")
     for k, v in user_posting_dict.items():
@@ -229,15 +173,13 @@ async def update_user(
         if v:
             setattr(user_posting, k, v)
 
-    await _update_address(session, address_dict)
-
-    return
+    return "Updated"
 
 
 # Delete API
 @router.delete(
     "/user-postings/{posting_id}",
-    #response_model=UserPostingOut,
+    # response_model=UserPostingOut,
     status_code=status.HTTP_200_OK,
 )
 async def delete_user_by_user_name(
@@ -245,13 +187,12 @@ async def delete_user_by_user_name(
     session: Session = Depends(get_db_session),
     super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> str:
-
     """
     Delete UserPosting by posting_id
     """
 
     # Fetch UserPosting => Delete
-    user_posting = await _get_user_postings(session, posting_id)
+    user_posting = await _get_user_posting_obj(session, posting_id)
 
     await session.delete(user_posting)
 
@@ -260,7 +201,6 @@ async def delete_user_by_user_name(
 
 # Helper Methods
 async def _get_posting_by_id_alone(session: Session, posting_id: int) -> UserPostingOut:
-
     """
     Query DB with given posting_id alone
     """
@@ -289,22 +229,21 @@ async def _get_posting_by_id_alone(session: Session, posting_id: int) -> UserPos
                 UserPostingModel.parking_available,
                 UserPostingModel.description,
                 #
-                AddressModel.address1.label("address1"),
-                AddressModel.address2.label("address2"),
-                AddressModel.address3.label("address3"),
-                AddressModel.city.label("city"),
-                AddressModel.state.label("state"),
-                AddressModel.country.label("country"),
-                AddressModel.zipcode.label("zipcode")
-                )
+                UserPostingModel.address1,
+                UserPostingModel.address2,
+                UserPostingModel.address3,
+                UserPostingModel.city,
+                UserPostingModel.state,
+                UserPostingModel.country,
+                UserPostingModel.zipcode,
+            )
             .select_from(UserModel)
             .join(UserPostingModel)
-            .join(AddressModel)
             .filter(UserPostingModel.posting_id == posting_id)
         )
 
         _data = _data.one()
-        
+
         _data = parse_obj_as(UserPostingOut, _data)
 
         if _data:
@@ -320,7 +259,6 @@ async def _get_posting_by_id_alone(session: Session, posting_id: int) -> UserPos
 async def _get_user_posting(
     session: Session, user_name: str, posting_id: int
 ) -> UserPostingOut:
-
     """
     Query DB with given user_name and posting_id
     """
@@ -348,17 +286,16 @@ async def _get_user_posting(
                 UserPostingModel.parking_available,
                 UserPostingModel.description,
                 #
-                AddressModel.address1.label("address1"),
-                AddressModel.address2.label("address2"),
-                AddressModel.address3.label("address3"),
-                AddressModel.city.label("city"),
-                AddressModel.state.label("state"),
-                AddressModel.country.label("country"),
-                AddressModel.zipcode.label("zipcode")
-                )
+                UserPostingModel.address1,
+                UserPostingModel.address2,
+                UserPostingModel.address3,
+                UserPostingModel.city,
+                UserPostingModel.state,
+                UserPostingModel.country,
+                UserPostingModel.zipcode,
+            )
             .select_from(UserModel)
             .join(UserPostingModel)
-            .join(AddressModel)
             .filter(
                 UserPostingModel.user_name == user_name,
                 UserPostingModel.posting_id == posting_id,
@@ -366,7 +303,7 @@ async def _get_user_posting(
         )
 
         _data = _data.one()
-        
+
         _data = parse_obj_as(UserPostingOut, _data)
 
         if _data:
@@ -380,7 +317,6 @@ async def _get_user_posting(
 
 
 async def _get_user_postings(session: Session, user_name: str) -> UserPostingOut:
-
     """
     Query DB with given user_name
     """
@@ -409,24 +345,23 @@ async def _get_user_postings(session: Session, user_name: str) -> UserPostingOut
                 UserPostingModel.parking_available,
                 UserPostingModel.description,
                 #
-                AddressModel.address1.label("address1"),
-                AddressModel.address2.label("address2"),
-                AddressModel.address3.label("address3"),
-                AddressModel.city.label("city"),
-                AddressModel.state.label("state"),
-                AddressModel.country.label("country"),
-                AddressModel.zipcode.label("zipcode")
-                )
+                UserPostingModel.address1,
+                UserPostingModel.address2,
+                UserPostingModel.address3,
+                UserPostingModel.city,
+                UserPostingModel.state,
+                UserPostingModel.country,
+                UserPostingModel.zipcode,
+            )
             .select_from(UserModel)
             .join(UserPostingModel)
-            .join(AddressModel)
             .filter(UserPostingModel.user_name == user_name)
         )
 
         _data = _data.all()
-        
+
         _data = parse_obj_as(List[UserPostingOut], _data)
-        
+
         if _data:
             logger.debug("Fetched User Postings")
             return _data
@@ -438,7 +373,6 @@ async def _get_user_postings(session: Session, user_name: str) -> UserPostingOut
 
 
 async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
-
     """
     Query DB for all User Postings
     """
@@ -467,35 +401,31 @@ async def _get_all_user_postings(session: Session) -> List[UserPostingOut]:
                 UserPostingModel.parking_available,
                 UserPostingModel.description,
                 #
-                AddressModel.address1.label("address1"),
-                AddressModel.address2.label("address2"),
-                AddressModel.address3.label("address3"),
-                AddressModel.city.label("city"),
-                AddressModel.state.label("state"),
-                AddressModel.country.label("country"),
-                AddressModel.zipcode.label("zipcode")
-                )
+                UserPostingModel.address1,
+                UserPostingModel.address2,
+                UserPostingModel.address3,
+                UserPostingModel.city,
+                UserPostingModel.state,
+                UserPostingModel.country,
+                UserPostingModel.zipcode,
+            )
             .select_from(UserModel)
             .join(UserPostingModel)
-            .join(AddressModel)
         )
 
         _data = _data.all()
-        
+
         _data = parse_obj_as(List[UserPostingOut], _data)
 
         if len(_data):
-            #logger.debug("Fetched All Users Postings", _data)
             return _data
     except Exception as e:
-        #print("*************** ", e)
         logger.error("No Records Found")
 
     raise HTTPException(404, NOT_FOUND_USER_POSTINGS)
 
 
 async def _get_user_posting_obj(session: Session, posting_id: int):
-
     """
     Query DB with given address_id
     """
@@ -511,3 +441,42 @@ async def _get_user_posting_obj(session: Session, posting_id: int):
         return _data
 
     raise HTTPException(404, NOT_FOUND_USER_POSTING)
+
+
+"""
+          select(
+                UserModel.user_name,
+                UserModel.first_name,
+                UserModel.last_name,
+                UserModel.email,
+                #
+                UserPostingModel.name,
+                UserPostingModel.accomedation_type,
+                UserPostingModel.available_date,
+                UserPostingModel.posting_id,
+                UserPostingModel.num_days,
+                UserPostingModel.accomedated_date,
+                UserPostingModel.num_people,
+                UserPostingModel.num_people_living,
+                UserPostingModel.num_bedrooms,
+                UserPostingModel.approx_rent,
+                UserPostingModel.num_bathrooms,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.is_pet_friendly,
+                UserPostingModel.parking_available,
+                UserPostingModel.description,
+                #
+                UserPostingModel.address1.label("address1"),
+                UserPostingModel.address2.label("address2"),
+                UserPostingModel.address3.label("address3"),
+                UserPostingModel.city.label("city"),
+                UserPostingModel.state.label("state"),
+                UserPostingModel.country.label("country"),
+                UserPostingModel.zipcode.label("zipcode")
+                )
+            .select_from(UserModel)
+            .join(UserPostingModel)
+            .join(UserPostingModel)
+            .filter(UserPostingModel.posting_id == posting_id)
+
+"""

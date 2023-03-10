@@ -30,8 +30,17 @@ class UserPostingIn(UserPostingBase):
     is_pet_friendly: bool = False
     parking_available: bool = False
     #
-    address: CommonAddressInOut
+    #address: CommonAddressInOut
     description: str = "NA"
+    #
+    # Address
+    address1: str
+    address2: str
+    address3: str
+    city: str
+    state: str
+    country: str
+    zipcode: int
 
 
 class UserPostingOut(BaseModel):
@@ -71,18 +80,6 @@ class UserPostingOut(BaseModel):
     class Config:
         orm_mode = True
 
-
-# class UserPostingUpdate(UserPostingIn):
-#     posting_id = int
-
-
-class UserPostingUpdate(BaseModel):
-    posting_id: int
-
-    class Config:
-        orm_mode = True
-
-
 class UserPostingUpdate(BaseModel):
 
     # user_name: Union[str, None] = None
@@ -100,4 +97,15 @@ class UserPostingUpdate(BaseModel):
     is_pet_friendly: Union[bool, None] = None
     parking_available: Union[bool, None] = None
     #
-    address: CommonAddressUpdate
+    #address: CommonAddressUpdate
+    # Address
+    address1: Union[str, None] = None
+    address2: Union[str, None] = None
+    address3: Union[str, None] = None
+    city: Union[str, None] = None
+    state: Union[str, None] = None
+    country: Union[str, None] = None
+    zipcode: Union[int, None] = None
+    
+    class Config:
+        orm_mode = True

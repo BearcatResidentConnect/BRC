@@ -72,7 +72,7 @@ async def get_db_session():
                 logger.debug("Closed Database Session ")
 
     except Exception as e:
-        logger.error("Error : %s ", e.detail)
+        logger.error("Error : %s ", str(e))
         await session.rollback()
         logger.debug("Closing Database Session ")
         await session.close()

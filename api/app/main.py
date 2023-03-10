@@ -10,10 +10,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .views import auth
-from .views import basic_auth
 from .views import user
 from .views import user_postings
-from .views import address
 from .views import rental_postings
 from .views import user_application
 from .views import dashboard
@@ -49,7 +47,6 @@ app.include_router(user.router)
 app.include_router(auth.router)
 #app.include_router(basic_auth.router)
 app.include_router(user_postings.router)
-app.include_router(address.router)
 app.include_router(rental_postings.router)
 app.include_router(user_application.router)
 app.include_router(dashboard.router)
