@@ -84,6 +84,7 @@ class UserPostingUpdate(BaseModel):
 
     # user_name: Union[str, None] = None
     posting_id: int  # Required
+    name: Union[str, None] = None
     accomedation_type: Union[str, None] = None
     available_date: Union[date, None]
     num_days: Union[int, None] = None
