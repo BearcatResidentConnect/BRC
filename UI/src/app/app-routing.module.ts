@@ -1,16 +1,38 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@modules/auth/guards/auth.guard';
 
 const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
         redirectTo: '/auth/login',
+        canActivate: [AuthGuard] 
     },
     {
         path: 'profile',
         loadChildren: () =>
             import('@modules/profile/profile-routing.module').then(m => m.ProfileRoutingModule),
+    },
+    {
+        path: 'myuserlistings',
+        loadChildren: () =>
+            import('modules/myuserlistings/myuserlistings-routing.module').then(m => m.MyuserlistingsRoutingModule),
+    },
+    {
+        path: 'myuserlistingsdetail/:id',
+        loadChildren: () =>
+            import('modules/myuserlistingsdetail/myuserlistingsdetail-routing.module').then(m => m.MyuserlistingsdetailRoutingModule),
+    },
+    {
+        path: 'updnewproperty',
+        loadChildren: () =>
+            import('modules/updnewproperty/updnewproperty-routing.module').then(m => m.UpdnewpropertyRoutingModule),
+    },
+    {
+        path: 'updnewproperty/:id',
+        loadChildren: () =>
+            import('modules/updnewproperty/updnewproperty-routing.module').then(m => m.UpdnewpropertyRoutingModule),
     },
     {
         path: 'userlistings',
