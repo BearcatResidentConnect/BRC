@@ -107,6 +107,7 @@ class UserPostingUpdate(BaseModel):
     state: Union[str, None] = None
     country: Union[str, None] = None
     zipcode: Union[int, None] = None
+    description: Union[str, None] = "NA"
     
     class Config:
         orm_mode = True
