@@ -14,6 +14,8 @@ export class ProfileComponent implements OnInit {
       userDetails!: User;
       user_name:any = localStorage.getItem("user_name");
       email = localStorage.getItem('email')
+      access_token = localStorage.getItem('access_token')
+      first_name = localStorage.getItem('first_name')
 
      
     
@@ -24,6 +26,7 @@ export class ProfileComponent implements OnInit {
         this.profileService.getUser(this.user_name).subscribe(data => {
             this.userDetails = data;
             console.log(this.userDetails,"userDetails")
+            console.log(this.first_name,"first_name")
           });
 
     }
