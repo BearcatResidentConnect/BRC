@@ -26,8 +26,3 @@ async def test_health_neg2():
     response = requests.get(f"{BASE_URL}/api/healt")
     assert response.status_code == 404
     assert response.status_code != 200
-
-@pytest.mark.asyncio
-async def test_health_neg1():
-    response = requests.get(f"{BASE_URL}/api/heal")
-    assert response.status_code == 404
