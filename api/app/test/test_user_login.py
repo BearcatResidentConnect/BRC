@@ -54,5 +54,13 @@ def test_login_response_neg_neg():
 
     assert response.status_code == 404 
 
+def test_login_response_neg_neg():
+    data = {
+  "user_name": "mani13",
+  "password": "mani"
+}
+    response = requests.post(f"{BASE_URL}/api/users/auth", json=data)
+
+    assert response.status_code != 404 
 
  
