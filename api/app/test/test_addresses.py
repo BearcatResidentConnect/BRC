@@ -18,3 +18,11 @@ async def test_users_addres_id():
     assert response.status_code == 200
     assert response.status_code != 404
     assert isinstance(response.json(), dict)
+
+@pytest.mark.asyncio
+async def test_users_addres_id_neg():
+    address_id = 2
+    response = requests.get(f"{BASE_URL}/api/addresses/{address_id}")
+   
+    assert response.status_code != 404
+    assert isinstance(response.json(), dict)
