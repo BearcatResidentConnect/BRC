@@ -215,3 +215,19 @@ async def _get_all_users(session: Session) -> List[UserOut]:
         return _data
 
     raise HTTPException(404, NOT_FOUND_USERS)
+
+async def _get_all_users_by_name(session: Session) -> List[UserOut]:
+
+    """
+    Query DB for all User's
+    """
+
+    _data = await session.execute(select(UserModel).order_by(UserModel.user_name))
+
+    _data = _data.scalars().all()
+
+    if len(_data):
+        logger.debug("Fetched Users ")
+        return _data
+
+    raise HTTPException(404, NOT_FOUND_USERS)
