@@ -33,3 +33,9 @@ class ProdSettings(SettingsBase):
 
     DEV: bool = False
     QUERY_DEBUG: bool = False
+
+
+class StageSettings(SettingsBase):
+
+    DEV: bool = False
+    QUERY_DEBUG: bool = False
