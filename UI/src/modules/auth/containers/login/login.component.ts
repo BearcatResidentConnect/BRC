@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../../auth/services/auth.service';
 import { TokenStorageService } from '../../../auth/services/token-storage.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
     selector: 'sb-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     isLoggedIn = false;
     isLoginFailed = false;
     errorMessage = '';
+    access_token:any;
   
     constructor(private authService: AuthService, private tokenStorage: TokenStorageService,private myRoute: Router) { }
   
@@ -28,6 +30,8 @@ export class LoginComponent implements OnInit {
         console.log(this.tokenStorage.getToken('access_token'));
       }
     }
+
+    
   
     onSubmit(): void {
       const { username, password } = this.form;
@@ -42,8 +46,10 @@ export class LoginComponent implements OnInit {
   
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          console.log(data.access_token)
+          console.log(data.access_token , "access token1")
           console.log(data.refresh_token)
+          localStorage.setItem('access_token',this.access_token);
+          console.log(data.access_token , "access token1")
           this.getdetails(username);
           this.myRoute.navigateByUrl('dashboard');
         },
@@ -62,6 +68,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('last_name',data1.last_name); 
             localStorage.setItem('user_name',data1.user_name); 
             localStorage.setItem('sid',data1.sid); 
+            localStorage.setItem('access_token',data1.access_token); 
           }
           });
     }
