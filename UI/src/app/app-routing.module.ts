@@ -16,31 +16,37 @@ const routes: Routes = [
     },
     {
         path: 'myuserlistings',
+        // canActivateChild: [AuthGuard],
         loadChildren: () =>
             import('modules/myuserlistings/myuserlistings-routing.module').then(m => m.MyuserlistingsRoutingModule),
     },
     {
         path: 'myuserlistingsdetail/:id',
+        // canActivateChild: [AuthGuard],
         loadChildren: () =>
             import('modules/myuserlistingsdetail/myuserlistingsdetail-routing.module').then(m => m.MyuserlistingsdetailRoutingModule),
     },
     {
         path: 'updnewproperty',
+        // canActivateChild: [AuthGuard],
         loadChildren: () =>
             import('modules/updnewproperty/updnewproperty-routing.module').then(m => m.UpdnewpropertyRoutingModule),
     },
     {
         path: 'updnewproperty/:id',
+        // canActivateChild: [AuthGuard],
         loadChildren: () =>
             import('modules/updnewproperty/updnewproperty-routing.module').then(m => m.UpdnewpropertyRoutingModule),
     },
     {
         path: 'userlistings',
+        // canActivateChild: [AuthGuard],
         loadChildren: () =>
             import('modules/userlistings/userlistings-routing.module').then(m => m.UserlistingsRoutingModule),
     },
     {
         path: 'rentallistings',
+        // canActivateChild: [AuthGuard],
         loadChildren: () =>
             import('modules/rentallistings/rentallistings-routing.module').then(m => m.RentallistingsRoutingModule),
     },
