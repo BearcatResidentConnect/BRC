@@ -24,11 +24,7 @@ export class LoginComponent implements OnInit {
     constructor(private authService: AuthService, private tokenStorage: TokenStorageService,private myRoute: Router) { }
   
     ngOnInit(): void {
-      if (this.tokenStorage.getToken('access_token')) {
-        this.isLoggedIn = true;
-        console.log('sdf');  
-        console.log(this.tokenStorage.getToken('access_token'));
-      }
+      
     }
 
     
@@ -52,6 +48,12 @@ export class LoginComponent implements OnInit {
           console.log(data.access_token , "access token1")
           this.getdetails(username);
           this.myRoute.navigateByUrl('dashboard');
+
+          if (this.tokenStorage.getToken('access_token')) {
+        this.isLoggedIn = true;
+        console.log('sdf');  
+        console.log(this.tokenStorage.getToken('access_token'));
+      }
         },
         
         error: err => {

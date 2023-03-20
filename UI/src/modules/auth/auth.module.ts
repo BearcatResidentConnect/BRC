@@ -19,6 +19,7 @@ import * as authGuards from './guards';
 
 /* Services */
 import * as authServices from './services';
+import { AuthGuard } from './guards';
 
 @NgModule({
     imports: [
@@ -29,7 +30,7 @@ import * as authServices from './services';
         AppCommonModule,
         NavigationModule,
     ],
-    providers: [...authServices.services, ...authGuards.guards],
+    providers: [...authServices.services, ...authGuards.guards, AuthGuard],
     declarations: [...authContainers.containers, ...authComponents.components],
     exports: [...authContainers.containers, ...authComponents.components],
 })

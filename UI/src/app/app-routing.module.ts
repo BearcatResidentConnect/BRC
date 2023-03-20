@@ -7,7 +7,7 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         redirectTo: '/auth/login',
-        canActivate: [AuthGuard] 
+         canActivate: [AuthGuard] 
     },
     {
         path: 'profile',
@@ -16,37 +16,37 @@ const routes: Routes = [
     },
     {
         path: 'myuserlistings',
-        // canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
         loadChildren: () =>
             import('modules/myuserlistings/myuserlistings-routing.module').then(m => m.MyuserlistingsRoutingModule),
     },
     {
         path: 'myuserlistingsdetail/:id',
-        // canActivateChild: [AuthGuard],
         loadChildren: () =>
             import('modules/myuserlistingsdetail/myuserlistingsdetail-routing.module').then(m => m.MyuserlistingsdetailRoutingModule),
+            canActivate: [AuthGuard], 
     },
     {
         path: 'updnewproperty',
-        // canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
         loadChildren: () =>
             import('modules/updnewproperty/updnewproperty-routing.module').then(m => m.UpdnewpropertyRoutingModule),
     },
     {
         path: 'updnewproperty/:id',
-        // canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
         loadChildren: () =>
             import('modules/updnewproperty/updnewproperty-routing.module').then(m => m.UpdnewpropertyRoutingModule),
     },
     {
         path: 'userlistings',
-        // canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
         loadChildren: () =>
             import('modules/userlistings/userlistings-routing.module').then(m => m.UserlistingsRoutingModule),
     },
     {
         path: 'rentallistings',
-        // canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
         loadChildren: () =>
             import('modules/rentallistings/rentallistings-routing.module').then(m => m.RentallistingsRoutingModule),
     },
@@ -63,10 +63,12 @@ const routes: Routes = [
     },
     {
         path: 'dashboard',
+         
         loadChildren: () =>
             import('modules/dashboard/dashboard-routing.module').then(
                 m => m.DashboardRoutingModule
             ),
+            canActivate: [AuthGuard],
     },
     {
         path: 'auth',
@@ -82,11 +84,13 @@ const routes: Routes = [
         path: 'newproperty',
         loadChildren: () =>
             import('modules/newproperty/newproperty-routing.module').then(m => m.NewpropertyRoutingModule),
+            canActivate: [AuthGuard],
     },
     {
         path: 'newproperty/:id',
         loadChildren: () =>
             import('modules/newproperty/newproperty-routing.module').then(m => m.NewpropertyRoutingModule),
+            canActivate: [AuthGuard],
     },
     {
         path: 'version',
@@ -103,6 +107,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+    providers: [AuthGuard], // Add AuthGuard to providers array
     exports: [RouterModule],
 })
 export class AppRoutingModule {}

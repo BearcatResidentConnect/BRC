@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {environment} from 'environments/environment';
 
+import { TokenStorageService } from '../../auth/services/token-storage.service';
+
 // const AUTH_API = 'http://18.207.93.25:5000/api';
 // const AUTH_API  = 'http://192.168.1.23:5000/api';
 
@@ -16,7 +18,9 @@ const httpOptions = {
 export class AuthService {
     private readonly refreshToken = 'refreshToken';
 
-    constructor(private http: HttpClient) {}
+    access_token = localStorage.getItem('access_token')
+
+    constructor(private http: HttpClient,private tokenStorage: TokenStorageService) {}
 
     login(user_name: string, password: string): Observable<any> {
         /*  var formData: any = new FormData();
@@ -26,21 +30,25 @@ export class AuthService {
     (response) => console.log(response),
     (error) => console.log(error)
   ) */
-        /*  const formData = new FormData();
-  formData.append("username", user_name);
-  formData.append("password", password);
-  const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
-  console.log({formData}); */
+//         /*  const formData = new FormData();
+//   formData.append("username", user_name);
+//   formData.append("password", password);
+//   const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+//   console.log({formData}); */
         const formData = new FormData();
         formData.append('username', user_name);
         formData.append('password', password);
-
+        
         const headers = new HttpHeaders({ enctype: 'multipart/form-data' });
         return this.http.post(environment.basePath + '/users/auth/token', formData, { headers });
     }
     getUserDetails(user_name: string): Observable<any> {
       return this.http.get(environment.basePath + '/users/'+  user_name ) 
       
+    }
+
+    getToken(){
+        return localStorage.getItem('accessToken')
     }
 
     register(
@@ -65,10 +73,10 @@ export class AuthService {
         );
     }
 
-    IsLoggedIn(){
-        return localStorage.getItem('token')!=null;
+    IsLoggedIn(): boolean{
+        return !!this.tokenStorage.getToken('access_token');
     }
     GetToken(){
-        return localStorage.getItem('token')||'';
+        return localStorage.getItem('access_token')||'';
     }
 }
