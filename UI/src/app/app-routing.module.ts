@@ -5,20 +5,24 @@ import { AuthGuard } from '@modules/auth/guards/auth.guard';
 const routes: Routes = [
     {
         path: '',
+        canActivate: [AuthGuard], 
         pathMatch: 'full',
         redirectTo: '/auth/login',
-         canActivate: [AuthGuard] 
+     
     },
     {
         path: 'profile',
+        canActivate: [AuthGuard],
         loadChildren: () =>
             import('@modules/profile/profile-routing.module').then(m => m.ProfileRoutingModule),
+        
     },
     {
         path: 'myuserlistings',
         canActivate: [AuthGuard],
         loadChildren: () =>
             import('modules/myuserlistings/myuserlistings-routing.module').then(m => m.MyuserlistingsRoutingModule),
+            
     },
     {
         path: 'myuserlistingsdetail/:id',

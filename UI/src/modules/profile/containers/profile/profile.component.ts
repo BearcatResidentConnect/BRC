@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ProfileService } from '@modules/profile/services';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'sb-profile',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
      
     
 
-    constructor( private profileService : ProfileService) {}
+    constructor( private profileService : ProfileService,private toastr: ToastrService) {}
     ngOnInit() {
    
         this.profileService.getUser(this.user_name).subscribe(data => {
@@ -38,12 +38,17 @@ export class ProfileComponent implements OnInit {
     // email = localStorage.getItem('email')
 
     onSubmit(): void {
+        this.toastr.success('Hello, world!', 'Success!');
         
             this.profileService.updateUser(this.userDetails).subscribe({ 
                 next: updateuser => { console.log(updateuser, "updateuser");}
             });
             alert("User details updated successfully")
     }
+
+    showSuccess() {
+        this.toastr.success('Hello, world!', 'Success!');
+      }
 }
 
 export interface User{
