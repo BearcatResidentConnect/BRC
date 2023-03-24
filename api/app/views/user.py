@@ -68,7 +68,7 @@ async def get_all_users(
 async def insert_user(
     user: UserIn,
     session: Session = Depends(get_db_session),
-    super_user_in: SuperUserIn = Depends(get_current_active_user),
+    #super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> UserOut:
 
     """
@@ -102,7 +102,7 @@ async def insert_user(
 async def insert_users(
     users: List[UserIn],
     session: Session = Depends(get_db_session),
-    super_user_in: SuperUserIn = Depends(get_current_active_user),
+    #super_user_in: SuperUserIn = Depends(get_current_active_user),
 ) -> List[UserOut]:
 
     """
