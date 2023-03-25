@@ -74,6 +74,10 @@ async def _get_dashboard_analytics(session: Session) -> DashBoardOut:
 
         if user_count or user_postings_count or rental_postings_count:
             logger.debug("Fetched Analytics data ")
+            
+            data = {
+                
+            }
 
             data = {
                 "num_users": user_count,
