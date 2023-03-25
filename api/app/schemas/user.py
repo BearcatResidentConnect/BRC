@@ -73,6 +73,38 @@ class SuperUserOut(BaseModel):
     class Config:
         orm_mode = True
 
+        class SuperUserIn(BaseModel):
+    name: str
+    email: str
+    user_id: int
+    first_name: str
+    last_name: str
+    department: str
+    user_name: str
+    password: str
+    active: bool = True
+
+class Config:
+        orm_mode = True
+
+class AccessTokenOut(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class AccessRefreshTokenOut(AccessTokenOut):
+    refresh_token: str
+
+class RefreshAccessTokenIn(BaseModel):
+    grant_type: str = "refresh_token"
+    refresh_token: str
+
+
+class TokenData(BaseModel):
+    user_name: Union[str, None] = None
+
+
+
 
 
 
