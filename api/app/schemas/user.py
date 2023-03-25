@@ -88,6 +88,19 @@ class SuperUserIn(BaseModel):
 
     class Config:
         orm_mode = True
+        
+class SuperUserUpdate(BaseModel):
+    name: str
+    email: str
+    first_name: str
+    last_name: str
+    department: str
+    user_name: str
+    password: str
+    active: bool = True
+
+    class Config:
+        orm_mode = True
 
 
 class AccessTokenOut(BaseModel):
