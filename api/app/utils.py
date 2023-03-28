@@ -128,6 +128,7 @@ def send_email(
     user_name: Union[str, None] = None,
     body: Union[bool, None] = None,
     sender_name: Union[bool, None] = None,
+    to_emails = None
 ) -> bool:
     """Send an Email via SendGrid API
 
@@ -146,12 +147,13 @@ def send_email(
 
     if not body:
         body = html_body.format(user_name=user_name, user_email=user_email, rental_name=rental_name)
-
-    to_emails = [
-        To(rental_email, rental_name),
-        # Bcc('test+bcc@example.com', 'Example Bcc Name 1'),
-        Cc(user_email, user_name),
-    ]
+        
+    if not to_emails:
+        to_emails = [
+            To(rental_email, rental_name),
+            # Bcc('test+bcc@example.com', 'Example Bcc Name 1'),
+            Cc(user_email, user_name),
+        ]
 
     # print("settings.SENDER_EMAIL ", settings.SENDER_EMAIL)
 
@@ -166,11 +168,8 @@ def send_email(
         sg = SendGridAPIClient(settings.EMAIL_SERVER_API_KEY)
         response = sg.send(message)
         print(response.status_code)
-        # print(response.body)
-        # print(response.headers)
         return True
     except Exception as e:
-        # print("EXCEPTIONnnnnnnnnnnnnnnnn ", e)
         return False
     
 def get_utc_to_local(utc_datetime: datetime):
