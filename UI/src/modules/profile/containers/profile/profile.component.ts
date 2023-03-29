@@ -30,12 +30,10 @@ export class ProfileComponent implements OnInit {
           });
 
     }
-    // name = localStorage.getItem('first_name')
-    // first_name = localStorage.getItem('first_name')
-    // last_name = localStorage.getItem('last_name')
-    // username = localStorage.getItem('user_name')
-    // sid = localStorage.getItem('sid')
-    // email = localStorage.getItem('email')
+    name = localStorage.getItem('first_name')
+    last_name = localStorage.getItem('last_name')
+    username = localStorage.getItem('user_name')
+    sid = localStorage.getItem('sid')
 
     onSubmit(): void {
         // this.toastr.success('Hello, world!', 'Success!');
