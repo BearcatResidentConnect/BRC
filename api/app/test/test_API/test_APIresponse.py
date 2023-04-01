@@ -25,3 +25,14 @@ def test_authenticated_endpoint():
 
 
 
+def test_successful_login():
+    # Make a request to the login endpoint to obtain an access token
+    payload = {"username": "mani", "password": "mani1234"}
+    response = requests.post("http://3.224.253.213:4200/auth/login", json=payload)
+    assert response.status_code == 200
+    access_token = response.json()["access_token"]
+
+    # Make a request to another endpoint that requires authentication
+    headers = {"Authorization": f"Bearer {access_token}"}
+    response = requests.get("http://3.224.253.213:4200/dashboard", headers=headers)
+    assert response.status_code == 200
