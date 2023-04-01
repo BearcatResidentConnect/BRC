@@ -9,4 +9,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
     constructor() {}
     ngOnInit() {}
+    onSubmit(): void {
+        // this.toastr.success('Hello, world!', 'Success!');
+    }
 }
+
