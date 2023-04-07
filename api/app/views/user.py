@@ -242,7 +242,7 @@ async def reset_password_get(request: Request):
     return templates.TemplateResponse("password_reset.html", {"request": request})
 
 
-@router.post("/user/reset_password")
+@router.post("/user/reset_password_ui")
 async def reset_password_get_post(
     
     request: Request,
@@ -268,4 +268,3 @@ async def reset_password_get_post(
 
     return {"Msg": "Success Password Updated!"}
     
-   
