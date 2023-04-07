@@ -83,4 +83,112 @@ def create_access_token(
 
 
 
+# Helper Methods
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+
+    """Match Passwords
+
+    Args:
+        plain_password (str): User Password
+        hashed_password (str): Hashed User Password
+
+    Returns:
+        bool: Match
+    """
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_password_hash(password: str) -> str:
+
+    """Hashify the given password
+
+    Args:
+        password (str): User Plain Password
+
+    Returns:
+        str: Hashed Password
+    """
+    return pwd_context.hash(password)
+
+
+async def generate_new_access_token(token_data : RefreshAccessTokenIn):
+
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(
+            token_data.refresh_token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
+        user_id: int = payload.get("sub")
+        logging.debug("Token Sub is ", user_id)
+        if user_id is None:
+            raise credentials_exception
+        #token_data = TokenData(username=username)
+    except JWTError as e:
+        logging.error("Exception %s", e)
+        raise credentials_exception
+
+    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+
+    access_token = create_access_token(
+        data={"sub": user_id}, expires_delta=access_token_expires
+    )
+
+    return {"token_type": "bearer", "access_token": access_token}
+
+
+async def _get_current_user(
+    token: str = Depends(oauth2_scheme), session: Session = Depends(get_db_session)
+):
+
+    """ """
+
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(
+            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
+        user_id: int = payload.get("sub")
+        logging.debug("Token Sub is ", user_id)
+        if user_id is None:
+            raise credentials_exception
+        #token_data = TokenData(username=username)
+    except JWTError as e:
+        logging.error("Exception %s", e)
+        raise credentials_exception
+    user = await _get_user(session, user_id)
+    if user is None:
+        raise credentials_exception
+    return user
+
+
+if settings.DEV:
+
+    async def get_current_active_user() -> bool:
+        #
+        return True
+
+else:
+
+    async def get_current_active_user(
+        current_user: UserIn = Depends(_get_current_user),
+    ) -> UserOut:
+        if not current_user.active:
+            raise HTTPException(status_code=400, detail="Inactive user")
+
+        return current_user
+
+
+# ========================================= APIs =====================================
+
+
+
+
 
