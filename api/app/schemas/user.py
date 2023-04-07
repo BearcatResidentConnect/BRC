@@ -47,6 +47,19 @@ class UserOut(BaseModel):
 
     class Config:
         orm_mode = True
+        
+        
+class PasswordReset(BaseModel):
+    
+    username: str
+    old_password: str
+    new_password: str
+    confirm_password: str
+
+
+    class Config:
+        orm_mode = True
+
 
 
 
