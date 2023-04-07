@@ -29,16 +29,16 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label for="sid">SID</label>
-                                  <input type="text" class="form-control" name="sid" [(ngModel)]="form.sid" required minlength="3"
+                                  <input type="text" class="form-control" name="sid" [(ngModel)]="form.sid"  minlength="6"
                                     maxlength="20" #sid="ngModel" />
                                   <div class="alert-danger" *ngIf="sid.errors && f.submitted">
                                     <div *ngIf="sid.errors['required']">SID is required</div>
                                     <div *ngIf="sid.errors['minlength']">
-                                      sid must be at least 3 characters
+                                      sid must be at least 6 characters
                                     </div>
-                                    <div *ngIf="sid.errors['maxlength']">
-                                      sid must be at most 20 characters
-                                    </div>
+                                    <!-- <div *ngIf="sid.errors['maxlength']">
+                                      sid must be at most 6 characters
+                                    </div> -->
                                   </div>
                                 </div>
                               </div>
@@ -123,7 +123,7 @@
                               </div>
                             </div>
                             <div class="form-group">
-                              <button class="btn btn-block btn-outline-primary " [disabled]="f.invalid">Sign Up</button>
+                              <button class="btn btn-block btn-outline-primary " >Sign Up</button>
                             </div>
                     
                             <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
