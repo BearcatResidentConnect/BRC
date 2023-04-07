@@ -188,6 +188,105 @@ else:
 
 # ========================================= APIs =====================================
 
+@router.post("/users/auth")
+async def basic_login(
+    user: UserInCheck,
+    #form_data: OAuth2PasswordRequestForm = Depends(),
+    session: Session = Depends(get_db_session),
+):
+    """ """
+    user_dict = user.dict()
+    try:
+        user = await _get_user(session, user_dict["user_name"])
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect User Name",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    #
+    if not verify_password(user_dict["password"], user.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect Password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+        
+    return {
+        "Msg": "Login Success"
+    }
+
+
+@router.post("/users/auth/token", response_model=AccessRefreshTokenOut)
+async def login_for_access_token(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    session: Session = Depends(get_db_session),
+):
+    """ """
+    #
+    #print(form_data.username)
+    try:
+        user = await _get_user(session, form_data.username)
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect User Name",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+        
+    #
+    if not verify_password(form_data.password, user.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect Password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+        
+    #
+    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": str(user.user_id)}, expires_delta=access_token_expires
+    )
+    #
+    refresh_token_expires = timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES)
+    refresh_token = create_access_token(
+        data={"sub": str(user.user_id)}, expires_delta=refresh_token_expires
+    )
+    return {
+        "token_type": "bearer",
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+    }
+
+
+@router.post("/users/auth/refresh-token", response_model=AccessTokenOut)
+async def validate_refresh_token_get_access_token(refresh_token : RefreshAccessTokenIn
+
+):
+    return await generate_new_access_token(refresh_token)
+
+
+# ====================================================================================
+
+    
+# Helper Methods
+async def _get_user(session: Session, user_name: str) -> UserOut:
+
+    """
+    Query DB with given user_id
+    """
+
+    _data = await session.execute(select(UserModel).where(UserModel.user_name == user_name))
+
+    _data = _data.scalar()
+
+    if _data:
+        logger.debug("Fetched User ")
+        return _data
+
+    raise HTTPException( 404, NOT_FOUND_USER)
+
+
 
 
 
