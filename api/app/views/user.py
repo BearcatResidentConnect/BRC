@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 
-from ..schemas.user import UserIn, UserOut, UserUpdate  # , UserCourses
+from ..schemas.user import UserIn, UserOut, UserUpdate, PasswordReset  # , UserCourses
 from typing import List, Union
 
 from fastapi import APIRouter, status, Depends, HTTPException, Request, Form
@@ -267,4 +267,26 @@ async def reset_password_get_post(
     setattr(user, "password", new_hashed_password)
 
     return {"Msg": "Success Password Updated!"}
+
+
+@router.post("/user/reset_password")
+async def reset_password_get_post(
+
+    data: PasswordReset,
+    session: Session = Depends(get_db_session),
+) -> dict:
+    #print(username, old_password, new_password, confirm_password)
     
+    
+    user = await _get_user(session, data.username)
+    
+    if not verify_password(data.old_password, user.password):
+        return {"Msg": "Error Wrong Password!"}
+     
+    if data.new_password != data.confirm_password:
+        return {"Msg": "Error New and Confirm Password Did not Match!"}
+
+    new_hashed_password = get_password_hash(data.new_password)
+    setattr(user, "password", new_hashed_password)
+
+    return {"Msg": "Success Password Updated!"}
