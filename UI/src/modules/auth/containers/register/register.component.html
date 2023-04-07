@@ -93,35 +93,31 @@
                                 </div>
                               </div>
                             </div>
+                            
                             <div class="row">
                               <div class="col-md-6">
-                    
                                 <div class="form-group">
                                   <label for="password">Password</label>
-                                  <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required
-                                    minlength="6" #password="ngModel" />
+                                  <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
                                   <div class="alert-danger" *ngIf="password.errors && f.submitted">
                                     <div *ngIf="password.errors['required']">Password is required</div>
-                                    <div *ngIf="password.errors['minlength']">
-                                      Password must be at least 6 characters
-                                    </div>
+                                    <div *ngIf="password.errors['minlength']">Password must be at least 6 characters</div>
                                   </div>
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="password">Confirm Password</label>
-                                  <input type="password" class="form-control" name="cpassword" [(ngModel)]="form.cpassword" required
-                                    minlength="6" #cpassword="ngModel" />
+                                  <label for="cpassword">Confirm Password</label>
+                                  <input type="password" class="form-control" name="cpassword" [(ngModel)]="form.cpassword" required minlength="6" #cpassword="ngModel" compareWith="password" />
                                   <div class="alert-danger" *ngIf="cpassword.errors && f.submitted">
-                                    <div *ngIf="cpassword.errors['required']">Confrim password is required</div>
-                                    <div *ngIf="cpassword.errors['minlength']">
-                                      Confirm password must be at least 6 characters
-                                    </div>
+                                    <div *ngIf="cpassword.errors['required']">Confirm password is required</div>
+                                    <div *ngIf="cpassword.errors['minlength']">Confirm password must be at least 6 characters</div>
+                                    <div *ngIf="cpassword.errors['compareWith']">Passwords do not match</div>
                                   </div>
                                 </div>
                               </div>
                             </div>
+                             
                             <div class="form-group">
                               <button class="btn btn-block btn-outline-primary " >Sign Up</button>
                             </div>

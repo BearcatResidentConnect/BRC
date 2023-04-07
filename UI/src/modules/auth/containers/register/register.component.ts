@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-
+import { NgForm } from '@angular/forms';
 import { AuthService } from '../../../auth/services/auth.service';
 @Component({
     selector: 'sb-register',
@@ -19,7 +19,9 @@ export class RegisterComponent implements OnInit {
     isSuccessful = false;
     isSignUpFailed = false;
     errorMessage = '';
-
+    password: string | any;
+    cpassword: string | any;
+    
     constructor(private authService: AuthService) {}
 
     ngOnInit(): void {}
@@ -39,4 +41,12 @@ export class RegisterComponent implements OnInit {
             },
         });
     }
+
+    comparePasswords(form: NgForm) {
+        if (form.controls['password'].value !== form.controls['cpassword'].value) {
+          form.controls['cpassword'].setErrors({ compareWith: true });
+        } else {
+          form.controls['cpassword'].setErrors(null);
+        }
+      }
 }
