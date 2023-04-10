@@ -30,15 +30,15 @@
                                 <div class="form-group">
                                   <label for="sid">SID</label>
                                   <input type="text" class="form-control" name="sid" [(ngModel)]="form.sid"  minlength="6"
-                                    maxlength="20" #sid="ngModel" />
+                                     #sid="ngModel" pattern="^[a-zA-Z][0-9]{6}$"/>
                                   <div class="alert-danger" *ngIf="sid.errors && f.submitted">
                                     <div *ngIf="sid.errors['required']">SID is required</div>
                                     <div *ngIf="sid.errors['minlength']">
                                       sid must be at least 6 characters
                                     </div>
-                                    <!-- <div *ngIf="sid.errors['maxlength']">
-                                      sid must be at most 6 characters
-                                    </div> -->
+                                    <div *ngIf="sid.errors?.pattern">
+                                      sid is invalid
+                                    </div>
                                   </div>
                                 </div>
                               </div>
