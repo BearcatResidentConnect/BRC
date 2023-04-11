@@ -18,11 +18,11 @@
             <div class="form-row mx-n4">
                 <div class="form-group col-md-6 px-4">
                     <label for="phone" class="text-heading">FirstName</label>
-                    <input type="text" class="form-control form-control-md" [(ngModel)]="userDetails.first_name" id="first_name" name="first_name" />
+                    <input type="text" class="form-control form-control-md" [(ngModel)]="userDetails.first_name" id="first_name" name="first_name" required/>
                 </div>
                 <div class="form-group col-md-6 px-4">
                     <label for="mobile" class="text-heading">LastName</label>
-                    <input type="text" class="form-control form-control-md" [(ngModel)]="userDetails.last_name" id="last_name" name="last_name" />
+                    <input type="text" class="form-control form-control-md" [(ngModel)]="userDetails.last_name" id="last_name" name="last_name" required/>
                 </div>
             </div>
             <div class="form-row mx-n4">
@@ -40,7 +40,7 @@
             </div>
            
             <div class="d-flex justify-content-end flex-wrap pt-3">
-                <button class="btn btn-outline-primary mr-0" [disabled]="nf.invalid" (click)="showSuccess()">Update</button>
+                <button class="btn btn-outline-primary mr-0"  (click)="showSuccess()">Update</button>
             </div>
             </form>
         </div>
