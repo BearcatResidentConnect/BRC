@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6 px-4">
-                        <label for="accomtype" class="text-heading">Accomedation Type*</label>
+                        <label for="accomtype" class="text-heading">Accommodation Type*</label>
                         <!-- <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
                                 [(ngModel)]="accomdationtype" onchange="if (this.selectedIndex==1){this.form['numdays'].style.visibility='visible'}else {this.form['numdays'].style.visibility='hidden'};"> -->
                         <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-row mx-n4">
                     <div class="form-group col-md-6 px-4">
-                        <label for="numppl" class="text-heading">Num people Currently living?*</label>
+                        <label for="numppl" class="text-heading">Num of people Currently living?*</label>
                         <input type="number" class="form-control form-control-md" id="numppl" name="numppl"
                         [(ngModel)]="numpeopleneed"   #numppl="ngModel" required>
                         <div class="alert-danger" *ngIf="numppl?.errors && nf.submitted">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6 px-4">
-                        <label for="numppln" class="text-heading">Num people can accommodate?*</label>
+                        <label for="numppln" class="text-heading">Num of people can accommodate?*</label>
                         <input type="number" class="form-control form-control-md" id="numppln" name="numppln"
                         [(ngModel)]="numpeople"   #numppln="ngModel" required>
                         <div class="alert-danger" *ngIf="numppln?.errors && nf.submitted">
@@ -68,10 +68,11 @@
                         [(ngModel)]="numDays"   #numdays="ngModel" style="visibility:hidden;"> -->
                         <div class="alert-danger" *ngIf="numdays?.errors && nf.submitted">
                             <div *ngIf="numdays?.errors['required']">Number days is required</div>
+                            
                         </div>
                     </div>
                     <div class="form-group col-md-6 px-4">
-                        <label for="mobile" class="text-heading">Num Of baths?*</label>
+                        <label for="mobile" class="text-heading">Num of baths?*</label>
                         <input type="number" class="form-control form-control-md" id="numbat" name="numbat"
                         [(ngModel)]="numBaths"   #numbat="ngModel" required>
                         <div class="alert-danger" *ngIf="numbat?.errors && nf.submitted">
@@ -81,11 +82,13 @@
                 </div>
                 <div class="form-row mx-n4">
                     <div class="form-group col-md-6 px-4 mb-md-0">
-                        <label for="accomStart" class="text-heading">Accomedated start date?*</label>
+                        <label for="accomStart" class="text-heading">Accommodated start date?*</label>
                         <input type="date" class="form-control form-control-md"  name="accstar"
-                        [(ngModel)]="accomStart"   #accstar="ngModel" required>
+                        [(ngModel)]="accomStart"   #accstar="ngModel" required min="{{getCurrentDate()}}" >
                         <div class="alert-danger" *ngIf="accstar?.errors && nf.submitted">
-                            <div *ngIf="accstar?.errors['required']">Accomedated start date is required</div>
+                            <div *ngIf="accstar?.errors['required']">Accommodated start date is required</div>
+                            <div *ngIf="nf.submitted && accstar?.errors?.min">Accommodated start date must be today or later.</div>
+
                         </div>
                     </div>
                     <div class="form-group col-md-6 px-4 mb-md-0">
@@ -101,14 +104,14 @@
                 <div class="form-row mx-n4">
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="parkingAvail" class="text-heading">Parking available ?*</label>
-                        <select class="form-select" aria-label="Default select example" [(ngModel)]="parkingAvail" >
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="parkingAvail" required>
                             <option selected>Select</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6 px-4 ">
-                        <label for="petFriendly" class="text-heading">Pets friendly ?*</label>
+                        <label for="petFriendly" class="text-heading">Pet friendly ?*</label>
                         <select class="form-select" aria-label="Default select example" [(ngModel)]="petFriendly" >
                             <option selected>Select</option>
                             <option value="Yes">Yes</option>
@@ -172,11 +175,12 @@
                     <div class="form-group col-md-12 px-4 mb-md-0">
                         <label for="zipCode" class="text-heading">Description</label>
                         <textarea id="description"  class="form-control form-control-md" 
-                        name="descriptio" placeholder="You can details related to property" [(ngModel)]="description" #descriptio=""ngModel rows="4" cols="60"></textarea>
+                        name="descriptio" placeholder="You can add details related to property" [(ngModel)]="description" #descriptio=""ngModel rows="4" cols="60"></textarea>
                    </div>
                 </div>  <br>      
                 <div class="d-flex justify-content-end flex-wrap">
-                    <button class="btn btn-primary mr-0" [disabled]="nf.invalid">Submit</button>
+                    <!-- <button class="btn btn-primary mr-0" [disabled]="nf.invalid">Submit</button> -->
+                    <button class="btn btn-primary mr-0" >Submit</button>
                  </div>
               </form>
             </div>

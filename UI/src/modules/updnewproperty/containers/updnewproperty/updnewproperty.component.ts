@@ -68,6 +68,15 @@ export class UpdnewpropertyComponent implements OnInit {
         console.log(this.rentallisting, "user listing detils");
     });
     }
+
+    getCurrentDate(): string {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const day = today.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    
     onSubmit(): void {
         this.form = {
             "user_name": this.user_name,

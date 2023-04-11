@@ -14,6 +14,8 @@ export class NewpropertyComponent implements OnInit {
   posting_id :any;
   rentallisting: any;
 
+ 
+
     form = {
         "user_name": "string",
         "accomedation_type": "Temporary",
@@ -64,7 +66,15 @@ export class NewpropertyComponent implements OnInit {
       this.newpropertyService.getUserrental(this.posting_id,this.user_name).subscribe((data: any) => {
         this.rentallisting = data;
         console.log(this.rentallisting, "user listing detils");
+        
     });
+    }
+    getCurrentDate(): string {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = (today.getMonth() + 1).toString().padStart(2, '0');
+      const day = today.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
     }
     onSubmit(): void {
         this.form = {
