@@ -11,6 +11,12 @@ import { updnewpropertyService } from '../../services/updnewproperty.service';
 })
 export class UpdnewpropertyComponent implements OnInit {
 
+  restrictNegativeValues(event: KeyboardEvent) {
+    if (event.key === '-' || event.key === '+') {
+      event.preventDefault();
+    }
+  }
+
   rentallisting: any;
 
     form = {

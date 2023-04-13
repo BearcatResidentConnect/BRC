@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { newpropertyService } from '../../services/newproperty.service';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
     selector: 'sb-newproperty',
@@ -14,11 +15,13 @@ export class NewpropertyComponent implements OnInit {
   posting_id :any;
   rentallisting: any;
 
-  restrictNegativeValues(event: KeyboardEvent) {
+  restrictNegativeValues(event: any): void {
     if (event.key === '-' || event.key === '+') {
       event.preventDefault();
     }
   }
+
+
     form = {
         "user_name": "string",
         "accomedation_type": "Temporary",

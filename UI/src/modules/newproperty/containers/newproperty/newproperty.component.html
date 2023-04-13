@@ -10,7 +10,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="name" class="text-heading">Property name*</label>
                         <input type="text" class="form-control form-control-md" required #nam="ngModel" name="nam" 
-                        [(ngModel)]="name"    minlength="3" maxlength="30">
+                        [(ngModel)]="name"    >
                         <div class="alert-danger" *ngIf="nam.errors && nf.submitted">
                             <div *ngIf="nam.errors['required']">Property Name is required</div>
                             <div *ngIf="nam.errors['minlength']">
@@ -37,19 +37,26 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="numppl" class="text-heading">Num of people Currently living?*</label>
                         <input type="number" class="form-control form-control-md" id="numppl" name="numppl"
-                          [(ngModel)]="numpeopleneed" #numppl="ngModel" required (keydown)="restrictNegativeValues($event)">
+                          [(ngModel)]="numpeopleneed" #numppl="ngModel" min="0" max="12" required 
+                          (keydown)="restrictNegativeValues($event)" (input)="onInput($event.target.value)">
                         <div class="alert-danger" *ngIf="numppl?.errors && nf.submitted">
                           <div *ngIf="numppl?.errors['required']">Number People Currently living is required</div>
                           <div *ngIf="numppl?.errors['negative']">Negative values are not allowed</div>
+                          <div *ngIf="numppl?.errors['min']">Number must be greater than or equal to 0</div>
+                          <div *ngIf="numppl?.errors['max']">Number cannot be greater than 99</div>
+                          <div *ngIf="numppl?.errors['maxlength']">Maximum length is 2 digits</div>
                         </div>
                       </div>
+                      
+                      
                       
                     <div class="form-group col-md-6 px-4">
                         <label for="numppln" class="text-heading">Num of people can accommodate?*</label>
                         <input type="number" class="form-control form-control-md" id="numppln" name="numppln"
-                        [(ngModel)]="numpeople"   #numppln="ngModel" required (keydown)="restrictNegativeValues($event)">
+                        [(ngModel)]="numpeople"   #numppln="ngModel" required min="0" maxlength="10" (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="numppln?.errors && nf.submitted">
                             <div *ngIf="numppln?.errors['required']">Number People needs accomdation is required</div>
+                            <div *ngIf="numppln?.errors['maxlength']">Number cannot be greater than 99</div>
                         </div>
                     </div>
                     <div class="form-group col-md-6 px-4">
@@ -65,7 +72,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0" >
                         <label for="email" class="text-heading">Num of days?*</label>
                         <input type="number" class="form-control form-control-md" name="numdays" 
-                        [(ngModel)]="numDays"   #numdays="ngModel" (keydown)="restrictNegativeValues($event)">
+                        [(ngModel)]="numDays"   #numdays="ngModel"  min="0" maxlength="10" (keydown)="restrictNegativeValues($event)">
                         <!-- <input type="number" class="form-control form-control-md" name="numdays" 
                         [(ngModel)]="numDays"   #numdays="ngModel" style="visibility:hidden;"> -->
                         <div class="alert-danger" *ngIf="numdays?.errors && nf.submitted">
@@ -76,7 +83,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="mobile" class="text-heading">Num of baths?*</label>
                         <input type="number" class="form-control form-control-md" id="numbat" name="numbat"
-                        [(ngModel)]="numBaths"   #numbat="ngModel" required (keydown)="restrictNegativeValues($event)">
+                        [(ngModel)]="numBaths"   #numbat="ngModel" min="0" required (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="numbat?.errors && nf.submitted">
                             <div *ngIf="numbat?.errors['required']">Number baths is required</div>
                         </div>
@@ -96,7 +103,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="appRent" class="text-heading">Approx rent/Month ?*</label>
                         <input type="number" class="form-control form-control-md"  name="appren"
-                        [(ngModel)]="appRent" #appren="ngModel" required (keydown)="restrictNegativeValues($event)"> 
+                        [(ngModel)]="appRent" #appren="ngModel" min="0" required (keydown)="restrictNegativeValues($event)"> 
                         <div class="alert-danger" *ngIf="appren?.errors && nf.submitted">
                             <div *ngIf="appren?.errors['required']">Approx rent is required</div>
                         </div>
@@ -165,7 +172,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="zipCode" class="text-heading">Zip Code*</label>
                         <input type="number" class="form-control form-control-md"  name="zipcod"
-                        [(ngModel)]="zipcode"  #zipcod="ngModel" required (keydown)="restrictNegativeValues($event)">
+                        [(ngModel)]="zipcode"  #zipcod="ngModel" min="0" required (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="zipcod?.errors && nf.submitted">
                             <div *ngIf="zipcod?.errors['required']">ZipCode is required</div>
                         </div>
@@ -179,7 +186,8 @@
                         <textarea id="description"  class="form-control form-control-md" 
                         name="descriptio" placeholder="You can add details related to property" [(ngModel)]="description" #descriptio=""ngModel rows="4" cols="60"></textarea>
                    </div>
-                </div>  <br>      
+                </div> 
+                 <br>      
                 <div class="d-flex justify-content-end flex-wrap">
                     <!-- <button class="btn btn-primary mr-0" [disabled]="nf.invalid">Submit</button> -->
                     <button class="btn btn-primary mr-0" >Submit</button>
