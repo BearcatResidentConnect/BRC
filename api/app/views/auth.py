@@ -82,6 +82,7 @@ def create_access_token(
     return encoded_jwt
 
 
+
 # Helper Methods
 def verify_password(plain_password: str, hashed_password: str) -> bool:
 
@@ -284,4 +285,9 @@ async def _get_user(session: Session, user_name: str) -> UserOut:
         return _data
 
     raise HTTPException( 404, NOT_FOUND_USER)
+
+
+
+
+
 
