@@ -37,15 +37,17 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="numppl" class="text-heading">Num of people Currently living?*</label>
                         <input type="number" class="form-control form-control-md" id="numppl" name="numppl"
-                        [(ngModel)]="numpeopleneed"   #numppl="ngModel" required>
+                          [(ngModel)]="numpeopleneed" #numppl="ngModel" required (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="numppl?.errors && nf.submitted">
-                            <div *ngIf="numppl?.errors['required']">Number People Currently living is required</div>
+                          <div *ngIf="numppl?.errors['required']">Number People Currently living is required</div>
+                          <div *ngIf="numppl?.errors['negative']">Negative values are not allowed</div>
                         </div>
-                    </div>
+                      </div>
+                      
                     <div class="form-group col-md-6 px-4">
                         <label for="numppln" class="text-heading">Num of people can accommodate?*</label>
                         <input type="number" class="form-control form-control-md" id="numppln" name="numppln"
-                        [(ngModel)]="numpeople"   #numppln="ngModel" required>
+                        [(ngModel)]="numpeople"   #numppln="ngModel" required (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="numppln?.errors && nf.submitted">
                             <div *ngIf="numppln?.errors['required']">Number People needs accomdation is required</div>
                         </div>
@@ -53,7 +55,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="mobile" class="text-heading">Num of Bedrooms?*</label>
                         <input type="number" class="form-control form-control-md" id="numRooms" name="numRom"
-                        [(ngModel)]="numRooms"   #numRom="ngModel" required>
+                        [(ngModel)]="numRooms"   #numRom="ngModel" required (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="numRom?.errors && nf.submitted">
                             <div *ngIf="numRom?.errors['required']">Number of bedrooms is required</div>
                         </div>
@@ -63,7 +65,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0" >
                         <label for="email" class="text-heading">Num of days?*</label>
                         <input type="number" class="form-control form-control-md" name="numdays" 
-                        [(ngModel)]="numDays"   #numdays="ngModel" >
+                        [(ngModel)]="numDays"   #numdays="ngModel" (keydown)="restrictNegativeValues($event)">
                         <!-- <input type="number" class="form-control form-control-md" name="numdays" 
                         [(ngModel)]="numDays"   #numdays="ngModel" style="visibility:hidden;"> -->
                         <div class="alert-danger" *ngIf="numdays?.errors && nf.submitted">
@@ -74,7 +76,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="mobile" class="text-heading">Num of baths?*</label>
                         <input type="number" class="form-control form-control-md" id="numbat" name="numbat"
-                        [(ngModel)]="numBaths"   #numbat="ngModel" required>
+                        [(ngModel)]="numBaths"   #numbat="ngModel" required (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="numbat?.errors && nf.submitted">
                             <div *ngIf="numbat?.errors['required']">Number baths is required</div>
                         </div>
@@ -94,7 +96,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="appRent" class="text-heading">Approx rent/Month ?*</label>
                         <input type="number" class="form-control form-control-md"  name="appren"
-                        [(ngModel)]="appRent" #appren="ngModel" required>
+                        [(ngModel)]="appRent" #appren="ngModel" required (keydown)="restrictNegativeValues($event)"> 
                         <div class="alert-danger" *ngIf="appren?.errors && nf.submitted">
                             <div *ngIf="appren?.errors['required']">Approx rent is required</div>
                         </div>
@@ -163,7 +165,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="zipCode" class="text-heading">Zip Code*</label>
                         <input type="number" class="form-control form-control-md"  name="zipcod"
-                        [(ngModel)]="zipcode"  #zipcod="ngModel" required>
+                        [(ngModel)]="zipcode"  #zipcod="ngModel" required (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="zipcod?.errors && nf.submitted">
                             <div *ngIf="zipcod?.errors['required']">ZipCode is required</div>
                         </div>

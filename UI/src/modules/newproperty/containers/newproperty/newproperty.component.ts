@@ -14,8 +14,11 @@ export class NewpropertyComponent implements OnInit {
   posting_id :any;
   rentallisting: any;
 
- 
-
+  restrictNegativeValues(event: KeyboardEvent) {
+    if (event.key === '-' || event.key === '+') {
+      event.preventDefault();
+    }
+  }
     form = {
         "user_name": "string",
         "accomedation_type": "Temporary",
@@ -60,7 +63,9 @@ export class NewpropertyComponent implements OnInit {
     zipcode:any;
     name: any;
     description: any;
-    constructor( private newpropertyService : newpropertyService, private datePipe: DatePipe, private route: ActivatedRoute) {}
+    constructor( private newpropertyService : newpropertyService, private datePipe: DatePipe, private route: ActivatedRoute) {
+      
+    }
     ngOnInit() {
       this.posting_id = this.route.snapshot.params.id;
       this.newpropertyService.getUserrental(this.posting_id,this.user_name).subscribe((data: any) => {
