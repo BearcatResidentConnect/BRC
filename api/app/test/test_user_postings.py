@@ -76,9 +76,9 @@ async def test_users_postings_posting_id():
     assert isinstance(response.json(), dict)
 
 #giving posting_id which is not in db 
-# @pytest.mark.asyncio
-# async def test_users_postings_posting_id():
-#     posting_id = 2
-#     response = requests.get(f"{BASE_URL}/api/user-posting/postings/{posting_id}")
-#     assert response.status_code == 404
-#     assert isinstance(response.json(), dict)
+@pytest.mark.asyncio
+async def test_users_postings_posting_id():
+    posting_id = 2
+    response = requests.get(f"{BASE_URL}/api/user-posting/postings/{posting_id}")
+    assert response.status_code == 404
+    assert isinstance(response.json(), dict)
