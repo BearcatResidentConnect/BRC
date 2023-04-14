@@ -158,7 +158,6 @@ async def _get_current_user(
         logging.debug("Token Sub is ", user_name)
         if user_name is None:
             raise credentials_exception
-        #token_data = TokenData(username=username)
     except JWTError as e:
         logging.error("Exception %s", e)
         raise credentials_exception
