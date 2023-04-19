@@ -62,7 +62,7 @@
                     <div class="form-group col-md-6 px-4">
                         <label for="mobile" class="text-heading">Num of Bedrooms?*</label>
                         <input type="number" class="form-control form-control-md" id="numRooms" name="numRom"
-                        [(ngModel)]="numRooms"   #numRom="ngModel" required (keydown)="restrictNegativeValues($event)">
+                        [(ngModel)]="numRooms" min="0" maxlength="10"  #numRom="ngModel" required (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="numRom?.errors && nf.submitted">
                             <div *ngIf="numRom?.errors['required']">Number of bedrooms is required</div>
                         </div>
