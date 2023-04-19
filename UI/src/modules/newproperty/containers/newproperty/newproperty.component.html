@@ -23,15 +23,19 @@
                     </div>
                     <div class="form-group col-md-6 px-4">
                         <label for="accomtype" class="text-heading">Accommodation Type*</label>
-                        <!-- <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
-                                [(ngModel)]="accomdationtype" onchange="if (this.selectedIndex==1){this.form['numdays'].style.visibility='visible'}else {this.form['numdays'].style.visibility='hidden'};"> -->
-                        <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
-                                [(ngModel)]="accomdationtype" >
-                            <option selected>Select</option>
-                            <option value="Temporary">Temporary</option>
-                            <option value="Permanent">Permanent</option>
+                        <select class="form-select" aria-label="Default select example" required #accomtype="ngModel"
+                                id="accomtype" name="accomtype" [(ngModel)]="accomdationtype">
+                          <option value="" disabled selected>Select</option>
+                          <option value="Temporary">Temporary</option>
+                          <option value="Permanent">Permanent</option>
                         </select>
-                    </div>
+                        <div *ngIf="accomtype.invalid && (accomtype.dirty || accomtype.touched)" class="text-danger">
+                          <div *ngIf="accomtype.errors.required">
+                            Accommodation Type is required.
+                          </div>
+                        </div>
+                      </div>
+                      
                 </div>
                 <div class="form-row mx-n4">
                     <div class="form-group col-md-6 px-4">
@@ -114,7 +118,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="parkingAvail" class="text-heading">Parking available ?*</label>
                         <select class="form-select" aria-label="Default select example" [(ngModel)]="parkingAvail" required>
-                            <option selected>Select</option>
+                            <option value="" disabled selected>Select</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
@@ -122,7 +126,7 @@
                     <div class="form-group col-md-6 px-4 ">
                         <label for="petFriendly" class="text-heading">Pet friendly ?*</label>
                         <select class="form-select" aria-label="Default select example" [(ngModel)]="petFriendly" >
-                            <option selected>Select</option>
+                            <option value="" disabled selected>Select</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
