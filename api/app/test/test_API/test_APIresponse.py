@@ -9,13 +9,13 @@ def test_successful_login():
     response = requests.post("http://3.224.253.213:4200/auth/login", json=payload)
     assert response.status_code == 200
     assert "access_token" in response.json()
-
+#wrongPassword
 def test_failed_login():
-    payload = {"username": "testuser", "password": "wrongpassword"}
+    payload = {"username": "user1", "password": "user1234"}
     response = requests.post("https://example.com/api/login", json=payload)
     assert response.status_code == 401
     assert "detail" in response.json()
-    
+  
 def test_authenticated_endpoint():
     access_token = "your_access_token_here"
     headers = {"Authorization": f"Bearer {access_token}"}
@@ -25,14 +25,14 @@ def test_authenticated_endpoint():
 
 
 
-# def test_successful_login():
-#     # Make a request to the login endpoint to obtain an access token
-#     payload = {"username": "mani", "password": "mani1234"}
-#     response = requests.post("http://3.224.253.213:4200/auth/login", json=payload)
-#     assert response.status_code == 200
-#     access_token = response.json()["access_token"]
+def test_successful_login():
+    # Make a request to the login endpoint to obtain an access token
+    payload = {"username": "mani", "password": "mani1234"}
+    response = requests.post("http://3.224.253.213:4200/auth/login", json=payload)
+    assert response.status_code == 200
+    access_token = response.json()["access_token"]
 
-#     # Make a request to another endpoint that requires authentication
-#     headers = {"Authorization": f"Bearer {access_token}"}
-#     response = requests.get("http://3.224.253.213:4200/dashboard", headers=headers)
-#     assert response.status_code == 200
+    # Make a request to another endpoint that requires authentication
+    headers = {"Authorization": f"Bearer {access_token}"}
+    response = requests.get("http://3.224.253.213:4200/dashboard", headers=headers)
+    assert response.status_code == 200
