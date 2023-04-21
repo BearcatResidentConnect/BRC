@@ -51,16 +51,3 @@ class User(BaseDb):
         self.email = kwargs["email"]
         self.active = kwargs["active"]
         self.avatar = kwargs["avatar"]
-
-
-
-
-
-
-
- 
-
-
-       
-
-

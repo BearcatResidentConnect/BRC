@@ -41,6 +41,7 @@ async def get_all_users(
 
     return await _get_all_users(session)
 
+
 # POST API's
 @router.post("/user", response_model=UserOut, status_code=status.HTTP_201_CREATED)
 async def insert_user(
@@ -133,7 +134,6 @@ async def update_user(
             setattr(user, k, v)
 
     return user
-
 
 
 
