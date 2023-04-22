@@ -316,29 +316,3 @@ async def validate_refresh_token_get_access_token(refresh_token : RefreshAccessT
 
 ):
     return await generate_new_access_token(refresh_token)
-
-
-# ====================================================================================
-
-
-
-async def _increment_website_vistors(session: Session) -> None:
-
-    """
-    Ass website vistor count by 1
-    """
-
-    _data = await session.execute(select(BrcAnalyticsModel))
-
-    _data = _data.scalar()
-    
-    if _data:
-    
-        _data.visted_users_count += 1
-        
-    else:
-        
-        _data = BrcAnalyticsModel(visted_users_count=1)
-        
-    session.add(_data)
-    await session.flush()
