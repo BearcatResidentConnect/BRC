@@ -359,4 +359,3 @@ async def _increment_website_vistors(session: Session) -> None:
         
     session.add(_data)
     await session.flush()
-    await session.refresh(_data)
