@@ -320,23 +320,6 @@ async def validate_refresh_token_get_access_token(refresh_token : RefreshAccessT
 
 # ====================================================================================
 
-    
-# Helper Methods
-async def _get_user(session: Session, user_name: str) -> UserOut:
-
-    """
-    Query DB with given user_name
-    """
-
-    _data = await session.execute(select(UserModel).where(UserModel.user_name == user_name))
-
-    _data = _data.scalar()
-
-    if _data:
-        logger.debug("Fetched User ")
-        return _data
-
-    raise HTTPException( 404, NOT_FOUND_USER)
 
 
 async def _increment_website_vistors(session: Session) -> None:
