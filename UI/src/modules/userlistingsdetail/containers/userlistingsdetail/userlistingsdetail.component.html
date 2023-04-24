@@ -18,8 +18,8 @@
                             {{ userlisting?.name }}
                         </h2>
                         <p class="mb-0">
-                            <i class="fal fa-map-marker-alt mr-2"></i><b>Address:</b> {{ userlisting?.address1
-                            }}{{ userlisting?.city }}
+                            <i class="fas fa-map-marker-alt"></i><b>Address:</b> {{ userlisting?.address1
+                            }},{{ userlisting?.address2 }},{{ userlisting?.city }}
                         </p>
                     </div>
                     <div class="mt-2 text-lg-right">
@@ -76,7 +76,7 @@
                         <dd>{{ userlisting?.num_people_living }}</dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
-                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of people wants accommodation :</dt>
+                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">No of people can accommodate :</dt>
                         <dd>{{ userlisting?.num_people }}</dd>
                     </dl>
                     <dl class="col-sm-6 mb-0 d-flex">
@@ -100,8 +100,9 @@
     
                 </div>
             </section>
-            <a href = "mailto: S547187@nwmissouri.edu"><button class="btn btn-success mt-4 float-right" >
-               Contact Tenant
+            <a href = "mailto: {{userlisting?.email}}?subject=Looking for lease&body=Hi Tenent,%0A%0AGreeting of the Day!%0A%0AFrom Northwest Missouri State University am looking for a Apartment to rent. If you have any availability, please revert to me.!%0AThanks,%0AHave a great day!">
+                <button class="btn btn-success mt-4 float-right" >
+               Contact tenant
             </button></a>
         </div>
     </sb-card>

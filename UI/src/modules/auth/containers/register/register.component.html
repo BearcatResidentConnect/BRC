@@ -16,7 +16,7 @@
                                   <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required minlength="3"
                                     maxlength="20" #username="ngModel" placeholder="sam@gmail.com"/>
                                   <div class="alert-danger" *ngIf="username.errors && f.submitted">
-                                    <div *ngIf="username.errors['required']">Username is required</div>
+                                    <div *ngIf="username.errors['required']">Username is required*</div>
                                     <div *ngIf="username.errors['minlength']">
                                       Username must be at least 3 characters
                                     </div>
@@ -28,7 +28,7 @@
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="sid">SID</label>
+                                  <label for="sid">SID(Dont have one please leave it)</label>
                                   <input type="text" class="form-control" name="sid" [(ngModel)]="form.sid"  minlength="6"
                                      #sid="ngModel" pattern="^[a-zA-Z][0-9]{6}$" placeholder="If u dont have one please leave it empty" data-toggle="tooltip" title="If u dont have SID please leave it empty"/>
                                   <div class="alert-danger" *ngIf="sid.errors && f.submitted">
@@ -47,7 +47,7 @@
                             <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="firstname">FirstName</label>
+                                  <label for="firstname">FirstName*</label>
                                   <input type="text" class="form-control" name="firstname" [(ngModel)]="form.firstname" required
                                     minlength="3" maxlength="20" #firstname="ngModel" placeholder="Firstname"/>
                                   <div class="alert-danger" *ngIf="firstname.errors && f.submitted">
@@ -63,7 +63,7 @@
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="lastname">LastName</label>
+                                  <label for="lastname">LastName*</label>
                                   <input type="text" class="form-control" name="lastname" [(ngModel)]="form.lastname" required minlength="3"
                                     maxlength="20" #lastname="ngModel" placeholder="Lastname"/>
                                   <div class="alert-danger" *ngIf="lastname.errors && f.submitted">
@@ -81,7 +81,7 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <div class="form-group">
-                                  <label for="email">Email</label>
+                                  <label for="email">Email*</label>
                                   <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email
                                     #email="ngModel" placeholder="someone@gmail.com"/>
                                   <div class="alert-danger" *ngIf="email.errors && f.submitted">
@@ -97,7 +97,7 @@
                             <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="password">Password</label>
+                                  <label for="password">Password*</label>
                                   <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" placeholder="xxx"/>
                                   <div class="alert-danger" *ngIf="password.errors && f.submitted">
                                     <div *ngIf="password.errors['required']">Password is required</div>
@@ -107,7 +107,7 @@
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="cpassword">Confirm Password</label>
+                                  <label for="cpassword">Confirm Password*</label>
                                   <input type="password" class="form-control" name="cpassword" [(ngModel)]="form.cpassword" required minlength="6" #cpassword="ngModel" compareWith="password" placeholder="xxx"/>
                                   <div class="alert-danger" *ngIf="cpassword.errors && f.submitted">
                                     <div *ngIf="cpassword.errors['required']">Confirm password is required</div>

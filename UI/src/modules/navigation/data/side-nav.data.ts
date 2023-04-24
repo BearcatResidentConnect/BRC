@@ -34,7 +34,7 @@ export const sideNavItems: SideNavItems = {
         link: '/dashboard',
     },
     userlistings: {
-        icon: 'user',
+        icon: 'home',
         text: 'User Listings',
         link: '/userlistings',
     },
@@ -45,17 +45,18 @@ export const sideNavItems: SideNavItems = {
     },
     
     rentallistings: {
-        icon: 'user',
+        icon: 'home',
         text: 'Rental Listings',
         link: '/rentallistings',
-    },
+      },
+      
     newproperty: {
-        icon: 'user',
+        icon: 'plus',
         text: 'Add New Property',
         link: '/newproperty',
     },
     myuserlistings: {
-        icon: 'user',
+        icon: 'home',
         text: 'My Listings',
         link: '/myuserlistings',
     },

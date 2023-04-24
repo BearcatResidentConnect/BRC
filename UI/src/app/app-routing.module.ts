@@ -18,6 +18,13 @@ const routes: Routes = [
         
     },
     {
+        path: 'changepassword',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+            import('@modules/changepassword/changepassword-routing.module').then(m => m.ChangepasswordRoutingModule),
+        
+    },
+    {
         path: 'myuserlistings',
         canActivate: [AuthGuard],
         loadChildren: () =>

@@ -96,14 +96,14 @@
                 <div class="form-row mx-n4">
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="accomStart" class="text-heading">Accommodated start date?*</label>
-                        <input type="date" class="form-control form-control-md"  name="accstar"
-                        [(ngModel)]="accomStart"   #accstar="ngModel" required min="{{getCurrentDate()}}" >
-                        <div class="alert-danger" *ngIf="accstar?.errors && nf.submitted">
-                            <div *ngIf="accstar?.errors['required']">Accommodated start date is required</div>
-                            <div *ngIf="nf.submitted && accstar?.errors?.min">Accommodated start date must be today or later.</div>
-
+                        <input type="date" class="form-control form-control-md" name="accstar" [(ngModel)]="accomStart" #accstar="ngModel" required
+                               [min]="getCurrentDate()" (input)="accstar.valid && (accstar.touched || accstar.dirty)">
+                        <div class="alert-danger" *ngIf="accstar?.errors && (accstar.touched || accstar.dirty)">
+                          <div *ngIf="accstar?.errors.required">Accommodated start date is required</div>
+                          <div *ngIf="accstar?.errors.min">Accommodated start date must be today or later.</div>
                         </div>
-                    </div>
+                      </div>
+                      
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="appRent" class="text-heading">Approx rent/Month ?*</label>
                         <input type="number" class="form-control form-control-md"  name="appren"
