@@ -27,7 +27,7 @@
                                 [(ngModel)]="accomdationtype" onchange="if (this.selectedIndex==1){this.form['numdays'].style.visibility='visible'}else {this.form['numdays'].style.visibility='hidden'};"> -->
                         <select class="form-select" aria-label="Default select example" required #accomtype="ngModel" id="accomtype" name="accomtype"
                                 [(ngModel)]="rentallisting.accomedation_type" >
-                            <option selected>Select</option>
+                            <option value="" disabled selected>Select</option>
                             <option value="Temporary">Temporary</option>
                             <option value="Permanent">Permanent</option>
                         </select>
@@ -105,7 +105,7 @@
                         <label for="parkingAvail" class="text-heading">Parking available ?*</label>
                         <select class="form-select" aria-label="Default select example"
                         #parki="ngModel" id="parki" name="parki" [(ngModel)]="rentallisting.parking_available" >
-                            <option selected>Select</option>
+                            <option value="" disabled selected>Select</option>
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
@@ -114,7 +114,7 @@
                         <label for="petFriendly" class="text-heading">Pets friendly ?*</label>
                         <select class="form-select" aria-label="Default select example" 
                         #pet="ngModel" id="pet" name="pet" [(ngModel)]="rentallisting.is_pet_friendly" >
-                            <option selected>Select</option>
+                            <option value="" disabled selected>Select</option>
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>

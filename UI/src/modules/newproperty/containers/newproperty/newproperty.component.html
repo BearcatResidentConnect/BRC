@@ -59,9 +59,14 @@
                         <input type="number" class="form-control form-control-md" id="numppln" name="numppln"
                         [(ngModel)]="numpeople"   #numppln="ngModel" required min="0" maxlength="10" (keydown)="restrictNegativeValues($event)">
                         <div class="alert-danger" *ngIf="numppln?.errors && nf.submitted">
-                            <div *ngIf="numppln?.errors['required']">Number People needs accomdation is required</div>
+                            <div *ngIf="numppln?.errors['required']">Number of people needs accomdation is required</div>
                             <div *ngIf="numppln?.errors['maxlength']">Number cannot be greater than 99</div>
                         </div>
+                        <!-- <div *ngIf="numppln.invalid && (numppln.dirty || numppln.touched)" class="text-danger">
+                            <div *ngIf="numppln.errors.required">
+                                Number of people is required.
+                            </div>
+                          </div> -->
                     </div>
                     <div class="form-group col-md-6 px-4">
                         <label for="mobile" class="text-heading">Num of Bedrooms?*</label>
@@ -76,7 +81,7 @@
                     <div class="form-group col-md-6 px-4 mb-md-0" >
                         <label for="email" class="text-heading">Num of days?*</label>
                         <input type="number" class="form-control form-control-md" name="numdays" 
-                        [(ngModel)]="numDays"   #numdays="ngModel"  min="0" maxlength="10" (keydown)="restrictNegativeValues($event)">
+                        [(ngModel)]="numDays" required  #numdays="ngModel"  min="0" maxlength="10" (keydown)="restrictNegativeValues($event)">
                         <!-- <input type="number" class="form-control form-control-md" name="numdays" 
                         [(ngModel)]="numDays"   #numdays="ngModel" style="visibility:hidden;"> -->
                         <div class="alert-danger" *ngIf="numdays?.errors && nf.submitted">
@@ -117,11 +122,13 @@
                 <div class="form-row mx-n4">
                     <div class="form-group col-md-6 px-4 mb-md-0">
                         <label for="parkingAvail" class="text-heading">Parking available ?*</label>
-                        <select class="form-select" aria-label="Default select example" [(ngModel)]="parkingAvail" required>
+                        <select class="form-select" aria-label="Default select example" [(ngModel)]="parkingAvail" 
+                        >
                             <option value="" disabled selected>Select</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
+                        
                     </div>
                     <div class="form-group col-md-6 px-4 ">
                         <label for="petFriendly" class="text-heading">Pet friendly ?*</label>
@@ -130,6 +137,7 @@
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
+                        
                     </div>
                 </div>
                 

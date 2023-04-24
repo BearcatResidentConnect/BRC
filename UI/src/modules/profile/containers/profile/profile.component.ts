@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ProfileService } from '@modules/profile/services';
 // import { ToastrService } from 'ngx-toastr';
+import { ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
 @Component({
     selector: 'sb-profile',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,6 +13,7 @@ import { ProfileService } from '@modules/profile/services';
 export class ProfileComponent implements OnInit {
       
   
+    @ViewChild('nf', { static: false }) nf!: NgForm;
 
       userDetails!: User;
       user_name:any = localStorage.getItem("user_name");
@@ -36,17 +40,25 @@ export class ProfileComponent implements OnInit {
     sid = localStorage.getItem('sid')
 
     onSubmit(): void {
-        // this.toastr.success('Hello, world!', 'Success!');
-        
-            this.profileService.updateUser(this.userDetails).subscribe({ 
-                next: updateuser => { console.log(updateuser, "updateuser");}
-            });
-            alert("User details updated successfully")
+        if (this.nf.form.valid) {
+            if (this.isFormDirty()) {
+                this.profileService.updateUser(this.userDetails).subscribe({
+                    next: updateuser => {
+                        console.log(updateuser, "updateuser");
+                        alert("User details updated successfully");
+                    }
+                });
+            } else {
+                alert("No changes made to user details");
+            }
+        }
     }
-
-    // showSuccess() {
-    //     this.toastr.success('Hello, world!', 'Success!');
-    //   }
+    
+    
+    isFormDirty(): boolean {
+        return Object.values(this.nf.form.controls).some(control => control.dirty);
+    }
+    
 }
 
 export interface User{

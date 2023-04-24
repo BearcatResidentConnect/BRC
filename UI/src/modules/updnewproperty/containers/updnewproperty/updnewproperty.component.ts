@@ -3,6 +3,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { updnewpropertyService } from '../../services/updnewproperty.service';
 
+import { ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
 @Component({
     selector: 'sb-updnewproperty',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,6 +13,8 @@ import { updnewpropertyService } from '../../services/updnewproperty.service';
     styleUrls: ['updnewproperty.component.scss'],
 })
 export class UpdnewpropertyComponent implements OnInit {
+
+  @ViewChild('nf', { static: false }) nf!: NgForm;
 
   restrictNegativeValues(event: KeyboardEvent) {
     if (event.key === '-' || event.key === '+') {
@@ -108,14 +113,27 @@ export class UpdnewpropertyComponent implements OnInit {
               "zipcode": this.zipcode,
             "description":this.description,
           };
-        
+
+          if (this.nf.form.valid) {
             this.updnewpropertyService.updatePropertydetails(this.rentallisting).subscribe({ 
-                next: postingproperty => { console.log(postingproperty, "updatingproperty");}
+              next: postingproperty => { console.log(postingproperty, "updatingproperty");}
             });
-            this.router.navigate([`myuserlistings`]);
-            alert("Property details updated successfully")
+            if (this.isFormDirty()) {
+                this.router.navigate([`myuserlistings`]);
+                alert("Property details updated successfully");
+            }
+            else {
+              alert("No changes made to property details");
+          }
+        }
+        
+    }
+
+    isFormDirty(): boolean {
+      return Object.values(this.nf.form.controls).some(control => control.dirty);
     }
 }
+
 
 
 export interface User{
